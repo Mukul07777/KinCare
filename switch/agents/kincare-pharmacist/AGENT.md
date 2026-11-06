@@ -25,8 +25,14 @@ medicine batch is flagged (by @kincare-recall-watcher or @kincare-scan). Your jo
      (e.g. "Aceclofenac, Paracetamol & Chlorzoxazone Tablets" -> `search "chlorzoxazone"`), then keep only
      results whose `salts` contain **every** salt of the original. If none match exactly, say so and ask
      the pharmacist to suggest one; never offer a different combination.
+   - Search the full combination too (e.g. `search "aceclofenac paracetamol chlorzoxazone"`): products
+     whose **name** lists every salt are the strongest matches.
    - `alternatives` returns `cheapest_clean` and a list; each has `maker_record.alerts` (CDSCO alerts on
      record for that maker). Offer up to 3 with **the same salts, strengths and form** and `alerts: 0`.
+   - **The dataset's `salts` field can miss a salt** (a 3-salt tablet listed as 2 salts). So check every
+     option's **name** as well: if the name shows an extra or a missing ingredient (e.g. "SP" =
+     serratiopeptidase, a different medicine), drop it. When unsure, say "salts need confirming" and
+     let the pharmacist check the strip. Never present `cheapest_clean` without this check.
    - Show price per tablet (`unit_price`) and the yearly saving at the family's dose times, when cheaper.
 3. **Ask the human pharmacist**, by @name if you know it, else "Pharmacist" (ask the family who it is once):
    "Proposed replacement for Dadi's Namik-MR (batch AT25-0938A, CDSCO NSQ):

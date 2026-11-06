@@ -1,89 +1,110 @@
-# KinCare
+# KinCare: know the batch, decide together
 
-> Know the batch, not just the brand.
+**A family, their pharmacist and AI agents in one chat room, keeping an elder's medicines safe.**
+Built on [Switch](https://github.com/sandbox-quantum/switch) for the Flip the Switch hackathon (Track 01: Best Business Workflow).
 
-Drug recall system for India. Scan a medicine strip or pharmacy bill, live agents check every regulator alert source, and patients get a WhatsApp + Hindi voice alert if their batch is flagged. Elders can talk to KinCare in Hindi (Dadi mode), and family caregivers can look after a parent's doses and vitals, with the parent's consent.
+Team Avengers: Mukul (lead), Ashpreet Singh Saini.
 
-Team Avengers: Mukul (Team Lead), Ashpreet Singh Saini. Flip the Switch 2026.
+---
 
-**Start here:** [PROGRESS.md](PROGRESS.md) (what's done, what's open, latest handoff).
+## The problem nobody tells you about
 
-## Folder structure
+India's drug regulator (CDSCO) publishes the batches that failed a quality test or turned out to be fake.
+We pulled **6,830 real alerts (2019 to 2026)** from its public portal and measured the gap:
+
+- A failed batch reaches the CDSCO list a median **10 months** after it was made.
+- When it is listed, **99.5%** of those batches are still within expiry, with a median **14 months** left.
+- So the medicine is still in homes, and people are still taking it. **Nobody tells them.**
+
+And looking after an elder's medicines is a team job: Dadi takes them, her son lives in another city,
+her daughter buys them, the local pharmacist knows what to replace them with. Today that "team" is a
+messy WhatsApp group where a government PDF never arrives.
+
+## What KinCare does
+
+KinCare turns that family group into a **Switch room** where people and agents work together:
 
 ```
-Flip-the-Switch/
-├── README.md              this file
-├── PROGRESS.md            build plan, progress dashboard, shift handoffs (read first)
-├── run.bat                Windows one-click: install, build, start, open browser
-├── dev.sh                 macOS / Linux / Git Bash: start API + web
-├── render.yaml            API deploy blueprint (Render)
-├── .env.example           every setting, for reference
-│
-├── api/                   FastAPI backend (Python 3.12)
-│   ├── main.py            the app: middleware, lifespan (background jobs), includes every router
-│   ├── core.py            shared: database connection, alert matching, device ids, alerts to a device
-│   ├── routes/            HTTP routes, one file per area (alerts, care_plan, family, dadi, telegram_bot, …)
-│   ├── env.example.bat    key template; run.bat copies it to api/.env.bat (git-ignored, your keys)
-│   ├── ingest/            download + parse CDSCO / state alerts, medicines, ICU recordings
-│   ├── matcher/           batch + maker + brand matching
-│   ├── care.py            prescriptions, doses, vitals, refills
-│   ├── caregiver.py       family caregivers: consent, scopes, access log, missed-dose alerts
-│   ├── voice.py           Dadi mode: Hindi / English understanding
-│   ├── telegram.py        free chat + alert channel
-│   ├── whatsapp.py        WhatsApp Cloud API
-│   ├── ...                ocr, prices, blast, packs, controller, sos, auth, billing, push
-│   └── test_*.py          pytest suite
-│
-├── web/                   Next.js 15 frontend
-│   ├── app/               one folder per page (/scan, /care, /dadi, /family, /pharmacy, …)
-│   ├── components/        shared UI pieces
-│   └── lib/               API client (api.ts), route registry (routes.ts), push helpers
-│
-├── data/                  kincare.db and downloaded PDFs (created by run.bat, git-ignored)
-│
-├── docs/
-│   ├── BUSINESS.md        business model, plans, unit economics
-│   ├── SECURITY.md        what protects the medical data, how it is tested, what is still open
-│   ├── DATASETS.md        every dataset behind KinCare and where it comes from
-│   ├── setup/
-│   │   ├── DEPLOY.md          Render + Vercel deployment
-│   │   ├── TELEGRAM_SETUP.md  free Telegram bot (chat + caregiver alerts)
-│   │   └── WHATSAPP_SETUP.md  Meta WhatsApp Cloud API
-│   └── handoffs/          one-page shift handoffs
-│
-└── pitch/                 decks (.pptx) and spoken scripts
+ Telegram group "Sharma Family Care"  (a Switch room)
+ ─────────────────────────────────────────────────────────────────────────────
+ Dadi            [photo of a Namik-MR strip]  @kincare-scan
+ KinCare Scan    ⚠️ बैच AT25-0938A सरकारी जाँच में फेल। This batch is on the CDSCO
+                 Not of Standard Quality list. @kincare-pharmacist please find a replacement.
+ KinCare Pharm.  Proposed for Dadi: 1) Aceclofenac+Paracetamol+Chlorzoxazone 100/325/250 mg
+                 (Genericart), same three salts, no alerts on record for the maker.
+                 @Pharmacist reply approve 1 or reject. Nothing changes until you do.
+ Pharmacist      approve 1
+ KinCare Pharm.  ✅ Decision logged. Task: @Rahul buy it today, keep the old strip for return.
+ Rahul           done, bought
+ KinCare Dose    दादी, कल सुबह 9 बजे से नई दवा: Genericart Aceclofenac+Paracetamol+Chlorzoxazone, 1 गोली।
+ ─────────────────────────────────────────────────────────────────────────────
+ Room documents:  KinCare Decisions · KinCare Tasks   (everyone reads the same record)
 ```
 
-## Run locally
+| Agent | Kind | What it does |
+|---|---|---|
+| **kincare-recall-watcher** | Custom Switch protocol agent (Python) | Speaks first: checks the family's batches against new CDSCO alerts and raises the alarm in the room |
+| **kincare-scan** | Claude Code agent run by Switch Console | Reads a strip or bill photo (KinCare's own OCR), checks the exact batch, answers in Hindi + English |
+| **kincare-pharmacist** | Claude Code agent run by Switch Console | Finds the same salts from a maker with no alerts and the saving, **asks the human pharmacist**, records the decision and the task |
+| **kincare-dose** | Claude Code agent run by Switch Console | Dose schedule, "what's due?", missed-dose nudge to a caregiver, switches the schedule after an approved replacement |
 
-**Windows, one click:** double-click `run.bat`. The first run installs everything, downloads the real alert data and builds the web app; later runs rebuild the web app only when the code changed (after a `git pull`). Keys go in `api\.env.bat` (created on first run from `api\env.example.bat`, git-ignored). Everything is optional: with no keys KinCare runs in demo mode.
+**Humans decide, agents do the legwork.** Room rules (in the template) forbid any agent from telling anyone
+to stop or switch a medicine; only the pharmacist or a doctor approves, and that approval is what gets logged.
 
-**Manually:**
+## Why this needs Switch
 
-```bash
-# API (Python 3.12)
-cd api && python -m venv .venv && .venv/Scripts/pip install -r requirements.txt
-.venv/Scripts/python -m ingest.fetch --limit 24   # download real CDSCO alert PDFs
-.venv/Scripts/python -m ingest.load               # parse them into data/kincare.db
-.venv/Scripts/python -m ingest.portal             # add CDSCO portal history (2019 → latest)
-.venv/Scripts/python -m pytest -q                 # tests
-# Web
-cd ../web && npm install
-# Both
-cd .. && ./dev.sh   # API :8000, web :3000
+Take Switch away and KinCare is a one-person app again. The whole idea is a **shared room**:
+
+- **People and agents together, with roles**: elder, caregivers, pharmacist, four agents, one chat the family already uses (Telegram).
+- **Agents hand off to each other in the open**: watcher → pharmacist agent → human pharmacist → dose agent, each by @name, visible to the family.
+- **One shared record**: decisions and tasks live in the room's documents, not in someone's head.
+- **Two ways of joining a room, both used**: three Claude Code agents run by Switch Console, and one custom agent speaking the Switch agent protocol (`POST /agents`, `POST /agents/{id}/message`), because a recall alert must arrive without anyone asking.
+- **One-click setup**: a Switch room template creates the agents and the room with its rules.
+
+## Run it
+
+You need Windows, Python 3.12, [Switch Console](https://docs.switchagents.ai/switch-rooms/getting-started/install-switch-console) with Claude Code as the provider, and a Telegram bot.
+
+1. **KinCare API and data**: double-click `start_switch.bat`. The first run loads the real CDSCO alerts and 246k medicine brands (a few minutes).
+2. **Telegram**: create a bot with @BotFather, **turn Group Privacy off**, then in Switch Console: Connectors → Telegram. Make a group, add the bot. ([Switch docs](https://docs.switchagents.ai/switch-rooms/deploy/messaging-apps/telegram))
+3. **Agents and room**: Switch Console → Templates → Import template → [`switch/kincare-room.template.yaml`](switch/kincare-room.template.yaml) → Use template. Set *KinCare folder* to this repository.
+4. **Recall Watcher**: fill `switch/.env` (from [`switch/.env.example`](switch/.env.example)), then
+   `api\.venv\Scripts\python switch\recall_watcher.py register`, add **kincare-recall-watcher** to the room in Console, and run `start_switch.bat` again.
+5. **Try it**: in the group, send a strip photo with `@kincare-scan`, or run `api\.venv\Scripts\python switch\recall_watcher.py once`.
+
+Demo data: [`switch/family.json`](switch/family.json) holds a simulated family. **The batch AT25-0938A and its alert are real** (CDSCO NSQ list, Sep 2026); the family and pharmacist are simulated.
+
+## How it is built
+
+```
+ Telegram ──► Switch server (rooms, people, roles, documents) ◄── Switch Console runs Claude Code agents
+                    ▲                                                 │  scan · pharmacist · dose
+                    │ POST /agents/{id}/message                       │  (instructions: switch/agents/*/AGENT.md)
+                    │                                                 ▼
+          recall_watcher.py ──────────────► switch/kincare_cli.py ──► KinCare API (FastAPI, :8000)
+          (custom protocol agent)            (one tool, stdlib only)   CDSCO alerts · OCR · 246k medicines
 ```
 
-## Docs
-
-| Need to… | Read |
+| Path | What |
 |---|---|
-| See progress / pick up a shift | [PROGRESS.md](PROGRESS.md) |
-| Deploy | [docs/setup/DEPLOY.md](docs/setup/DEPLOY.md) |
-| Turn on Telegram (free) | [docs/setup/TELEGRAM_SETUP.md](docs/setup/TELEGRAM_SETUP.md) |
-| Turn on WhatsApp | [docs/setup/WHATSAPP_SETUP.md](docs/setup/WHATSAPP_SETUP.md) |
-| Understand the business model | [docs/BUSINESS.md](docs/BUSINESS.md) |
-| Know where the data comes from | [docs/DATASETS.md](docs/DATASETS.md) |
-| Understand security and privacy | [docs/SECURITY.md](docs/SECURITY.md) |
-| Pitch | [pitch/](pitch/) |
+| [`switch/`](switch/) | **New for this hackathon**: agent instructions, CLI, Recall Watcher, room template, tests |
+| [`docs/SWITCH_NOTES.md`](docs/SWITCH_NOTES.md) | How Switch works and how KinCare uses it |
+| [`api/`](api/) | KinCare API: CDSCO ingest, batch matcher, OCR, prices, care plans |
+| [`web/`](web/) | KinCare web app (optional for the Switch workflow) |
 
-Data: 6,865 real alert rows (Jan 2019 – Sep 2026) from the CDSCO public NSQ/spurious portal plus 24 alert PDFs. Portal endpoint discovery credit: [medcheck](https://github.com/ankithsurapani/medcheck). OCR runs locally with RapidOCR (no API key).
+Tests: `api\.venv\Scripts\python -m pytest switch -q` (Switch layer) and `cd api && .venv\Scripts\python -m pytest -q` (KinCare API).
+
+## What is new for Flip the Switch
+
+KinCare's API and web app began as our earlier project (Carely, HackIIITD 2026); see [docs/KINCARE_APP.md](docs/KINCARE_APP.md).
+Everything that puts it in a team room is new and built during this hackathon: the four Switch agents and their
+instructions, the custom protocol Recall Watcher, the agent CLI, the room template with its safety rules,
+the decision and task workflow, and the tests in `switch/`.
+
+## Data and safety
+
+- Alerts: CDSCO public NSQ and spurious-drug portal plus monthly alert PDFs. Medicines: Indian Medicine Dataset (MIT).
+- Batch numbers are matched exactly; a near miss never raises an alert.
+- KinCare never says a medicine is "safe" or "genuine", only whether a batch is on an alert list.
+- No agent ever advises stopping or switching a medicine. A human pharmacist or doctor approves.
+- Health data stays in the family's room. Secrets (`switch/.env`, `api/.env.bat`) are git-ignored.

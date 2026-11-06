@@ -82,7 +82,7 @@ All agents: never diagnose, never tell anyone to stop a medicine; always route t
 0:25  Switch Console: room "Sharma Family Care" with Dadi, Rahul, Priya, Pharmacist, 4 agents
 0:40  Dadi sends photo of Crocin strip -> Scan Agent: "Saaf hai, dawai le sakti hain" (Hindi)
 1:00  Dadi sends Namik-MR strip -> Recall Watcher: batch AT25-0938A is on the CDSCO list
-1:20  Watcher hands off to Pharmacy Agent -> same salt, clean maker, saves Rs 1,206/yr
+1:20  Watcher hands off to Pharmacy Agent -> same 3 salts, maker with no alerts (Genericart)
 1:40  Pharmacist (human) replies "Approved" -> Decision logged, Task "@Rahul buy today"
 2:00  Rahul: "Done, bought" -> task closed. Dose Buddy: next dose reminder, new strip
 2:20  Show room History / Decisions / Tasks panels -> "everyone sees the same truth"

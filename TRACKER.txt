@@ -1,58 +1,59 @@
 KINCARE ROOM - PROGRESS TRACKER
 ==============================
-Update this file as you go: [ ] todo  [~] in progress  [x] done  [-] cut
-Owner: M = Mukul, A = Ashpreet
+Update this file as you go: [ ] todo  [~] built, needs live test in Telegram  [x] done  [-] cut
+Owner: M = Mukul, A = Ashpreet, C = Claude (builds; commits as Mukul)
 Deadline: Nov 7, 11:59 PM IST  |  Our cutoff: Nov 7, 8:00 PM IST
 
-OVERALL: 5 / 40 done  (13%)
-Last updated: Nov 6, 2026
+OVERALL: 19 done + 10 built-awaiting-live-test / 41
+Last updated: Nov 6, 2026 (night)
+Waiting on Mukul: REMINDER_MUKUL.txt (Telegram bot, connector, group, registration key)
 
-PHASE 0 - SETUP                                              3/6
+PHASE 0 - SETUP                                              4/6
 [ ] M  Star Switch repo, join WeMakeDevs Discord
-[x] M  Install Switch Console (Windows) + Docker running   (v0.40.1, Claude Code CLI provider)
-[ ] M  Add docs MCP (skipped: read docs directly, see docs/SWITCH_NOTES.md)
-[~] M  Quickstart: one agent answers in Telegram channel   (BotFather + Connectors -> Telegram)
-[x] A  KinCare runs locally, CDSCO data loaded (6,830 alerts)
-[x] M  Read: agent protocol, create room, add custom agent -> docs/SWITCH_NOTES.md
+[x] M  Install Switch Console (v0.40.1, server core 0.31.0) + Claude Code CLI provider
+[-] M  Docs MCP (not needed: read docs + bundled server source -> docs/SWITCH_NOTES.md)
+[ ] M  Telegram: bot, connector, family group, link account      <- REMINDER_MUKUL.txt
+[x] C  KinCare runs locally: 6,830 CDSCO alerts, 246,068 medicines loaded
+[x] C  Read agent protocol, templates, Telegram -> docs/SWITCH_NOTES.md
 
-PHASE 1 - AGENT SKELETON                                     1/4
-[ ] M  Protocol agent (recall watcher): register, WebSocket / POST message
-[x] A  KinCare CLI for agents: switch/kincare_cli.py (check, scan, bill, search, alternatives, family-check)
-[ ] M  Agent can read room messages + post with its own name
-[ ] M  Agent can create a Task and log a Decision in the room
+PHASE 1 - AGENT PLUMBING                                     2/4
+[~] C  Recall Watcher protocol agent: register (POST /agents), post (POST /agents/{id}/message)
+[x] C  KinCare CLI for agents: switch/kincare_cli.py (check, scan, bill, search, alternatives, family)
+[~] C  Console-run agents: AGENT.md + CLAUDE.md per agent (scan, pharmacist, dose)
+[x] C  Decisions/Tasks as room documents (in agent instructions + room rules)
 
-PHASE 2 - AGENTS                                             0/8
-[ ] A  Scan Agent: photo -> OCR -> batch -> check
-[ ] A  Scan Agent: Hindi / Hinglish reply
-[ ] M  Recall Watcher: match family batches vs CDSCO
-[ ] M  Recall Watcher: alert + tag caregivers + hand off to Pharmacy Agent
-[ ] M  Pharmacy Agent: same salt, clean maker, saving
-[ ] M  Pharmacy Agent: ask pharmacist, on "approve" -> Decision + Task
-[ ] A  Dose Buddy: Hindi reminder                         (cuttable)
-[ ] A  Dose Buddy: missed dose -> caregiver               (cuttable)
+PHASE 2 - AGENTS                                             2/8
+[~] C  Scan Agent: photo -> OCR -> batch -> check
+[~] C  Scan Agent: Hindi first + English reply
+[x] C  Recall Watcher: match family batches vs CDSCO (verified on real data: flags AT25-0938A only)
+[~] C  Recall Watcher: alert + hand off to @kincare-pharmacist (dry run verified)
+[x] C  Pharmacist: same salts, maker with no alerts (verified; salt-gap safeguard added)
+[~] C  Pharmacist: ask human pharmacist, on approve -> Decision + Task
+[~] C  Dose Buddy: Hindi schedule / taken / new medicine
+[~] C  Dose Buddy: missed dose -> caregiver
 
-PHASE 3 - ROOM                                               1/4
-[ ] M  Room template YAML (agents, room, rules, kickoff)
-[ ] M  Room rules: no medicine advice without pharmacist approval
-[x] A  Seeded demo family + medicines + real batch AT25-0938A (switch/family.json, verified flagged)
-[ ] M  Full flow works end to end in Telegram
+PHASE 3 - ROOM                                               3/4
+[x] C  Room template YAML: switch/kincare-room.template.yaml (Switch linter: 0 errors, 0 warnings)
+[x] C  Room rules: no medicine advice without pharmacist approval, Hindi first, handoffs by @name
+[x] C  Seeded demo family + real batch AT25-0938A (switch/family.json)
+[ ] M  Full flow works end to end in Telegram  <- after REMINDER steps
 
-PHASE 4 - POLISH                                             0/6
-[ ] A  Friendly error messages (bad photo, unknown batch)
-[ ] A  pytest for each agent's core logic
-[ ] M  One-command start (run.bat / docker compose)
-[ ] M  .env.example, no secrets committed
+PHASE 4 - POLISH                                             5/6
+[x] C  Friendly errors (API down, no batch found, Switch unreachable)
+[x] C  pytest for Switch layer: 7 passing (switch/test_switch_agents.py)
+[x] C  One-click start: start_switch.bat (setup, API, watcher)
+[x] C  switch/.env.example; secrets git-ignored (switch/.env, watcher state)
 [ ] A  Fresh-clone test on Ashpreet's laptop
-[ ] M  CI badge                                           (cuttable)
+[x] C  Data issue found + handled: medicine dataset can drop a salt -> pharmacist checks names
 
-PHASE 5 - SHIP                                               0/8
-[ ] M  README: hook, problem facts, "Why Switch", setup, new-vs-existing
-[ ] M  Architecture diagram
+PHASE 5 - SHIP                                               2/8
+[x] C  README rewritten around Switch: problem data, why Switch, run steps, new-vs-existing
+[x] C  Architecture diagram (in README)
 [ ] A  Screenshots: room, handoff, Decisions, Tasks
 [ ] A  Demo GIF for README top
 [ ] A  Record 3-min video (script in PLAN.txt section 4)
 [ ] A  Edit video + captions, upload (YouTube unlisted)
-[ ] M  Push public GitHub repo
+[ ] M  Make GitHub repo public (now private) before submitting
 [ ] M  SUBMIT on WeMakeDevs (repo + video + README)  <- by 8 PM Nov 7
 
 PHASE 6 - EXTRAS                                             0/4
@@ -69,4 +70,6 @@ Presentation       __/20   video <= 3 min? README explains Switch clearly?
 TOTAL              __/100
 
 BLOCKERS / NOTES
--
+- Live test needs Telegram connected (REMINDER_MUKUL.txt steps 1-5).
+- Switch server port changes when Console restarts: check it before setting SWITCH_URL.
+- Medicine dataset sometimes lists 3-salt combos as 2 salts: pharmacist agent must check product names.
