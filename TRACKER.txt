@@ -1,0 +1,72 @@
+KINCARE ROOM - PROGRESS TRACKER
+==============================
+Update this file as you go: [ ] todo  [~] in progress  [x] done  [-] cut
+Owner: M = Mukul, A = Ashpreet
+Deadline: Nov 7, 11:59 PM IST  |  Our cutoff: Nov 7, 8:00 PM IST
+
+OVERALL: 0 / 40 done  (0%)
+Last updated: Nov 6, 2026
+
+PHASE 0 - SETUP                                              0/6
+[ ] M  Star Switch repo, join WeMakeDevs Discord
+[ ] M  Install Switch Console (Windows) + Docker running
+[ ] M  Add docs MCP: claude mcp add switch-docs --transport http https://docs.switchagents.ai/mcp
+[ ] M  Quickstart: one agent answers in Telegram channel
+[ ] A  KinCare runs locally (run.bat), CDSCO data loaded
+[ ] M  Read: agent protocol, create room, add custom agent, room Tasks/Decisions
+
+PHASE 1 - AGENT SKELETON                                     0/4
+[ ] M  Base Python agent: SSE in, HTTP reply out
+[ ] A  KinCare API client (matcher, OCR, care, prices)
+[ ] M  Agent can read room messages + post with its own name
+[ ] M  Agent can create a Task and log a Decision in the room
+
+PHASE 2 - AGENTS                                             0/8
+[ ] A  Scan Agent: photo -> OCR -> batch -> check
+[ ] A  Scan Agent: Hindi / Hinglish reply
+[ ] M  Recall Watcher: match family batches vs CDSCO
+[ ] M  Recall Watcher: alert + tag caregivers + hand off to Pharmacy Agent
+[ ] M  Pharmacy Agent: same salt, clean maker, saving
+[ ] M  Pharmacy Agent: ask pharmacist, on "approve" -> Decision + Task
+[ ] A  Dose Buddy: Hindi reminder                         (cuttable)
+[ ] A  Dose Buddy: missed dose -> caregiver               (cuttable)
+
+PHASE 3 - ROOM                                               0/4
+[ ] M  Room template YAML (agents, room, rules, kickoff)
+[ ] M  Room rules: no medicine advice without pharmacist approval
+[ ] A  Seeded demo family + medicines + real batch AT25-0938A
+[ ] M  Full flow works end to end in Telegram
+
+PHASE 4 - POLISH                                             0/6
+[ ] A  Friendly error messages (bad photo, unknown batch)
+[ ] A  pytest for each agent's core logic
+[ ] M  One-command start (run.bat / docker compose)
+[ ] M  .env.example, no secrets committed
+[ ] A  Fresh-clone test on Ashpreet's laptop
+[ ] M  CI badge                                           (cuttable)
+
+PHASE 5 - SHIP                                               0/8
+[ ] M  README: hook, problem facts, "Why Switch", setup, new-vs-existing
+[ ] M  Architecture diagram
+[ ] A  Screenshots: room, handoff, Decisions, Tasks
+[ ] A  Demo GIF for README top
+[ ] A  Record 3-min video (script in PLAN.txt section 4)
+[ ] A  Edit video + captions, upload (YouTube unlisted)
+[ ] M  Push public GitHub repo
+[ ] M  SUBMIT on WeMakeDevs (repo + video + README)  <- by 8 PM Nov 7
+
+PHASE 6 - EXTRAS                                             0/4
+[ ] M  Blog post (Best Blog)
+[ ] A  #HowISwitch post on X / LinkedIn
+[ ] M  Wispr scorecard (only if built by voice)
+[ ] A  Discord: share project in showcase
+
+SCORE CHECK (fill before submitting)
+Use of Switch      __/30   room features used? agents hand off? needs Switch?
+Technical          __/25   fresh clone runs? demo mode works without keys?
+Creativity/impact  __/25   real data? Hindi? human approval shown?
+Presentation       __/20   video <= 3 min? README explains Switch clearly?
+TOTAL              __/100
+
+BLOCKERS / NOTES
+-

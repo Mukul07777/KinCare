@@ -1,0 +1,11 @@
+file,set,brand,batch,expiry,flagged
+../../../web/public/test-strips/telma-h.png,synthetic,Telma H,05240198,01/2027,no
+../../../web/public/test-strips/chymoral-forte.png,synthetic,Chymoral Forte,2KU6L055,11/2027,
+../../../web/public/test-strips/alzomac.png,synthetic,Alzomac-0.5,60098,01/2028,
+../../../web/public/test-strips/namik-mr.png,synthetic,Namik-MR,AT25-0938A,10/2027,
+../../../web/public/test-strips/amlodipine-clean.png,synthetic,Amlodipine 5 mg,AML24017,02/2027,no
+real/WhatsApp Image 2026-10-25 at 9.00.10 AM.jpeg,real,Dolo-500,DFNY0223,04/2030,
+real/WhatsApp Image 2026-10-25 at 9.00.10 AM (1).jpeg,real,Disprin,YZ463,06/2029,
+real/WhatsApp Image 2026-10-25 at 9.00.10 AM (2).jpeg,real,Paracip-500,JCHT6539,06/2029,
+real/WhatsApp Image 2026-10-25 at 9.00.11 AM.jpeg,real,Dolo-650,DOBS4480,04/2030,
+real/WhatsApp Image 2026-10-25 at 9.00.11 AM (1).jpeg,real,Dolo-650,DOBS4480,04/2030,

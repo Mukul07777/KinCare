@@ -1,0 +1,57 @@
+# Render blueprint for the KinCare API. New > Blueprint > pick this repo. See docs/setup/DEPLOY.md.
+services:
+  - type: web
+    name: kincare-api
+    runtime: python
+    rootDir: api
+    plan: starter              # a persistent disk needs a paid instance; free instances lose the database on restart
+    buildCommand: pip install -r requirements.txt
+    startCommand: sh start.sh
+    healthCheckPath: /health
+    disk:
+      name: kincare-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: TZ                        # dose times (08:00, 21:00) are Indian time; the server clock must be too
+        value: Asia/Kolkata
+      - key: TELEGRAM_BOT_TOKEN        # free chat + caregiver alerts (docs/setup/TELEGRAM_SETUP.md)
+        sync: false
+      - key: TELEGRAM_BOT_NAME
+        sync: false
+      - key: TELEGRAM_WEBHOOK_SECRET
+        sync: false
+      - key: KINCARE_DB
+        value: /var/data/kincare.db
+      - key: VAPID_PRIVATE_KEY_FILE
+        value: /var/data/vapid_private.pem
+      - key: OTP_SECRET
+        generateValue: true
+      - key: ADMIN_TOKEN
+        generateValue: true
+      - key: KINCARE_DATA_KEY           # encrypts chats, doctor messages and diagnoses at rest (api/vault.py)
+        generateValue: true
+      - key: COOKIE_SECURE             # session cookie only over HTTPS
+        value: "1"
+      # Never set KINCARE_DEMO here: it shows login codes on screen and accepts unsigned webhooks (laptop demos only).
+      - key: PUBLIC_WEB_URL            # your Vercel URL, e.g. https://kincare.vercel.app
+        sync: false
+      # Real WhatsApp (docs/setup/WHATSAPP_SETUP.md); leave empty to keep the outbox / demo-code mode
+      - key: WHATSAPP_TOKEN
+        sync: false
+      - key: WHATSAPP_PHONE_ID
+        sync: false
+      - key: WHATSAPP_NUMBER
+        sync: false
+      - key: WHATSAPP_VERIFY_TOKEN
+        sync: false
+      - key: WHATSAPP_APP_SECRET
+        sync: false
+      - key: WHATSAPP_TEMPLATE
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: TINYFISH_API_KEY
+        sync: false

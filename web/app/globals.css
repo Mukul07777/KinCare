@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+:root {
+  --cream: #f7f1ec;
+  --paper: #fffcf9;
+  --sand: #efe4db;
+  --clay: #d9c3b4;
+  --mocha: #b08a74;
+  --brown: #8a4b2c;
+  --brown-2: #6f3a20;
+  --espresso: #2a1c15;
+  --muted: #9a857a;
+  --line: rgba(42, 28, 21, 0.08);
+  --danger: #c4452f;
+  --safe: #2f7a5b;
+  /* clinical accent: used sparingly for health, trust and live-care cues */
+  --teal: #0f766e;
+  --teal-2: #0b5c56;
+  --mint: #e3f1ee;
+  --warn: #b8701f;
+  --warn-soft: #fbeedc;
+}
+
+@theme inline {
+  --color-cream: var(--cream);
+  --color-paper: var(--paper);
+  --color-sand: var(--sand);
+  --color-clay: var(--clay);
+  --color-mocha: var(--mocha);
+  --color-brown: var(--brown);
+  --color-brown-2: var(--brown-2);
+  --color-espresso: var(--espresso);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-danger: var(--danger);
+  --color-safe: var(--safe);
+  --color-teal: var(--teal);
+  --color-teal-2: var(--teal-2);
+  --color-mint: var(--mint);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  background: var(--cream);
+  color-scheme: light;
+}
+
+body {
+  background: var(--cream);
+  color: var(--espresso);
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--mint); color: var(--teal-2); }
+
+/* keyboard focus is always visible, never on mouse click */
+:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; border-radius: 6px; }
+input:focus-visible, textarea:focus-visible, select:focus-visible { outline: none; }
+
+/* numbers line up in tables, tiles and prices */
+.font-mono, .tabular-nums { font-variant-numeric: tabular-nums; }
+
+button, a { -webkit-tap-highlight-color: transparent; }
+button:not(:disabled):active { transform: scale(0.98); }
+
+/* soft card used everywhere */
+/* In the components layer so utilities like bg-brown / bg-espresso on a card win (unlayered CSS beats all utilities). */
+@layer components {
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: 0 1px 2px rgba(42, 28, 21, 0.04), 0 12px 40px -12px rgba(138, 75, 44, 0.12);
+  }
+}
+
+/* clinical tile: a mint wash for health/live-care panels */
+.clinical {
+  background: linear-gradient(180deg, rgba(227, 241, 238, 0.9), rgba(255, 252, 249, 0.95));
+  border: 1px solid rgba(15, 118, 110, 0.14);
+}
+
+/* faint ECG trace used as a divider */
+.ecg {
+  height: 28px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='28' viewBox='0 0 160 28'%3E%3Cpath d='M0 14h52l6-8 6 16 7-22 7 26 6-12h76' fill='none' stroke='%230f766e' stroke-opacity='.35' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") repeat-x center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+/* dotted world-map style texture */
+.dots {
+  background-image: radial-gradient(rgba(138, 75, 44, 0.28) 1px, transparent 1.3px);
+  background-size: 14px 14px;
+}
+
+.blush {
+  background:
+    radial-gradient(600px 300px at 15% 20%, rgba(217, 195, 180, 0.55), transparent 70%),
+    radial-gradient(500px 280px at 85% 60%, rgba(217, 195, 180, 0.45), transparent 70%),
+    radial-gradient(420px 220px at 70% 8%, rgba(227, 241, 238, 0.7), transparent 70%);
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(0); opacity: 0; }
+  10%, 90% { opacity: 1; }
+  100% { transform: translateY(var(--scan-h, 260px)); opacity: 0; }
+}
+.scan-line { animation: scan-line 2.4s ease-in-out infinite; }
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+.marquee { animation: marquee 30s linear infinite; }

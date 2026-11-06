@@ -1,0 +1,120 @@
+KINCARE ROOM - FLIP THE SWITCH HACKATHON PLAN (target: 100/100)
+=================================================================
+Team: Avengers (Mukul - lead, Ashpreet Singh Saini)
+Track: 01 - Best Business Workflow  (+ side tracks: Best Blog, #HowISwitch, Wispr if used)
+DEADLINE: Nov 7, 2026, 11:59 PM IST  -> our own cutoff: Nov 7, 8:00 PM IST (4 h buffer)
+Submit: repo + demo video + README
+
+-----------------------------------------------------------------
+1. ONE-LINE PITCH
+-----------------------------------------------------------------
+"A failed medicine batch reaches the government list after 10 months, while
+families are still giving it to their parents. KinCare Room puts the family,
+the pharmacist and AI agents in one chat, so a recall becomes a decision made
+together in minutes, not a PDF nobody reads."
+
+Problem facts (real, from KinCare's CDSCO data, 6,865 alerts 2019-2026):
+- median 10 months from manufacture to CDSCO listing
+- 99.5% of listed batches still within expiry, median 14 months left
+- nobody tells the patient
+
+-----------------------------------------------------------------
+2. HOW EACH JUDGING CRITERION GETS FULL MARKS
+-----------------------------------------------------------------
+A) USE OF SWITCH (30) - "would it stop working without Switch?" -> YES
+   [ ] The whole workflow lives in a Switch room (Telegram), not in KinCare's web app
+   [ ] Multiple humans with roles: Dadi (patient), son/daughter (caregivers), pharmacist
+   [ ] Multiple agents that hand off to each other in the room (agent -> agent -> human)
+   [ ] Use the room's own features: History, Rules, Tasks, Decisions, Knowledge
+       - Decision logged: "Pharmacist approved: replace Namik-MR batch AT25-0938A"
+       - Task created: "@Rahul buy replacement today"
+       - Rules: "Agents never tell anyone to stop or switch medicine without pharmacist approval"
+       - Knowledge: family medicine list, consent
+   [ ] Room template YAML (like triage-pair.template.yaml) -> one click setup in Switch Console
+   [ ] README section "Why this needs Switch" (say it explicitly for judges)
+
+B) TECHNICAL EXECUTION (25) - "does it run, can someone reproduce it?"
+   [ ] Agents implement the Switch agent protocol (SSE in, HTTP out) - custom agents in Python
+   [ ] Agents call the existing KinCare API (matcher, OCR, care, caregiver, prices)
+   [ ] One-command start: run.bat / docker compose (KinCare API + agents)
+   [ ] Demo mode with NO keys: seeded family, seeded real CDSCO batch AT25-0938A
+   [ ] .env.example with every key, nothing secret committed
+   [ ] Tests for each agent's core logic (pytest), CI green badge if time
+   [ ] Error handling: agent replies "I couldn't read the strip, send a clearer photo"
+   [ ] Tested end-to-end from a fresh clone on another laptop (Ashpreet's)
+
+C) CREATIVITY & IMPACT (25) - "fresh idea, real team problem?"
+   [ ] Frame the "team" = family + pharmacist (care is a team job in India)
+   [ ] Real data, real regulator source, real batch number in the demo
+   [ ] Hindi / Hinglish replies for elders (Dadi mode), voice note if possible
+   [ ] Safety by design: human approval before any medicine action, consent for caregivers
+   [ ] Business angle: pharmacies pay, families free (from docs/BUSINESS.md)
+
+D) PRESENTATION (20) - "do video + README make clear how Switch is used?"
+   [ ] Demo video <= 3 min, one story, captions, shows the chat AND the Switch Console
+   [ ] README: hero line, GIF, architecture diagram, "Why Switch", setup in 5 steps,
+       what is new for this hackathon vs existing KinCare (honesty)
+   [ ] Screenshots: room, decision log, task list, agent handoff
+   [ ] Blog post (Hashnode/dev.to) + #HowISwitch post on X/LinkedIn
+
+-----------------------------------------------------------------
+3. THE AGENTS
+-----------------------------------------------------------------
+1. Recall Watcher  (addressing: anyone)
+   - On new CDSCO alert or new medicine added: matches family's batches (KinCare matcher)
+   - Posts alert in room, tags caregivers + @Pharmacy agent
+2. Scan Agent
+   - Dadi sends a strip/bill photo -> KinCare OCR -> batch -> check -> Hindi reply
+   - Adds medicine to the family list (room knowledge)
+3. Pharmacy Agent
+   - On recall handoff: finds same salt from a clean maker + price saving
+   - Asks the HUMAN pharmacist to approve -> on "approve" logs a Decision + creates Task
+4. Dose Buddy
+   - Hindi reminders; missed dose -> tells caregiver in room (with consent)
+
+All agents: never diagnose, never tell anyone to stop a medicine; always route to a human.
+
+-----------------------------------------------------------------
+4. DEMO STORY (3 min video, also the README story)
+-----------------------------------------------------------------
+0:00  Hook: "Who here has bought medicine for their parents? Do you know if that
+      batch failed a government test?" + the 10-month fact
+0:25  Switch Console: room "Sharma Family Care" with Dadi, Rahul, Priya, Pharmacist, 4 agents
+0:40  Dadi sends photo of Crocin strip -> Scan Agent: "Saaf hai, dawai le sakti hain" (Hindi)
+1:00  Dadi sends Namik-MR strip -> Recall Watcher: batch AT25-0938A is on the CDSCO list
+1:20  Watcher hands off to Pharmacy Agent -> same salt, clean maker, saves Rs 1,206/yr
+1:40  Pharmacist (human) replies "Approved" -> Decision logged, Task "@Rahul buy today"
+2:00  Rahul: "Done, bought" -> task closed. Dose Buddy: next dose reminder, new strip
+2:20  Show room History / Decisions / Tasks panels -> "everyone sees the same truth"
+2:40  Architecture slide + "real CDSCO data, simulated family" + close line
+
+-----------------------------------------------------------------
+5. TIMELINE (now -> Nov 7, 8 PM IST)
+-----------------------------------------------------------------
+Phase 0  Setup (2 h)        Switch Console installed, docs MCP added, one agent says hi in Telegram
+Phase 1  Agent skeleton (3h) Python base agent speaking the Switch protocol + KinCare API client
+Phase 2  Agents (8 h)       Scan -> Recall Watcher -> Pharmacy (+approval) -> Dose Buddy
+Phase 3  Room (2 h)         template YAML, rules, seeded family + demo data
+Phase 4  Polish (3 h)       Hindi replies, error messages, tests, one-command run
+Phase 5  Ship (4 h)         README + diagram + screenshots, video record/edit, submit
+Phase 6  Extras (if time)   blog, #HowISwitch posts, Wispr scorecard
+
+Split:
+- Mukul: Switch setup, agent protocol, Recall Watcher, Pharmacy Agent, README
+- Ashpreet: KinCare API endpoints for agents, Scan + Dose Buddy, demo data, video
+
+-----------------------------------------------------------------
+6. CUT LIST (if behind, cut in this order)
+-----------------------------------------------------------------
+1. Dose Buddy            2. Voice notes          3. CI badge
+4. Blog / social posts (after submit is fine)
+NEVER cut: Scan -> Recall -> Pharmacist approval -> Decision logged, README, video.
+
+-----------------------------------------------------------------
+7. RISKS
+-----------------------------------------------------------------
+- Reusing KinCare: check FAQ "Can I bring an agent I've already built?"; README lists what is new.
+- Switch protocol unknown details: read docs first (Phase 0), don't guess.
+- Telegram bot setup issues: fall back to Discord.
+- Live demo failure: video is recorded, so it's safe.
+- Data claims: say "real CDSCO data, simulated family and pharmacist".
