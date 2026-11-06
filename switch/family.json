@@ -1,0 +1,30 @@
+[
+  {
+    "person": "Dadi",
+    "brand": "Crocin",
+    "batch": "CROCIN123X",
+    "maker": "",
+    "times": [
+      "08:00",
+      "20:00"
+    ]
+  },
+  {
+    "person": "Dadi",
+    "brand": "Namik-MR",
+    "batch": "AT25-0938A",
+    "maker": "",
+    "times": [
+      "09:00"
+    ]
+  },
+  {
+    "person": "Dadaji",
+    "brand": "Telma-H",
+    "batch": "TLH2511",
+    "maker": "",
+    "times": [
+      "08:00"
+    ]
+  }
+]

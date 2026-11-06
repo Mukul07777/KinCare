@@ -4,20 +4,20 @@ Update this file as you go: [ ] todo  [~] in progress  [x] done  [-] cut
 Owner: M = Mukul, A = Ashpreet
 Deadline: Nov 7, 11:59 PM IST  |  Our cutoff: Nov 7, 8:00 PM IST
 
-OVERALL: 0 / 40 done  (0%)
+OVERALL: 5 / 40 done  (13%)
 Last updated: Nov 6, 2026
 
-PHASE 0 - SETUP                                              0/6
+PHASE 0 - SETUP                                              3/6
 [ ] M  Star Switch repo, join WeMakeDevs Discord
-[ ] M  Install Switch Console (Windows) + Docker running
-[ ] M  Add docs MCP: claude mcp add switch-docs --transport http https://docs.switchagents.ai/mcp
-[ ] M  Quickstart: one agent answers in Telegram channel
-[ ] A  KinCare runs locally (run.bat), CDSCO data loaded
-[ ] M  Read: agent protocol, create room, add custom agent, room Tasks/Decisions
+[x] M  Install Switch Console (Windows) + Docker running   (v0.40.1, Claude Code CLI provider)
+[ ] M  Add docs MCP (skipped: read docs directly, see docs/SWITCH_NOTES.md)
+[~] M  Quickstart: one agent answers in Telegram channel   (BotFather + Connectors -> Telegram)
+[x] A  KinCare runs locally, CDSCO data loaded (6,830 alerts)
+[x] M  Read: agent protocol, create room, add custom agent -> docs/SWITCH_NOTES.md
 
-PHASE 1 - AGENT SKELETON                                     0/4
-[ ] M  Base Python agent: SSE in, HTTP reply out
-[ ] A  KinCare API client (matcher, OCR, care, prices)
+PHASE 1 - AGENT SKELETON                                     1/4
+[ ] M  Protocol agent (recall watcher): register, WebSocket / POST message
+[x] A  KinCare CLI for agents: switch/kincare_cli.py (check, scan, bill, search, alternatives, family-check)
 [ ] M  Agent can read room messages + post with its own name
 [ ] M  Agent can create a Task and log a Decision in the room
 
@@ -31,10 +31,10 @@ PHASE 2 - AGENTS                                             0/8
 [ ] A  Dose Buddy: Hindi reminder                         (cuttable)
 [ ] A  Dose Buddy: missed dose -> caregiver               (cuttable)
 
-PHASE 3 - ROOM                                               0/4
+PHASE 3 - ROOM                                               1/4
 [ ] M  Room template YAML (agents, room, rules, kickoff)
 [ ] M  Room rules: no medicine advice without pharmacist approval
-[ ] A  Seeded demo family + medicines + real batch AT25-0938A
+[x] A  Seeded demo family + medicines + real batch AT25-0938A (switch/family.json, verified flagged)
 [ ] M  Full flow works end to end in Telegram
 
 PHASE 4 - POLISH                                             0/6
