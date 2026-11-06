@@ -30,13 +30,14 @@ KinCare turns that family group into a **Switch room** where people and agents w
  Dadi            [photo of a Namik-MR strip]  @kincare-scan
  KinCare Scan    ⚠️ बैच AT25-0938A सरकारी जाँच में फेल। This batch is on the CDSCO
                  Not of Standard Quality list. @kincare-pharmacist please find a replacement.
- KinCare Pharm.  Proposed for Dadi: 1) Aceclofenac+Paracetamol+Chlorzoxazone 100/325/250 mg
-                 (Genericart), same three salts, no alerts on record for the maker.
-                 @Pharmacist reply approve 1 or reject. Nothing changes until you do.
+ KinCare Pharm.  Proposed for Dadi (same three salts, makers with no CDSCO alerts):
+                 1) StayHappi Aceclofenac+Chlorzoxazone+Paracetamol 100/325/250 mg, ₹2.70/tablet
+                 2) Genericart Aceclofenac+Paracetamol+Chlorzoxazone 100/325/250 mg, ₹8.20/tablet
+                 @Pharmacist reply approve 1/2 or reject. Nothing changes until you do.
  Pharmacist      approve 1
- KinCare Pharm.  ✅ Decision logged. Task: @Rahul buy it today, keep the old strip for return.
+ KinCare Pharm.  ✅ Decision logged. Task: @Rahul buy StayHappi today, keep the old strip for return.
  Rahul           done, bought
- KinCare Dose    दादी, कल सुबह 9 बजे से नई दवा: Genericart Aceclofenac+Paracetamol+Chlorzoxazone, 1 गोली।
+ KinCare Dose    दादी, कल सुबह 9 बजे से नई दवा: StayHappi, 1 गोली।
  ─────────────────────────────────────────────────────────────────────────────
  Room documents:  KinCare Decisions · KinCare Tasks   (everyone reads the same record)
 ```
@@ -61,7 +62,18 @@ Take Switch away and KinCare is a one-person app again. The whole idea is a **sh
 - **Two ways of joining a room, both used**: three Claude Code agents run by Switch Console, and one custom agent speaking the Switch agent protocol (`POST /agents`, `POST /agents/{id}/message`), because a recall alert must arrive without anyone asking.
 - **One-click setup**: a Switch room template creates the agents and the room with its rules.
 
-## Run it
+## Try it in 2 minutes (no Telegram needed)
+
+```bat
+start_switch.bat                                   :: first run loads the real data, then starts the API
+api\.venv\Scripts\python switch\demo_local.py     :: the family room in your terminal; you are the pharmacist
+```
+
+`demo_local.py` plays the same flow the Switch agents run, on the same real data: OCR on a strip photo,
+the CDSCO match, safe same-salt options, your approval, and the room's *KinCare Decisions* and *KinCare Tasks*
+documents written to `switch/demo_out/`. Add `--auto` to play every part.
+
+## Run it in Switch
 
 You need Windows, Python 3.12, [Switch Console](https://docs.switchagents.ai/switch-rooms/getting-started/install-switch-console) with Claude Code as the provider, and a Telegram bot.
 

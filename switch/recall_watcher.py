@@ -142,7 +142,7 @@ def alert_text(item: dict) -> str:
         f"हिंदी: {item['person']} की दवा {item['brand']} (बैच {item['batch']}) सरकारी जाँच में फेल हुई है। "
         "दवा बदलने से पहले फार्मासिस्ट या डॉक्टर से बात करें।",
         "",
-        f"@{PHARMACIST} please find the same salt from a maker with no alert, and ask our pharmacist to approve.",
+        f"@{PHARMACIST} please find the same salts from a maker with no alerts, and ask our pharmacist to approve.",
         "Family: please don't stop or switch any medicine until the pharmacist or doctor says so.",
     ]
     return "\n".join(l for l in lines if l is not None)

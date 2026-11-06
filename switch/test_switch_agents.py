@@ -78,6 +78,48 @@ def test_cli_reports_unreachable_api_as_json(monkeypatch, capsys):
     assert "not reachable" in json.loads(capsys.readouterr().out)["error"]
 
 
+def test_salts_of_reads_an_alert_product_name():
+    assert kincare_cli.salts_of("Aceclofenac, Paracetamol & Chlorzoxazone Tablets") == ["aceclofenac", "paracetamol", "chlorzoxazone"]
+    assert kincare_cli.salts_of("Telmisartan 40 mg and Hydrochlorothiazide 12.5 mg Tablets IP") == ["telmisartan", "hydrochlorothiazide"]
+    assert kincare_cli.form_of("Aceclofenac, Paracetamol & Chlorzoxazone Tablets") == "tablet"
+
+
+def _med(id, name, salts, maker, alerts, unit, form="tablet"):
+    return {"id": id, "name": name, "salts": salts, "maker": maker, "form": form, "unit_price": unit,
+            "price": unit * 10, "pack": "strip of 10", "maker_record": {"alerts": alerts}}
+
+
+def test_replacements_keep_only_same_salts_clean_makers(monkeypatch):
+    pool = [
+        # the dataset dropped chlorzoxazone from salts, but the name has all three: keep
+        _med(1, "StayHappi Aceclofenac+Chlorzoxazone+Paracetamol Tablet", "aceclofenac (100mg) + paracetamol (325mg)", "Sarvagunaushdhi", 0, 2.7),
+        # a different medicine (serratiopeptidase, no chlorzoxazone): drop
+        _med(2, "Rumatab SP Tablet", "aceclofenac (100mg) + paracetamol (325mg) + serratiopeptidase (15mg)", "Simpson", 0, 0.5),
+        # right salts, maker with alerts: drop
+        _med(3, "Aclo MR Aceclofenac Paracetamol Chlorzoxazone", "aceclofenac + paracetamol + chlorzoxazone", "Risky Labs", 4, 1.0),
+        # right salts, wrong form: drop
+        _med(4, "Gel Aceclofenac Paracetamol Chlorzoxazone", "aceclofenac + paracetamol + chlorzoxazone", "Clean Co", 0, 0.1, form="gel"),
+        _med(5, "Genericart Aceclofenac+Paracetamol+Chlorzoxazone Tablet", "aceclofenac (100mg) + paracetamol (325mg)", "Swast", 0, 8.2),
+    ]
+
+    def fake_get(path, **p):
+        if path == "/api/check":
+            return FLAGGED | {"matches": [{"alert": FLAGGED["matches"][0]["alert"] | {"product_name": "Aceclofenac, Paracetamol & Chlorzoxazone Tablets"}}]}
+        if path == "/api/medicines/search":
+            return pool
+        return {"alternatives": []}
+
+    monkeypatch.setattr(kincare_cli, "get", fake_get)
+    r = kincare_cli.replacements("AT25-0938A")
+    assert [o["id"] for o in r["options"]] == [1, 5]          # cheapest first, unsafe ones gone
+
+
+def test_replacements_for_a_clean_batch_offer_nothing(monkeypatch):
+    monkeypatch.setattr(kincare_cli, "get", lambda path, **p: CLEAN)
+    r = kincare_cli.replacements("AML24017")
+    assert r["flagged"] is False and r["options"] == []
+
+
 def test_template_is_valid_yaml_with_all_agents():
     yaml = pytest.importorskip("yaml")
     doc = yaml.safe_load((Path(__file__).parent / "kincare-room.template.yaml").read_text(encoding="utf-8"))

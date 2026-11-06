@@ -26,3 +26,4 @@ data/data.key
 # Switch agent secrets and state
 switch/.env
 switch/.watcher_state.json
+switch/demo_out/

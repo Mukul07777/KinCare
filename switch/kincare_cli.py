@@ -14,6 +14,7 @@ Every command prints JSON on stdout. Exit code 0 = ok, 1 = API error, 2 = bad us
     python switch/kincare_cli.py family                      # the room's family medicine list
     python switch/kincare_cli.py family-add "Dadi" "Namik-MR" AT25-0938A [--maker X] [--times 08:00,20:00]
     python switch/kincare_cli.py family-check                # every family batch against the alert store
+    python switch/kincare_cli.py replacements AT25-0938A     # same salts + form, makers with no alerts
 
 KINCARE_API (default http://localhost:8000) points at the KinCare API.
 KINCARE_FAMILY (default switch/family.json) is the family medicine list.
@@ -24,6 +25,7 @@ import argparse
 import json
 import mimetypes
 import os
+import re
 import sys
 import urllib.error
 import urllib.parse
@@ -97,6 +99,71 @@ def family_check() -> dict:
     return {"checked": len(out), "flagged": [o for o in out if o["verdict"] == "alert_found"], "items": out}
 
 
+# ---- safe replacements: same salts, maker with no alerts ----
+
+_SALT_SPLIT = re.compile(r",|&|\+|\band\b|/", re.I)
+_DROP = re.compile(r"\b(tablets?|capsules?|syrup|suspension|injection|ip|bp|usp|sr|er|mr|cr|film|coated|oral|i\.p\.)\b|\d+(\.\d+)?\s*(mg|mcg|g|ml|%)", re.I)
+_FORMS = ("tablet", "capsule", "syrup", "suspension", "injection", "gel", "cream", "drops")
+
+
+def salts_of(product_name: str) -> list[str]:
+    """'Aceclofenac, Paracetamol & Chlorzoxazone Tablets' -> ['aceclofenac', 'paracetamol', 'chlorzoxazone']."""
+    out = []
+    for part in _SALT_SPLIT.split(product_name or ""):
+        word = re.sub(r"[^a-z ]", " ", _DROP.sub(" ", part).lower())
+        word = " ".join(w for w in word.split() if len(w) > 2)
+        if word:
+            out.append(word)
+    return out
+
+
+def form_of(text: str) -> str:
+    t = (text or "").lower()
+    return next((f for f in _FORMS if f in t), "")
+
+
+def replacements(batch: str, limit: int = 3) -> dict:
+    """For a flagged batch: products with every salt of the original (checked in name AND salts, because the
+    dataset can drop a salt), the same form, from makers with no CDSCO alerts, cheapest per unit first."""
+    chk = get("/api/check", batch=batch)
+    if chk.get("verdict") != "alert_found":
+        return {"batch": batch, "flagged": False, "options": [], "note": "This batch is not on any alert list."}
+    alert = chk["matches"][0]["alert"]
+    product = alert.get("product_name") or alert.get("brand") or ""
+    salts, form = salts_of(product), form_of(product)
+    if not salts:
+        return {"batch": batch, "flagged": True, "alert": alert, "options": [], "note": "Salts unknown; ask the pharmacist."}
+    seen, pool = set(), []
+    for q in [" ".join(salts)] + salts:
+        for m in get("/api/medicines/search", q=q) or []:
+            if m["id"] not in seen:
+                seen.add(m["id"]); pool.append(m)
+        if len(pool) > 3:
+            for alt in (get(f"/api/medicines/{pool[0]['id']}/alternatives", limit=50) or {}).get("alternatives", []):
+                if alt["id"] not in seen:
+                    seen.add(alt["id"]); pool.append(alt)
+    bad_maker = normalise(alert.get("manufacturer", ""))
+    options = []
+    for m in pool:
+        text = f"{m['name']} {m.get('salts', '')}".lower()
+        # Count the ingredients the dataset lists; more than the original means a different medicine.
+        listed = len([s for s in (m.get("salts") or "").split("+") if s.strip()])
+        if not all(s in text for s in salts) or listed > len(salts):
+            continue
+        if form and m.get("form") and m["form"] != form:
+            continue
+        if (m.get("maker_record") or {}).get("alerts", 1) != 0 or normalise(m.get("maker", "")) == bad_maker:
+            continue
+        options.append({k: m.get(k) for k in ("id", "name", "maker", "price", "pack", "salts", "unit_price")})
+    options.sort(key=lambda o: o["unit_price"] if o["unit_price"] is not None else 1e9)
+    return {"batch": batch, "flagged": True, "salts": salts, "form": form, "alert": alert, "options": options[:limit],
+            "note": "Same salts and form, makers with no CDSCO alerts on record. Strengths must be confirmed by the pharmacist."}
+
+
+def normalise(s: str) -> str:
+    return re.sub(r"[^a-z]", "", (s or "").lower().replace("pvt", "").replace("ltd", "").replace("llp", ""))
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="kincare_cli", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -113,6 +180,7 @@ def main(argv: list[str] | None = None) -> int:
     fa.add_argument("person"); fa.add_argument("brand"); fa.add_argument("batch")
     fa.add_argument("--maker", default=""); fa.add_argument("--times", default="")
     sub.add_parser("family-check")
+    rp = sub.add_parser("replacements"); rp.add_argument("batch"); rp.add_argument("--limit", type=int, default=3)
     args = ap.parse_args(argv)
 
     try:
@@ -141,6 +209,8 @@ def main(argv: list[str] | None = None) -> int:
             items.append(entry)
             save_family(items)
             out = {"saved": entry, "total": len(items)}
+        elif args.cmd == "replacements":
+            out = replacements(args.batch, args.limit)
         else:  # family-check
             out = family_check()
     except ApiError as e:

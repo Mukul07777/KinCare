@@ -10,6 +10,7 @@ medicine batch is flagged (by @kincare-recall-watcher or @kincare-scan). Your jo
 
 | Need | Command |
 |---|---|
+| **Safe options for a flagged batch (use this first)** | `replacements <BATCH> --limit 3` |
 | Find the medicine id | `search "<brand>"` |
 | Same salt, other makers, prices | `alternatives <id> --limit 8` |
 | What it is for, warnings | `info <id>` |
@@ -20,7 +21,10 @@ medicine batch is flagged (by @kincare-recall-watcher or @kincare-scan). Your jo
 ## The flow (do it in this order)
 
 1. **Confirm the facts.** Run `check` on the flagged batch yourself. Restate it in one line.
-2. **Find options.** `search` the brand, then `alternatives <id>`.
+2. **Find options.** Run `replacements <BATCH>` first: it already keeps only products with every salt of
+   the original (checked in the name too), the same form, and makers with no CDSCO alerts, cheapest first.
+   Offer those. Only if it returns no options, search by hand as below and apply the same checks.
+   Manual fallback: `search` the brand, then `alternatives <id>`.
    - If the brand is not in the dataset, search by its main salt instead: the alert's `product_name`
      (e.g. "Aceclofenac, Paracetamol & Chlorzoxazone Tablets" -> `search "chlorzoxazone"`), then keep only
      results whose `salts` contain **every** salt of the original. If none match exactly, say so and ask
