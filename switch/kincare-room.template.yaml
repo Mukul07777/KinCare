@@ -1,8 +1,14 @@
-# KinCare family care room, as a Switch template (version 2).
+# KinCare care network, as a Switch template (version 2).
 #
-# Creates three Claude Code agents and one room where a family, their pharmacist and the agents look
-# after an elder's medicines together. The fourth agent, kincare-recall-watcher, is a custom protocol
-# agent (switch/recall_watcher.py) that you register once and add to the room in Switch Console.
+# Three Claude Code agents look after an elder's medicines with the family and their pharmacist.
+# The fourth agent, kincare-recall-watcher, is a custom protocol agent (switch/recall_watcher.py) that
+# you register once and add to the room in Switch Console.
+#
+# Two ways to use it:
+#   - Telegram group (default): Switch cannot create Telegram chats, so make the family group in
+#     Telegram, add the bot, then pick that room here. The agents join it.
+#   - New rooms: creates a linked pair, "<family> Family Care" and "<family> Pharmacy Desk", with roles,
+#     the shared Decisions / Tasks documents and a data-sources document. For Slack, Discord or Console.
 #
 # Import: Switch Console -> Templates -> Import template -> this file -> Use template.
 # Every agent calls KinCare through switch/kincare_cli.py, so set "KinCare folder" to this repository.
@@ -11,19 +17,31 @@ params:
   family:
     type: string
     label: Family name
-    description: Used in the room name, e.g. Sharma.
+    description: Used in room names, e.g. Sharma.
     default: Sharma
   kincare_dir:
     type: string
     label: KinCare folder
     description: Full path of this repository on this computer (the folder that has switch/kincare_cli.py).
     default: C:/Users/HP/Desktop/Flip the sitch
+  mode:
+    type: enum
+    enum: [telegram_group, new_rooms]
+    label: Where the family works
+    description: telegram_group puts the agents in a Telegram group you already made; new_rooms creates two linked rooms.
+    default: telegram_group
+  family_chat:
+    type: room
+    label: Family group
+    description: The Telegram group's room (it appears once the bot is in the group).
+    if: "{mode} == telegram_group"
   bridge:
     type: bridge
     label: Messaging app
-    description: Where the room lives. Telegram for the demo.
-    default: [Telegram, $first]
+    description: Where the new rooms are created.
+    default: [$first]
     required: false
+    if: "{mode} == new_rooms"
   provider:
     type: provider
     description: The coding agent that runs the KinCare agents.
@@ -48,6 +66,7 @@ resources:
     provider: "{provider}"
     machine: "{machine}"
     directory: "{kincare_dir}/switch/agents/kincare-scan"
+    join: ["{family_chat}"]
     addressing: anyone
     instructions: |
       You are KinCare Scan, in a family's medicine room. Read AGENT.md in your working directory first and follow it.
@@ -57,11 +76,12 @@ resources:
     name: kincare-pharmacist
     display_name: KinCare Pharmacist
     description: >-
-      When a batch is flagged, finds the same salt from a maker with no alert and the price saving,
-      then asks the family's human pharmacist to approve before anything changes. Records the decision.
+      When a batch is flagged, finds the same salts from a maker with no alerts, then asks the
+      family's human pharmacist to approve before anything changes. Records the decision and the task.
     provider: "{provider}"
     machine: "{machine}"
     directory: "{kincare_dir}/switch/agents/kincare-pharmacist"
+    join: ["{family_chat}"]
     addressing: anyone
     instructions: |
       You are KinCare Pharmacist, in a family's medicine room. Read AGENT.md in your working directory first and follow it.
@@ -76,16 +96,27 @@ resources:
     provider: "{provider}"
     machine: "{machine}"
     directory: "{kincare_dir}/switch/agents/kincare-dose"
+    join: ["{family_chat}"]
     addressing: anyone
     instructions: |
       You are KinCare Dose Buddy, in a family's medicine room. Read AGENT.md in your working directory first and follow it.
 
+  network:
+    type: group
+    if: "{mode} == new_rooms"
+    name: "{family} care network"
+    description: One family and the pharmacy that looks after them.
+    links:
+      - { from: family_room, to: pharmacy_room, label: recalls needing a pharmacist go to }
+
   family_room:
     type: room
+    if: "{mode} == new_rooms"
+    group: network
     name: "{family} Family Care"
     description: >-
-      The {family} family, their pharmacist and KinCare's agents look after an elder's medicines
-      together: batch checks, recall alerts, safe replacements and doses.
+      The {family} family and KinCare's agents look after an elder's medicines together:
+      batch checks, recall alerts, safe replacements and doses.
     channel_type: channel_private
     bridge: "{bridge}"
     agents: [scan, pharmacist, dose]
@@ -93,10 +124,20 @@ resources:
       - if: "{bridge}"
         value: ["{$creator}"]
       - value: []
+    roles:
+      - name: elder
+        instructions: Takes the medicines. Agents reply to the elder in simple Hindi first, one line of English after.
+      - name: caregiver
+        instructions: Family member who buys medicines and is told when a dose is missed or a task is assigned.
+      - name: pharmacist
+        exclusive: true
+        instructions: >-
+          The only person who can approve replacing a medicine in this room. Agents propose; the pharmacist
+          replies "approve N" or "reject", and only that reply is recorded as a decision.
     instructions: |
       This room keeps one family's medicines safe. Rules for every agent here:
-      1. Never tell anyone to stop, start or switch a medicine. Only a pharmacist or doctor decides that.
-         Agents find facts and options; a human approves.
+      1. Never tell anyone to stop, start or switch a medicine. Only the person with the pharmacist role
+         (or a doctor) decides. Agents find facts and options; a human approves.
       2. Every batch claim comes from KinCare's CDSCO data (switch/kincare_cli.py). Never guess a verdict.
          If a check fails, say so and ask for a clearer photo or the batch number typed out.
       3. Reply to elders in simple Hindi first, then one line of English.
@@ -105,6 +146,54 @@ resources:
       5. Decisions and tasks are written to the room documents "KinCare Decisions" and "KinCare Tasks",
          so everyone reads the same record.
       6. Health data stays in this room. Never paste it anywhere else.
+    docs:
+      - name: KinCare Decisions
+        description: Every approved or rejected medicine change, who approved it, and why.
+        instructions: Append one line per decision. Only the pharmacist's reply makes a decision. Never edit past lines.
+        content: |
+          # KinCare Decisions
+          date | person | flagged medicine (batch, alert) -> replacement | approved or rejected by
+      - name: KinCare Tasks
+        description: Open and done tasks for the family, with an owner each.
+        instructions: 'One task per line as "- [ ] owner: task". Tick it "- [x]" when the owner says it is done.'
+        content: |
+          # KinCare Tasks
+      - name: KinCare data sources
+        description: Where every KinCare fact comes from.
+        instructions: Cite these when a family member asks "is this real?". Do not change.
+        content: |
+          # Where KinCare's facts come from
+          - Drug alerts: CDSCO (India's drug regulator), public NSQ and spurious-drug portal
+            https://cdscoonline.gov.in/CDSCO/viewPublicNSQDrug and the monthly drug alert PDFs, 2019 onwards.
+          - Medicines and prices: Indian Medicine Dataset (MIT), 246k brands with salts and MRP.
+          - Batch numbers are matched exactly; a near miss never raises an alert.
+          - "Not on any alert list" means not flagged so far, never "certified safe".
     kickoff: |
       @kincare-scan @kincare-pharmacist @kincare-dose this is the {family} family's care room.
       Each of you: introduce yourself in one line (Hindi + English) and say what a family member should send you.
+
+  pharmacy_room:
+    type: room
+    if: "{mode} == new_rooms"
+    group: network
+    name: "{family} Pharmacy Desk"
+    description: >-
+      Where the family's pharmacist sees every recall for the families they look after, with
+      KinCare Pharmacist's proposed replacements, and decides.
+    channel_type: channel_private
+    bridge: "{bridge}"
+    agents: [pharmacist]
+    users:
+      - if: "{bridge}"
+        value: ["{$creator}"]
+      - value: []
+    roles:
+      - name: pharmacist
+        exclusive: true
+        instructions: Reviews recalls and approves or rejects replacements.
+    instructions: |
+      The pharmacy side of the {family} family's care. @kincare-pharmacist posts each flagged batch here
+      with up to three same-salt options from makers with no CDSCO alerts. The pharmacist decides here or
+      in the family room; the decision is recorded in the family room's "KinCare Decisions".
+    kickoff: |
+      @kincare-pharmacist this is the pharmacy desk for the {family} family. Say in two lines what you will post here.
