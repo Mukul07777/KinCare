@@ -1,0 +1,110 @@
+# KinCare family care room, as a Switch template (version 2).
+#
+# Creates three Claude Code agents and one room where a family, their pharmacist and the agents look
+# after an elder's medicines together. The fourth agent, kincare-recall-watcher, is a custom protocol
+# agent (switch/recall_watcher.py) that you register once and add to the room in Switch Console.
+#
+# Import: Switch Console -> Templates -> Import template -> this file -> Use template.
+# Every agent calls KinCare through switch/kincare_cli.py, so set "KinCare folder" to this repository.
+version: 2
+params:
+  family:
+    type: string
+    label: Family name
+    description: Used in the room name, e.g. Sharma.
+    default: Sharma
+  kincare_dir:
+    type: string
+    label: KinCare folder
+    description: Full path of this repository on this computer (the folder that has switch/kincare_cli.py).
+    default: C:/Users/HP/Desktop/Flip the sitch
+  bridge:
+    type: bridge
+    label: Messaging app
+    description: Where the room lives. Telegram for the demo.
+    default: [Telegram, $first]
+    required: false
+  provider:
+    type: provider
+    description: The coding agent that runs the KinCare agents.
+    default: [claude, codex, opencode]
+    input: advanced
+  machine:
+    type: machine
+    description: The machine the agents run on.
+    default: [$first]
+    input: advanced
+form:
+  advanced: { label: Advanced, open: false }
+
+resources:
+  scan:
+    type: agent
+    name: kincare-scan
+    display_name: KinCare Scan
+    description: >-
+      Reads a medicine strip or pharmacy bill photo, finds the batch and checks it against India's
+      CDSCO drug alerts. Answers in Hindi and English.
+    provider: "{provider}"
+    machine: "{machine}"
+    directory: "{kincare_dir}/switch/agents/kincare-scan"
+    addressing: anyone
+    instructions: |
+      You are KinCare Scan, in a family's medicine room. Read AGENT.md in your working directory first and follow it.
+
+  pharmacist:
+    type: agent
+    name: kincare-pharmacist
+    display_name: KinCare Pharmacist
+    description: >-
+      When a batch is flagged, finds the same salt from a maker with no alert and the price saving,
+      then asks the family's human pharmacist to approve before anything changes. Records the decision.
+    provider: "{provider}"
+    machine: "{machine}"
+    directory: "{kincare_dir}/switch/agents/kincare-pharmacist"
+    addressing: anyone
+    instructions: |
+      You are KinCare Pharmacist, in a family's medicine room. Read AGENT.md in your working directory first and follow it.
+
+  dose:
+    type: agent
+    name: kincare-dose
+    display_name: KinCare Dose Buddy
+    description: >-
+      Keeps the family's dose schedule, answers "what's due now?", and tells caregivers when a dose
+      is missed. Speaks simple Hindi to elders.
+    provider: "{provider}"
+    machine: "{machine}"
+    directory: "{kincare_dir}/switch/agents/kincare-dose"
+    addressing: anyone
+    instructions: |
+      You are KinCare Dose Buddy, in a family's medicine room. Read AGENT.md in your working directory first and follow it.
+
+  family_room:
+    type: room
+    name: "{family} Family Care"
+    description: >-
+      The {family} family, their pharmacist and KinCare's agents look after an elder's medicines
+      together: batch checks, recall alerts, safe replacements and doses.
+    channel_type: channel_private
+    bridge: "{bridge}"
+    agents: [scan, pharmacist, dose]
+    users:
+      - if: "{bridge}"
+        value: ["{$creator}"]
+      - value: []
+    instructions: |
+      This room keeps one family's medicines safe. Rules for every agent here:
+      1. Never tell anyone to stop, start or switch a medicine. Only a pharmacist or doctor decides that.
+         Agents find facts and options; a human approves.
+      2. Every batch claim comes from KinCare's CDSCO data (switch/kincare_cli.py). Never guess a verdict.
+         If a check fails, say so and ask for a clearer photo or the batch number typed out.
+      3. Reply to elders in simple Hindi first, then one line of English.
+      4. Hand work to each other by @name: a flagged batch goes to @kincare-pharmacist,
+         a new medicine to @kincare-dose for the schedule.
+      5. Decisions and tasks are written to the room documents "KinCare Decisions" and "KinCare Tasks",
+         so everyone reads the same record.
+      6. Health data stays in this room. Never paste it anywhere else.
+    kickoff: |
+      @kincare-scan @kincare-pharmacist @kincare-dose this is the {family} family's care room.
+      Each of you: introduce yourself in one line (Hindi + English) and say what a family member should send you.

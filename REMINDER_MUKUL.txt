@@ -1,0 +1,34 @@
+REMINDER FOR MUKUL - things only you can do (tick when done)
+=============================================================
+
+[ ] 1. TELEGRAM BOT (5 min, phone or Telegram desktop)
+       - Open @BotFather -> send /newbot
+       - Name: KinCare   Username: something ending in "bot" (e.g. kincare_avengers_bot)
+       - COPY THE TOKEN. Never paste it in chat or commit it to git.
+       - /mybots -> your bot -> Bot Settings -> Group Privacy -> Turn off
+         (do this BEFORE adding the bot to any group)
+
+[ ] 2. CONNECT TELEGRAM IN SWITCH CONSOLE
+       - Left sidebar -> Connectors -> Telegram -> Connect
+       - Name: KinCare Telegram, paste token + bot username -> Connect
+
+[ ] 3. FAMILY GROUP
+       - Telegram: New group "Sharma Family Care"
+       - Add: the KinCare bot + Ashpreet
+       - Send "hi" in the group  -> it should appear in Console under "Your Rooms"
+
+[ ] 4. LINK YOUR ACCOUNT
+       - Console -> Home -> Link account -> search your name -> "This is me"
+
+[ ] 5. REGISTRATION KEY (for the Recall Watcher agent)
+       - Console / Gateway -> API Keys -> create a registration key
+       - Put it in switch/.env as SWITCH_REGISTRATION_KEY=...   (git-ignored, never commit)
+
+[ ] 6. TELL CLAUDE "telegram done" -> next: add agents to the room + live test
+
+ALSO BEFORE SUBMITTING
+[ ] Star the Switch repo (github.com/sandbox-quantum/switch) + join WeMakeDevs Discord
+[ ] Check FAQ: "Can I bring an agent I've already built?" (KinCare reuses Carely code)
+[ ] Invite Ashpreet to the GitHub repo (Settings -> Collaborators)
+[ ] Record demo video (script in PLAN.txt section 4)
+[ ] Submit by Nov 7, 8 PM IST (hard deadline 11:59 PM IST)
