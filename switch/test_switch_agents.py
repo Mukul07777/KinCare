@@ -78,6 +78,19 @@ def test_cli_reports_unreachable_api_as_json(monkeypatch, capsys):
     assert "not reachable" in json.loads(capsys.readouterr().out)["error"]
 
 
+def test_watcher_answers_check_once_then_says_still_flagged(family):
+    first = recall_watcher.reply_to("@kincare-recall-watcher check now", {}, "room-1")
+    assert "Recall alert for Dadi" in first and "@kincare-pharmacist" in first
+    second = recall_watcher.reply_to("जाँच करो", {}, "room-1")
+    assert "Still flagged (already raised)" in second and "Recall alert" not in second
+
+
+def test_watcher_status_and_help(family):
+    assert "I watch 2 medicines" in recall_watcher.reply_to("status", {"KINCARE_WATCH_MINUTES": "5"}, "r")
+    assert "every 5 min" in recall_watcher.reply_to("status", {"KINCARE_WATCH_MINUTES": "5"}, "r")
+    assert "CDSCO" in recall_watcher.reply_to("hello?", {}, "r")
+
+
 def test_salts_of_reads_an_alert_product_name():
     assert kincare_cli.salts_of("Aceclofenac, Paracetamol & Chlorzoxazone Tablets") == ["aceclofenac", "paracetamol", "chlorzoxazone"]
     assert kincare_cli.salts_of("Telmisartan 40 mg and Hydrochlorothiazide 12.5 mg Tablets IP") == ["telmisartan", "hydrochlorothiazide"]

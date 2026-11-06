@@ -8,7 +8,8 @@ Standard library only.
 
     python switch/recall_watcher.py register      # once: creates the agent, saves its key in switch/.env
     python switch/recall_watcher.py rooms         # list the rooms it is in (add it to the room in Console first)
-    python switch/recall_watcher.py run           # watch forever (every KINCARE_WATCH_MINUTES, default 10)
+    python switch/recall_watcher.py listen        # live: stays connected, answers @mentions, checks periodically
+    python switch/recall_watcher.py run           # watch forever (every KINCARE_WATCH_MINUTES, default 10), post-only
     python switch/recall_watcher.py once          # one check now (for the demo)
     python switch/recall_watcher.py once --dry    # print the alert instead of posting it
 
@@ -91,7 +92,7 @@ def register(env: dict) -> None:
         "description": "Watches CDSCO drug alerts and tells the family when a medicine they hold is flagged.",
         "connector_type": "kincare-python",
         "integration_profile": {
-            "connection_model": "session_passive",
+            "connection_model": "always_on",
             "message_exchange": True,
             "pre_invocation_mediation": [],
             "post_invocation_mediation": [],
@@ -176,6 +177,102 @@ def check_once(env: dict, dry: bool = False) -> int:
     return len(new)
 
 
+# ---- live connection: the watcher also answers when @mentioned ----
+
+HELP = (
+    "I watch this family's medicines against India's CDSCO drug alerts and speak up when a batch is flagged.\n"
+    "Ask me: @kincare-recall-watcher check  (check everything now) · status  (what I watch) · help\n"
+    "मैं परिवार की दवाओं को सरकारी अलर्ट से मिलाता हूँ। 'check' लिखें, मैं अभी जाँच करूँगा।"
+)
+
+
+def reply_to(body: str, env: dict, room: str) -> str:
+    """What the watcher says to an addressed message. Pure, so it is easy to test."""
+    text = body.lower()
+    if any(w in text for w in ("check", "scan", "जाँच", "जांच", "chek")):
+        result = kincare_cli.family_check()
+        state = load_state()
+        if not result["flagged"]:
+            return f"✅ Checked {result['checked']} medicines just now: none is on a CDSCO alert list.\nसभी {result['checked']} दवाएँ जाँचीं: कोई अलर्ट नहीं।"
+        out = []
+        for f in result["flagged"]:
+            key = f"{f['person']}|{f['batch']}"
+            out.append(alert_text(f) if key not in state["alerted"]
+                       else f"Still flagged (already raised): {f['person']}'s {f['brand']}, batch {f['batch']}.")
+            if key not in state["alerted"]:
+                state["alerted"].append(key)
+        STATE_FILE.write_text(json.dumps(state, indent=2), encoding="utf-8")
+        return "\n\n".join(out)
+    if "status" in text or "list" in text:
+        fam = kincare_cli.load_family()
+        lines = [f"• {m['person']}: {m['brand']}, batch {m['batch']}" for m in fam] or ["(no medicines saved yet)"]
+        return f"I watch {len(fam)} medicines, every {env.get('KINCARE_WATCH_MINUTES', '10')} min:\n" + "\n".join(lines)
+    return HELP
+
+
+async def listen(env: dict) -> None:
+    """Hold the Switch connection: answer pings, act on messages addressed to the watcher,
+    and run the periodic check alongside. Reconnects with the same connection id."""
+    import asyncio
+    import uuid
+
+    import websockets
+
+    base = env["SWITCH_URL"].rstrip("/").replace("http://", "ws://").replace("https://", "wss://")
+    conn_id = env.get("SWITCH_CONNECTION_ID") or str(uuid.uuid4())
+    if not env.get("SWITCH_CONNECTION_ID"):
+        save_env({"SWITCH_CONNECTION_ID": conn_id})
+    rooms = room_ids(env)
+    if not rooms:
+        sys.exit("The watcher is in no room yet. Add it to the family room in Switch Console.")
+    # Claim every family room on open; with more than one room the connection must be multi-room.
+    url = (f"{base}/agents/{env['SWITCH_AGENT_ID']}/connection/ws?connection_id={conn_id}&client=kincare-watcher&filter=addressed"
+           f"&rooms={','.join(rooms)}" + ("&scope=all" if len(rooms) > 1 else ""))
+    minutes = float(env.get("KINCARE_WATCH_MINUTES", "10"))
+
+    async def periodic():
+        while True:
+            try:
+                await asyncio.to_thread(check_once, env)
+            except (SwitchError, kincare_cli.ApiError) as e:
+                print(f"[retry next round] {e}")
+            await asyncio.sleep(minutes * 60)
+
+    ticker = asyncio.create_task(periodic())
+    cursor = 0
+    try:
+        while True:
+            try:
+                async with websockets.connect(url, additional_headers={"Authorization": f"Bearer {env['SWITCH_AGENT_KEY']}"}) as ws:
+                    print(f"Connected to Switch as {AGENT_NAME}. Listening for @mentions.")
+                    async for raw in ws:
+                        frame = json.loads(raw)
+                        event, data = frame.get("event"), frame.get("data") or {}
+                        if isinstance(frame.get("id"), int):
+                            cursor = frame["id"]
+                        if event == "ping":
+                            await ws.send(json.dumps({"type": "pong", "cursor": cursor}))
+                        elif event == "connection_state":
+                            cursor = data.get("cursor", cursor) or cursor
+                        elif event in ("refused", "evicted"):
+                            print(f"Switch {event} the connection: {data}")
+                            break
+                        elif event == "message":
+                            payload = data.get("payload") or {}
+                            if payload.get("addressed") and payload.get("sender_kind") != "agent":
+                                room = data.get("room_id")
+                                try:
+                                    text = await asyncio.to_thread(reply_to, payload.get("body", ""), env, room)
+                                except kincare_cli.ApiError as e:
+                                    text = f"KinCare is not reachable right now, I'll keep trying. ({e})"
+                                await asyncio.to_thread(post, env, room, text)
+            except (OSError, websockets.WebSocketException) as e:
+                print(f"Connection lost ({e}); reconnecting in 5 s")
+            await asyncio.sleep(5)
+    finally:
+        ticker.cancel()
+
+
 def main() -> None:
     cmd = sys.argv[1] if len(sys.argv) > 1 else "once"
     env = load_env()
@@ -186,6 +283,9 @@ def main() -> None:
             print(json.dumps(op(env, "list_rooms"), indent=2))
         elif cmd == "once":
             check_once(env, dry="--dry" in sys.argv)
+        elif cmd == "listen":
+            import asyncio
+            asyncio.run(listen(env))
         elif cmd == "run":
             minutes = float(env.get("KINCARE_WATCH_MINUTES", "10"))
             print(f"Watching every {minutes:g} min. Ctrl+C to stop.")

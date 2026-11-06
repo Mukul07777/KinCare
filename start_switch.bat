@@ -46,7 +46,8 @@ if not exist switch\.env (
 )
 
 echo [3/3] Starting the Recall Watcher (checks the family's medicines every few minutes)
-start "KinCare Recall Watcher" cmd /k "cd /d %~dp0 && api\.venv\Scripts\python switch\recall_watcher.py run"
+api\.venv\Scripts\python -m pip install -q -r switch\requirements.txt
+start "KinCare Recall Watcher" cmd /k "cd /d %~dp0 && api\.venv\Scripts\python switch\recall_watcher.py listen"
 
 echo.
 echo KinCare is running. In Telegram, send a strip photo to the family group and @kincare-scan.
