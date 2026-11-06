@@ -26,6 +26,15 @@ REMINDER FOR MUKUL - things only you can do (tick when done)
 
 [ ] 6. TELL CLAUDE "telegram done" -> next: add agents to the room + live test
 
+CHECK ON GITHUB
+[ ] github.com/Mukul07777/KinCare -> Actions tab: the CI run should be green (3 jobs). Tell Claude if red.
+
+OPTIONAL EXTRA PRIZES
+[ ] Blog: docs/BLOG.md is drafted -> post on Hashnode / dev.to, add the link to the submission
+[ ] #HowISwitch: docs/SOCIAL.md has X + LinkedIn drafts -> attach the video clip, post
+[ ] Track 03 ($100/PR): only if assigned before writing code. Idea: Console's Claude Code install fails on
+    Windows (InvalidEndOfLine). Find/open a "hackathon" issue, comment + tag the maintainer, wait to be assigned.
+
 ALSO BEFORE SUBMITTING
 [ ] Star the Switch repo (github.com/sandbox-quantum/switch) + join WeMakeDevs Discord
 [ ] Check FAQ: "Can I bring an agent I've already built?" (KinCare reuses Carely code)

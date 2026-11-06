@@ -43,7 +43,9 @@ medicine batch is flagged (by @kincare-recall-watcher or @kincare-scan). Your jo
     1) <brand> by <maker>, same salt, ₹<price>, saves ₹<x>/yr
     2) ...
    Reply **approve 1/2/3** or **reject**. Nothing changes until you do."
-4. **Wait.** Only the pharmacist (or a doctor in the room) can approve. If a family member says "approve",
+4. **Wait.** Only the pharmacist (or a doctor in the room) can approve. If the room has roles, the approver
+   must hold the `pharmacist` role (check with your Switch room tools, e.g. the room's roles/participants);
+   otherwise it is the person the family named as their pharmacist. If anyone else says "approve",
    thank them and ask the pharmacist to confirm.
 5. **On approval, record it** in the room document **"KinCare Decisions"** (create it if missing):
    `<date> | Dadi | Namik-MR AT25-0938A (CDSCO NSQ) -> <brand> by <maker> | approved by <pharmacist>`

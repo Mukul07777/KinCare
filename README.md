@@ -62,7 +62,8 @@ Take Switch away and KinCare is a one-person app again. The whole idea is a **sh
 - **Agents hand off to each other in the open**: watcher → pharmacist agent → human pharmacist → dose agent, each by @name, visible to the family.
 - **One shared record**: decisions and tasks live in the room's documents, not in someone's head.
 - **Two ways of joining a room, both used**: three Claude Code agents run by Switch Console, and one custom agent speaking the Switch agent protocol (`POST /agents`, `POST /agents/{id}/message`), because a recall alert must arrive without anyone asking.
-- **One-click setup**: a Switch room template creates the agents and the room with its rules.
+- **One-click setup**: a Switch template creates the agents, and (for Slack/Discord) a linked Family Care + Pharmacy Desk room group with roles, rules and shared documents. Checked with Switch's own template linter and compiler.
+- **Roles that mean something**: only the person holding the exclusive `pharmacist` role can approve a change; a family member's "approve" is politely refused.
 
 ## Try it in 2 minutes (no Telegram needed)
 
@@ -81,10 +82,13 @@ You need Windows, Python 3.12, [Switch Console](https://docs.switchagents.ai/swi
 
 1. **KinCare API and data**: double-click `start_switch.bat`. The first run loads the real CDSCO alerts and 246k medicine brands (a few minutes).
 2. **Telegram**: create a bot with @BotFather, **turn Group Privacy off**, then in Switch Console: Connectors → Telegram. Make a group, add the bot. ([Switch docs](https://docs.switchagents.ai/switch-rooms/deploy/messaging-apps/telegram))
-3. **Agents and room**: Switch Console → Templates → Import template → [`switch/kincare-room.template.yaml`](switch/kincare-room.template.yaml) → Use template. Set *KinCare folder* to this repository.
+3. **Agents and room**: Switch Console → Templates → Import template → [`switch/kincare-room.template.yaml`](switch/kincare-room.template.yaml) → Use template. Set *KinCare folder* to this repository, then choose:
+   - **Telegram group**: the agents join the family group you made (Switch can't create Telegram chats), or
+   - **New rooms**: a linked *Family Care* + *Pharmacy Desk* group with roles (`elder`, `caregiver`, exclusive `pharmacist`) and the shared documents *KinCare Decisions*, *KinCare Tasks* and *KinCare data sources*. For Slack, Discord or Console.
 4. **Recall Watcher**: fill `switch/.env` (from [`switch/.env.example`](switch/.env.example)), then
    `api\.venv\Scripts\python switch\recall_watcher.py register`, add **kincare-recall-watcher** to the room in Console, and run `start_switch.bat` again.
-5. **Try it**: in the group, send a strip photo with `@kincare-scan`, or run `api\.venv\Scripts\python switch\recall_watcher.py once`.
+   It stays connected to Switch: it alerts on its own every few minutes, and answers `@kincare-recall-watcher check` / `status` / `help`.
+5. **Try it**: in the group, send a strip photo with `@kincare-scan`, or write `@kincare-recall-watcher check`.
 
 Demo data: [`switch/family.json`](switch/family.json) holds a simulated family. **The batch AT25-0938A and its alert are real** (CDSCO NSQ list, Sep 2026); the family and pharmacist are simulated.
 
@@ -103,6 +107,7 @@ Demo data: [`switch/family.json`](switch/family.json) holds a simulated family. 
 |---|---|
 | [`switch/`](switch/) | **New for this hackathon**: agent instructions, CLI, Recall Watcher, room template, tests |
 | [`docs/SWITCH_NOTES.md`](docs/SWITCH_NOTES.md) | How Switch works and how KinCare uses it |
+| [`docs/BLOG.md`](docs/BLOG.md) | Build write-up for first-time Switch users |
 | [`api/`](api/) | KinCare API: CDSCO ingest, batch matcher, OCR, prices, care plans |
 | [`web/`](web/) | KinCare web app (optional for the Switch workflow) |
 

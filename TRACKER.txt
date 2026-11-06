@@ -4,8 +4,16 @@ Update this file as you go: [ ] todo  [~] built, needs live test in Telegram  [x
 Owner: M = Mukul, A = Ashpreet, C = Claude (builds; commits as Mukul)
 Deadline: Nov 7, 11:59 PM IST  |  Our cutoff: Nov 7, 8:00 PM IST
 
-OVERALL: 19 done + 10 built-awaiting-live-test / 41
-Last updated: Nov 6, 2026 (night)
+OVERALL: 27 done + 10 built-awaiting-live-test / 47
+Last updated: Nov 7, 2026 (early morning)
+
+PHASE 100 - EXTRA POINTS                                     6/6
+[x] C  Offline room demo, no Telegram: switch/demo_local.py (real OCR + CDSCO + medicines, you are the pharmacist)
+[x] C  Safe replacements in code, not prompt: kincare_cli.py replacements (salt+name+form+maker checks, tested)
+[x] C  CI: Switch agent tests job + badge (API 214 tests, Switch 12 tests pass locally)
+[~] C  Recall Watcher live connection: WebSocket, answers @mentions (check/status/help)
+[x] C  Template: Telegram mode + linked Family Care/Pharmacy Desk group, roles, 3 room docs (Switch lint+compile OK)
+[x] C  Blog draft docs/BLOG.md + #HowISwitch drafts docs/SOCIAL.md
 Waiting on Mukul: REMINDER_MUKUL.txt (Telegram bot, connector, group, registration key)
 
 PHASE 0 - SETUP                                              4/6
