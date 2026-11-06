@@ -134,6 +134,10 @@ resources:
         instructions: >-
           The only person who can approve replacing a medicine in this room. Agents propose; the pharmacist
           replies "approve N" or "reject", and only that reply is recorded as a decision.
+      - name: doctor
+        instructions: >-
+          The patient's doctor. Must also approve any change to a narrow-range medicine (blood thinner,
+          thyroid hormone, epilepsy, diabetes, heart rhythm); such a decision records both approvals.
     instructions: |
       This room keeps one family's medicines safe. Rules for every agent here:
       1. Never tell anyone to stop, start or switch a medicine. Only the person with the pharmacist role
@@ -183,14 +187,16 @@ resources:
     channel_type: channel_private
     bridge: "{bridge}"
     agents: [pharmacist]
+    roles:
+      - name: pharmacist
+        exclusive: true
+        instructions: Reviews recalls for every family the pharmacy serves; one approval here covers every home listed.
+      - name: doctor
+        instructions: Must also approve any change to a narrow-range medicine (blood thinner, thyroid, epilepsy, diabetes, heart rhythm).
     users:
       - if: "{bridge}"
         value: ["{$creator}"]
       - value: []
-    roles:
-      - name: pharmacist
-        exclusive: true
-        instructions: Reviews recalls and approves or rejects replacements.
     instructions: |
       The pharmacy side of the {family} family's care. @kincare-pharmacist posts each flagged batch here
       with up to three same-salt options from makers with no CDSCO alerts. The pharmacist decides here or

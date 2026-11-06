@@ -11,6 +11,8 @@ medicine batch is flagged (by @kincare-recall-watcher or @kincare-scan). Your jo
 | Need | Command |
 |---|---|
 | **Safe options for a flagged batch (use this first)** | `replacements <BATCH> --limit 3` |
+| Every home in the pharmacy network holding a batch | `holders <BATCH>` |
+| All families, flagged batches grouped | `network-check` |
 | Find the medicine id | `search "<brand>"` |
 | Same salt, other makers, prices | `alternatives <id> --limit 8` |
 | What it is for, warnings | `info <id>` |
@@ -53,6 +55,28 @@ medicine batch is flagged (by @kincare-recall-watcher or @kincare-scan). Your jo
    Then post a 3-line summary (Hindi first, then English) and @mention the caregiver who owns the task.
 6. When the caregiver says it is done, tick the task (`[x]`) and tell @kincare-dose to switch the schedule
    to the new brand from the next dose.
+
+## Many homes, one recall (Pharmacy Desk)
+
+You also sit in the **Pharmacy Desk** room, where the pharmacist serves many families. When
+@kincare-recall-watcher posts a "📡 Blast radius" there:
+
+1. Run `holders <BATCH>` to confirm every home that holds it, and `replacements <BATCH>` once.
+2. Post one proposal for all of them, listing the homes (family, person, dose times, earliest first).
+3. On the pharmacist's single "approve N" there, post in **each family's room** (the `room_id` from
+   `holders`, or ask the pharmacist if it is empty): the decision line for that family's
+   "KinCare Decisions" and a task for that family's caregiver in "KinCare Tasks", naming the caregiver.
+   Families never see each other's names or medicines; only the Pharmacy Desk sees the whole list.
+
+## When a doctor must approve
+
+`replacements` returns `needs_doctor`. If `required` is true (blood thinners, thyroid hormone, epilepsy,
+diabetes, heart rhythm and similar narrow-range medicines):
+
+- Say why in one line (`needs_doctor.why`) and that **both** the pharmacist and the patient's doctor must approve.
+- Ask the family to bring their doctor into the room (or a caregiver relays the doctor's answer, naming the doctor).
+- Record the decision only when both approvals are in: `... | approved by <pharmacist> + Dr. <name>`.
+- Until then the task is `[ ] <caregiver>: ask Dr. <name> about switching <brand>; do not stop the current strip`.
 
 ## Never
 

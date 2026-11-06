@@ -14,6 +14,12 @@ PHASE 100 - EXTRA POINTS                                     6/6
 [~] C  Recall Watcher live connection: WebSocket, answers @mentions (check/status/help)
 [x] C  Template: Telegram mode + linked Family Care/Pharmacy Desk group, roles, 3 room docs (Switch lint+compile OK)
 [x] C  Blog draft docs/BLOG.md + #HowISwitch drafts docs/SOCIAL.md
+
+PHASE INNOVATION                                             4/4
+[x] C  Blast radius: network.json (3 families), holders + network-check, Pharmacy Desk summary, approve-all fan-out
+[x] C  Doctor escalation: critical-medicine list, needs_doctor, both approvals logged (real Thyrox 50 H26MAB011)
+[x] C  Strength matching: 50 mcg never offered as 25 mcg (bug found on real data, fixed + tested)
+[x] C  Demo scenes 2 + 3 (Pharmacy Desk, Gupta doctor), 17 tests passing, template + doctor role (Switch lint OK)
 Waiting on Mukul: REMINDER_MUKUL.txt (Telegram bot, connector, group, registration key)
 
 PHASE 0 - SETUP                                              4/6

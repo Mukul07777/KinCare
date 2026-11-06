@@ -136,9 +136,56 @@ def main() -> int:
     say("KinCare Dose Buddy", f"दादी, कल सुबह 9 बजे से नई दवा: {pick['name'].split()[0]}, 1 गोली।\n"
                               f"Dadi's 09:00 dose now uses the new strip. Both tasks done ✅")
 
+    # ── Scene 2: the Pharmacy Desk sees every home holding the batch ──
+    print("\n  Switch room  \"Verma Medicos · Pharmacy Desk\"   (linked to every family room it serves)\n" + "  " + "─" * 76 + "\n")
+    net = kc.network_check()
+    namik = next(b for b in net["flagged"] if kc._norm_batch(b["batch"]) == kc._norm_batch(s["batch"]))
+    note("kincare-recall-watcher: kincare_cli network-check -> one recall, many homes")
+    say("KinCare Recall Watcher", recall_watcher.blast_text(namik, net["pharmacy"]))
+    others = [h for h in namik["holders"] if h["family"] != "Sharma"]
+    say("KinCare Pharmacist", f"Sharma family: already approved by you ({pick['name'].split()[0]}).\n"
+                              f"Same option for the other {len(others)} homes: {pick['name']}, ₹{pick['unit_price']:.2f}/tablet.\n"
+                              "Reply  approve all  or decide per family.")
+    say("Mr. Verma (pharmacist)", ask("You are the pharmacist. One reply for every home", "approve all"), "pharmacist")
+    for h in others:
+        write_doc(f"{h['family']} - KinCare Decisions", [
+            f"- {today} | {h['person']} | {s['brand']} batch {s['batch']} -> {pick['name']} | approved by Mr. Verma (Pharmacy Desk)"])
+        write_doc(f"{h['family']} - KinCare Tasks", [f"- [ ] {h['caregiver']}: buy {pick['name'].split()[0]} for {h['person']}; keep the old strip"])
+    say("KinCare Pharmacist", "✅ One approval, " + str(len(others)) + " homes. Posted in each family room:\n"
+        + "\n".join(f"  • {h['family']} room: decision logged, task for @{h['caregiver']} ({h['person']}, doses at {', '.join(h['times'])})" for h in others)
+        + "\nFamilies never see each other; only this desk sees the whole list.")
+    note(f"room documents written for {', '.join(h['family'] for h in others)} in switch/demo_out/")
+
+    # ── Scene 3: a medicine where the doctor must approve too ──
+    print("\n  Telegram group  \"Gupta Family Care\"\n" + "  " + "─" * 76 + "\n")
+    thy = next((b for b in net["flagged"] if b["doctor"]["required"]), None)
+    if thy:
+        h = thy["holders"][0]
+        say("KinCare Recall Watcher", recall_watcher.alert_text({"person": h["person"], "brand": thy["brand"], "batch": thy["batch"],
+                                                                 "match": {"alert": thy["alert"]}}))
+        note(f"kincare-pharmacist: kincare_cli replacements {thy['batch']}")
+        rep = kc.replacements(thy["batch"], limit=2)
+        opt = rep["options"][0] if rep["options"] else None
+        say("KinCare Pharmacist", f"{thy['brand']} is a {rep['needs_doctor']['why']}.\n"
+            + (f"Option with the same salt and strength ({'/'.join(rep['strengths'])} mcg), maker with no alerts: {opt['name']} ({opt['maker']}).\n" if opt else "")
+            + "This needs BOTH approvals: @Pharmacist and Nani's doctor. Neha, can you ask Dr. Rao?")
+        say("Mr. Verma (pharmacist)", "approve 1, pending doctor", "pharmacist")
+        say("KinCare Pharmacist", f"Pharmacist ✅. Waiting for the doctor; nothing changes yet.\n"
+                                  f"Task: @Neha ask Dr. Rao about switching {thy['brand']}; Nani keeps her current strip until then.")
+        say("Neha (granddaughter)", ask("You are Neha. Relay the doctor's answer", "Dr. Rao says OK, recheck TSH in 6 weeks"), "human")
+        write_doc("Gupta - KinCare Decisions", [
+            f"- {today} | Nani | {s['brand']} batch {s['batch']} -> {pick['name']} | approved by Mr. Verma (Pharmacy Desk)",
+            f"- {today} | Nani | {thy['brand']} batch {thy['batch']} -> {opt['name'] if opt else 'pharmacist to source'} | "
+            f"approved by Mr. Verma + Dr. Rao (relayed by Neha) | follow-up: TSH in 6 weeks"])
+        write_doc("Gupta - KinCare Tasks", [f"- [ ] Neha: buy {pick['name'].split()[0]} for Nani; keep the old strip",
+                                           f"- [ ] Neha: buy {opt['name'] if opt else 'the approved thyroxine'} for Nani",
+                                           "- [ ] Neha: book Nani's TSH test in 6 weeks"])
+        say("KinCare Pharmacist", "✅ Both approvals in. Decision logged with the doctor's follow-up; tasks for @Neha updated.\n"
+                                  "हिंदी: डॉक्टर और फार्मासिस्ट दोनों ने मंज़ूरी दी। 6 हफ़्ते में TSH जाँच।")
+
     print("  " + "─" * 76)
-    print("  Real: CDSCO alert for batch AT25-0938A, OCR on the strip image, 246k-brand medicine data.")
-    print("  Simulated: the Sharma family and Mr. Verma. In Switch, this is the same flow in Telegram.\n")
+    print("  Real: CDSCO alerts for AT25-0938A and H26MAB011, OCR on the strip image, 246k-brand medicine data.")
+    print("  Simulated: the Sharma, Gupta and Khan families, Mr. Verma and Dr. Rao. In Switch, the same flow runs in Telegram.\n")
     return 0
 
 

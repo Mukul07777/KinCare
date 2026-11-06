@@ -51,6 +51,30 @@ KinCare turns that family group into a **Switch room** where people and agents w
 | **kincare-pharmacist** | Claude Code agent run by Switch Console | Finds the same salts from a maker with no alerts and the saving, **asks the human pharmacist**, records the decision and the task |
 | **kincare-dose** | Claude Code agent run by Switch Console | Dose schedule, "what's due?", missed-dose nudge to a caregiver, switches the schedule after an approved replacement |
 
+### One recall, many homes: the Pharmacy Desk
+
+A pharmacist serves hundreds of families. When a batch is flagged, the Recall Watcher posts one
+**blast radius** in the pharmacist's own *Pharmacy Desk* room (linked to every family room):
+
+```
+📡 Blast radius: Namik-MR batch AT25-0938A (CDSCO NSQ, 2026-09) is in 3 homes served by Verma Medicos
+  • Sharma: Dadi, doses at 09:00 (caregiver Rahul)
+  • Khan: Abbu, doses at 09:00, 21:00 (caregiver Imran)
+  • Gupta: Nani, doses at 21:00 (caregiver Neha)
+Mr. Verma   approve all
+```
+
+One approval, and every family room gets its own decision and task. Families never see each other;
+only the desk sees the whole list. ([`switch/network.json`](switch/network.json): the pharmacy's families.)
+
+### When the doctor must approve too
+
+For narrow-range medicines (blood thinners, thyroid hormone, epilepsy, diabetes, heart rhythm), a different
+maker's tablet can need a dose check. KinCare knows which, and asks for **both** approvals:
+real example, *Thyrox 50, batch H26MAB011* (CDSCO NSQ, Sep 2026, failed dissolution): the pharmacist approves,
+Nani's doctor approves (relayed by Neha), and the decision is logged with the doctor's follow-up: *TSH in 6 weeks*.
+Replacements always match **salts, form and strength**: a 50 mcg thyroxine is never offered as 25 mcg.
+
 **Humans decide, agents do the legwork.** Room rules (in the template) forbid any agent from telling anyone
 to stop or switch a medicine; only the pharmacist or a doctor approves, and that approval is what gets logged.
 
