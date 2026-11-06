@@ -25,7 +25,13 @@ def load() -> dict:
     for d in docs:
         if conn.execute("SELECT 1 FROM documents WHERE url = ?", (d["url"],)).fetchone():
             continue
-        rows = parse_pdf(Path(OUT / d["file"]))
+        path = Path(OUT / d["file"])
+        if not path.is_file():
+            # Listed in index.json but not downloaded (fetch --limit keeps only the newest). Skip it and
+            # keep loading the rest; one missing file must never lose every other document's alerts.
+            print(f"  skipped (not downloaded): {d['file']}")
+            continue
+        rows = parse_pdf(path)
         if not rows:
             print(f"  no table rows (scanned or notice): {d['title'][:60]}".encode("ascii", "replace").decode())
         src = source_of(d)

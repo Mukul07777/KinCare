@@ -27,7 +27,7 @@ PHASE 0 - SETUP                                              4/6
 [x] M  Install Switch Console (v0.40.1, server core 0.31.0) + Claude Code CLI provider
 [-] M  Docs MCP (not needed: read docs + bundled server source -> docs/SWITCH_NOTES.md)
 [ ] M  Telegram: bot, connector, family group, link account      <- REMINDER_MUKUL.txt
-[x] C  KinCare runs locally: 6,830 CDSCO alerts, 246,068 medicines loaded
+[x] C  KinCare runs locally: 7,920 CDSCO alerts, 246,068 medicines loaded
 [x] C  Read agent protocol, templates, Telegram -> docs/SWITCH_NOTES.md
 
 PHASE 1 - AGENT PLUMBING                                     2/4
@@ -82,6 +82,14 @@ Technical          __/25   fresh clone runs? demo mode works without keys?
 Creativity/impact  __/25   real data? Hindi? human approval shown?
 Presentation       __/20   video <= 3 min? README explains Switch clearly?
 TOTAL              __/100
+
+FIX PASS (Nov 7)                                             6/6
+[x] C  Data bug: one missing PDF aborted loading ALL PDF alerts -> skip + continue (+1,093 real alerts, 7,920 total)
+[x] C  Headline stats recomputed on 7,920 alerts: median 10 months, 99.6% in date, 14 months left (docs updated)
+[x] C  Watcher bug: "check now" + periodic check could alert a family twice -> one key format, per-room answers
+[x] C  Watcher answers only about its own room's family; Pharmacy Desk gets the network view
+[x] C  Friendly errors: watcher not registered (CLI + start_switch.bat), points to the offline demo
+[x] C  Full CI run locally: web typecheck + lint + build OK, API 214 + Switch 18 tests pass
 
 BLOCKERS / NOTES
 - Live test needs Telegram connected (REMINDER_MUKUL.txt steps 1-5).

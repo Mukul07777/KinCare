@@ -4,7 +4,7 @@ Attach the demo video clip (or a screenshot of the Telegram group). Replace the 
 
 ## X / Twitter (single post)
 
-A failed medicine batch takes ~10 months to reach India's CDSCO list, and 99.5% are still in date when they do.
+A failed medicine batch takes ~10 months to reach India's CDSCO list, and 99.6% are still in date when they do.
 Nobody tells the family.
 
 We built KinCare on Switch [tag Switch's official handle; check it first]: Dadi, her kids, their pharmacist and 4 AI agents in one Telegram group.
@@ -16,8 +16,8 @@ Strip photo → recall alert → pharmacist approves → task done.
 ## X / Twitter (thread)
 
 1/ My grandmother's medicine strip has a batch number. That exact batch might already be on a government
-"failed quality" list. We'd never know. So we measured it: 6,830 CDSCO alerts, median 10 months to listing,
-99.5% still in date. 🧵 #HowISwitch
+"failed quality" list. We'd never know. So we measured it: 7,920 CDSCO alerts, median 10 months to listing,
+99.6% still in date. 🧵 #HowISwitch
 
 2/ Looking after an elder's medicines is a team job: the elder, a son in another city, a daughter who buys
 them, a local pharmacist. So we put all of them, plus 4 AI agents, in one Telegram group with Switch.
@@ -37,8 +37,8 @@ Switch agent protocol, because a recall alert can't wait to be asked.
 
 **We put a family, their pharmacist and four AI agents in one Telegram group.**
 
-India's drug regulator publishes batches that failed quality tests. We analysed 6,830 of those alerts: a
-failed batch reaches the list a median 10 months after it was made, and 99.5% are still within expiry when
+India's drug regulator publishes batches that failed quality tests. We analysed 7,920 of those alerts: a
+failed batch reaches the list a median 10 months after it was made, and 99.6% are still within expiry when
 listed. The medicine is still in homes, and nobody tells the people taking it.
 
 For the Flip the Switch hackathon we turned our medicine-safety project, KinCare, into a team workflow on

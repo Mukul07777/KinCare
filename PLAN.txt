@@ -13,9 +13,9 @@ families are still giving it to their parents. KinCare Room puts the family,
 the pharmacist and AI agents in one chat, so a recall becomes a decision made
 together in minutes, not a PDF nobody reads."
 
-Problem facts (real, from KinCare's CDSCO data, 6,865 alerts 2019-2026):
+Problem facts (real, from KinCare's CDSCO data, 7,920 alerts 2019-2026):
 - median 10 months from manufacture to CDSCO listing
-- 99.5% of listed batches still within expiry, median 14 months left
+- 99.6% of listed batches still within expiry, median 14 months left
 - nobody tells the patient
 
 -----------------------------------------------------------------

@@ -228,27 +228,47 @@ HELP = (
 )
 
 
+def families_for_room(net: dict, room: str) -> list[dict]:
+    """The families a room speaks for: the ones whose room_id it is, else the default family."""
+    mine = [f for f in net["families"] if f.get("room_id") and f["room_id"] == room]
+    return mine or [f for f in net["families"] if f.get("default")] or net["families"][:1]
+
+
 def reply_to(body: str, env: dict, room: str) -> str:
-    """What the watcher says to an addressed message. Pure, so it is easy to test."""
+    """What the watcher says to an addressed message. Answers only about this room's family, never another's.
+    Uses the same 'family|person|batch' keys as the periodic check, so nothing is ever alerted twice."""
     text = body.lower()
+    net = kincare_cli.load_network()
+    pharmacy_room = env.get("SWITCH_PHARMACY_ROOM_ID") or net.get("pharmacy_room_id", "")
     if any(w in text for w in ("check", "scan", "जाँच", "जांच", "chek")):
-        result = kincare_cli.family_check()
+        result = kincare_cli.network_check()
+        if room and room == pharmacy_room:   # the Pharmacy Desk sees the whole network
+            if not result["flagged"]:
+                return f"✅ Checked {result['checked']} batches across {len(net['families'])} families: no alerts."
+            return "\n\n".join(blast_text(b, net.get("pharmacy", "")) for b in result["flagged"])
+        names = {f["name"] for f in families_for_room(net, room)}
         state = load_state()
-        if not result["flagged"]:
-            return f"✅ Checked {result['checked']} medicines just now: none is on a CDSCO alert list.\nसभी {result['checked']} दवाएँ जाँचीं: कोई अलर्ट नहीं।"
-        out = []
-        for f in result["flagged"]:
-            key = f"{f['person']}|{f['batch']}"
-            out.append(alert_text(f) if key not in state["alerted"]
-                       else f"Still flagged (already raised): {f['person']}'s {f['brand']}, batch {f['batch']}.")
-            if key not in state["alerted"]:
-                state["alerted"].append(key)
+        out, count = [], sum(len(f.get("medicines", [])) for f in net["families"] if f["name"] in names)
+        for b in result["flagged"]:
+            for h in b["holders"]:
+                if h["family"] not in names:
+                    continue
+                key = f"{h['family']}|{h['person']}|{b['batch']}"
+                if key in state["alerted"]:
+                    out.append(f"Still flagged (already raised): {h['person']}'s {b['brand']}, batch {b['batch']}.")
+                else:
+                    out.append(alert_text({"person": h["person"], "brand": b["brand"], "batch": b["batch"],
+                                           "match": {"alert": b["alert"]}}))
+                    state["alerted"].append(key)
         STATE_FILE.write_text(json.dumps(state, indent=2), encoding="utf-8")
+        if not out:
+            return f"✅ Checked {count} medicines just now: none is on a CDSCO alert list.\nसभी {count} दवाएँ जाँचीं: कोई अलर्ट नहीं।"
         return "\n\n".join(out)
     if "status" in text or "list" in text:
-        fam = kincare_cli.load_family()
-        lines = [f"• {m['person']}: {m['brand']}, batch {m['batch']}" for m in fam] or ["(no medicines saved yet)"]
-        return f"I watch {len(fam)} medicines, every {env.get('KINCARE_WATCH_MINUTES', '10')} min:\n" + "\n".join(lines)
+        fams = families_for_room(net, room)
+        meds = [(f["name"], m) for f in fams for m in f.get("medicines", [])]
+        lines = [f"• {m['person']}: {m['brand']}, batch {m['batch']}" for _, m in meds] or ["(no medicines saved yet)"]
+        return f"I watch {len(meds)} medicines, every {env.get('KINCARE_WATCH_MINUTES', '10')} min:\n" + "\n".join(lines)
     return HELP
 
 
@@ -318,6 +338,13 @@ async def listen(env: dict) -> None:
 def main() -> None:
     cmd = sys.argv[1] if len(sys.argv) > 1 else "once"
     env = load_env()
+    dry = cmd == "once" and "--dry" in sys.argv
+    if cmd in ("rooms", "once", "run", "listen") and not dry:
+        missing = [k for k in ("SWITCH_URL", "SWITCH_AGENT_ID", "SWITCH_AGENT_KEY") if not env.get(k)]
+        if missing:
+            sys.exit(f"Missing {', '.join(missing)} in switch/.env. Set SWITCH_URL and SWITCH_REGISTRATION_KEY, then run:\n"
+                     "  api\\.venv\\Scripts\\python switch\\recall_watcher.py register\n"
+                     "(Or try it without Switch: recall_watcher.py once --dry, or switch\\demo_local.py)")
     try:
         if cmd == "register":
             register(env)

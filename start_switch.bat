@@ -45,6 +45,15 @@ if not exist switch\.env (
   goto end
 )
 
+findstr /r /c:"^SWITCH_AGENT_KEY=..*" switch\.env >nul
+if errorlevel 1 (
+  echo.
+  echo The Recall Watcher is not registered yet. Fill SWITCH_URL and SWITCH_REGISTRATION_KEY in switch\.env, then:
+  echo    api\.venv\Scripts\python switch\recall_watcher.py register
+  echo Meanwhile, try the whole flow offline:  api\.venv\Scripts\python switch\demo_local.py
+  goto end
+)
+
 echo [3/3] Starting the Recall Watcher (checks the family's medicines every few minutes)
 api\.venv\Scripts\python -m pip install -q -r switch\requirements.txt
 start "KinCare Recall Watcher" cmd /k "cd /d %~dp0 && api\.venv\Scripts\python switch\recall_watcher.py listen"

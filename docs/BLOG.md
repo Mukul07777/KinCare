@@ -5,8 +5,8 @@
 My grandmother's medicine strip has a batch number on it. Somewhere in a government portal, that exact
 batch may already be listed as "Not of Standard Quality". Nobody in our family would ever know.
 
-We measured how often that happens. From 6,830 public alerts by CDSCO (India's drug regulator), a failed
-batch reaches the list a median **10 months** after it was made, and **99.5%** of listed batches are still
+We measured how often that happens. From 7,920 public alerts by CDSCO (India's drug regulator), a failed
+batch reaches the list a median **10 months** after it was made, and **99.6%** of listed batches are still
 within expiry when they appear. The medicine is still in homes. Nobody tells the people taking it.
 
 We had already built the hard part, KinCare: a batch matcher over CDSCO data, OCR for strip photos, and a

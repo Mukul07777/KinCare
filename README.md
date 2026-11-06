@@ -12,10 +12,11 @@ Team Avengers: Mukul (lead), Ashpreet Singh Saini.
 ## The problem nobody tells you about
 
 India's drug regulator (CDSCO) publishes the batches that failed a quality test or turned out to be fake.
-We pulled **6,830 real alerts (2019 to 2026)** from its public portal and measured the gap:
+We pulled **7,920 real alerts (2019 to 2026)** from its public portal and monthly alert PDFs, and measured the gap
+(using the manufacture and expiry dates printed on each alert):
 
 - A failed batch reaches the CDSCO list a median **10 months** after it was made.
-- When it is listed, **99.5%** of those batches are still within expiry, with a median **14 months** left.
+- When it is listed, **99.6%** of those batches are still within expiry, with a median **14 months** left.
 - So the medicine is still in homes, and people are still taking it. **Nobody tells them.**
 
 And looking after an elder's medicines is a team job: Dadi takes them, her son lives in another city,

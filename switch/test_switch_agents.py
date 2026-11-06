@@ -113,6 +113,18 @@ def test_watcher_posts_to_each_family_room_and_once_to_the_pharmacy(network, mon
     assert recall_watcher.check_once({}) == 0                 # nothing repeats
 
 
+def test_check_now_and_periodic_check_never_double_alert(network, monkeypatch):
+    posted = []
+    monkeypatch.setattr(recall_watcher, "room_ids", lambda env: ["sharma-room", "desk"])
+    monkeypatch.setattr(recall_watcher, "post", lambda env, room, text: posted.append((room, text)))
+    first = recall_watcher.reply_to("@kincare-recall-watcher check", {}, "gupta-room")
+    assert first.count("Recall alert") == 2 and "Abbu" not in first and "Dadi" not in first   # only this family
+    recall_watcher.check_once({})
+    assert not [t for r, t in posted if r == "gupta-room"]      # already raised by "check": no repeat
+    desk = recall_watcher.reply_to("check", {}, "desk")
+    assert "Blast radius" in desk and "3 homes" in desk
+
+
 def test_needs_doctor_and_strengths():
     assert kincare_cli.needs_doctor("Warfarin sodium Tablet IP 5 mg")["required"]
     assert not kincare_cli.needs_doctor("Aceclofenac, Paracetamol & Chlorzoxazone Tablets")["required"]
