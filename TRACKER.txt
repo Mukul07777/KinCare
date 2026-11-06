@@ -91,6 +91,12 @@ FIX PASS (Nov 7)                                             6/6
 [x] C  Friendly errors: watcher not registered (CLI + start_switch.bat), points to the offline demo
 [x] C  Full CI run locally: web typecheck + lint + build OK, API 214 + Switch 18 tests pass
 
+UI (Nov 7)                                                   4/4
+[x] C  Web page /network "Care network": agents, Pharmacy Desk blast radius, doctor gate, family rooms
+[x] C  Interactive approvals -> Decisions/Tasks documents fill in; Telegram-style chat replay per family
+[x] C  API /api/switch/network runs the agents' own logic in-process (+ test); in top nav
+[x] C  Checked: screenshot OK, tsc + eslint clean, API 215 + Switch 18 tests pass
+
 BLOCKERS / NOTES
 - Live test needs Telegram connected (REMINDER_MUKUL.txt steps 1-5).
 - Switch server port changes when Console restarts: check it before setting SWITCH_URL.

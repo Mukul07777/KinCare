@@ -21,7 +21,8 @@ from core import (  # noqa: F401  (re-exported: tests and tools import these fro
 )
 from routes import (
     account, alerts, blast_radius, care_plan, checkins, dadi, doctor_connect, emergency, family, live_vitals, medicines,
-    notifications, pack_radar, pharmacy, pharmacy_desk, recall_live, reference, regulator, reports, telegram_bot, watchlist, whatsapp_bot,
+    notifications, pack_radar, pharmacy, pharmacy_desk, recall_live, reference, regulator, reports, switch_room, telegram_bot, watchlist,
+    whatsapp_bot,
 )
 from routes.care_plan import send_due_reminders  # noqa: F401
 from routes.dadi import _mark_taken_device, default_member  # noqa: F401
@@ -91,5 +92,6 @@ async def _time_requests(request: Request, call_next):
 
 # Same order as the sections of the old single-file main.py, so route matching is unchanged.
 for area in (alerts, recall_live, checkins, care_plan, pharmacy, watchlist, pharmacy_desk, reports, account, emergency, blast_radius,
-             live_vitals, medicines, whatsapp_bot, regulator, pack_radar, notifications, reference, doctor_connect, family, dadi, telegram_bot):
+             live_vitals, medicines, whatsapp_bot, regulator, pack_radar, notifications, reference, doctor_connect, family, dadi, telegram_bot,
+             switch_room):
     app.include_router(area.router)

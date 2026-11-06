@@ -101,6 +101,10 @@ api\.venv\Scripts\python switch\demo_local.py     :: the family room in your ter
 the CDSCO match, safe same-salt options, your approval, and the room's *KinCare Decisions* and *KinCare Tasks*
 documents written to `switch/demo_out/`. Add `--auto` to play every part.
 
+Prefer a screen? `run.bat` opens the web app: **Care network** (`/network`) shows the same thing visually: the four
+agents, the Pharmacy Desk with each recall's blast radius, the doctor gate, every family room, a Telegram-style
+replay of the conversation, and the *Decisions* and *Tasks* documents filling in as you approve.
+
 ## Run it in Switch
 
 You need Windows, Python 3.12, [Switch Console](https://docs.switchagents.ai/switch-rooms/getting-started/install-switch-console) with Claude Code as the provider, and a Telegram bot.

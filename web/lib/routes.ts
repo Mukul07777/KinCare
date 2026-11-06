@@ -1,6 +1,6 @@
 import {
   Activity, BadgeIndianRupee, BarChart3, Building2, Cpu, FileSearch, HeartPulse, IndianRupee, Landmark, LayoutDashboard, ListChecks, MessageCircle,
-  Mic, Play, Radar, ScanLine, ShieldAlert, ShieldCheck, Siren, Store, UserRound, Users, Waves, type LucideIcon,
+  Mic, Network, Play, Radar, ScanLine, ShieldAlert, ShieldCheck, Siren, Store, UserRound, Users, Waves, type LucideIcon,
 } from "lucide-react";
 
 // Every page in one place: the nav, the footer and the ⌘K palette all read from here, so nothing gets orphaned.
@@ -24,6 +24,7 @@ export const GROUPS: Group[] = [
   {
     id: "pharmacies", label: "Pharmacies", blurb: "Stock, sales and recalls in one desk",
     routes: [
+      { href: "/network", label: "Care network", hint: "Family rooms + Pharmacy Desk on Switch: one recall, every home, a human decides", icon: Network, keywords: "switch room telegram agents pharmacist doctor approve blast" },
       { href: "/pharmacy", label: "Recall desk", hint: "Check stock, alert every buyer", icon: Store, keywords: "inventory sales csv" },
       { href: "/pricing", label: "Plans", hint: "₹499 a month, customers get KinCare free", icon: BadgeIndianRupee, keywords: "pricing subscription business" },
       { href: "/live", label: "60-second recall", hint: "A new list, matched and alerted live", icon: Waves, keywords: "live recall agents" },
@@ -37,7 +38,7 @@ export const GROUPS: Group[] = [
       { href: "/radar", label: "Fake-pack radar", hint: "Copied QR codes caught across cities", icon: Radar, keywords: "counterfeit fake spurious qr" },
       { href: "/signals", label: "Early signals", hint: "Patients report problems before any list", icon: ShieldAlert, keywords: "symptoms pvpi pharmacovigilance" },
       { href: "/insights", label: "National insights", hint: "What fails, where, and in which drugs", icon: BarChart3, keywords: "data analytics" },
-      { href: "/alerts", label: "All alerts", hint: "Search 6,865 CDSCO and state alerts", icon: FileSearch, keywords: "nsq spurious list search" },
+      { href: "/alerts", label: "All alerts", hint: "Search 7,920 CDSCO and state alerts", icon: FileSearch, keywords: "nsq spurious list search" },
       { href: "/maker", label: "Manufacturers", hint: "A maker's alert record", icon: Building2, keywords: "company manufacturer" },
     ],
   },
@@ -58,6 +59,6 @@ export const ALL_ROUTES: Route[] = GROUPS.flatMap((g) => g.routes);
 
 // The one story the top bar tells: check the strip, take it on time, talk in Hindi, family keeps watch.
 // Every other page sits under More (and the footer, and ⌘K).
-export const PRIMARY = ["/scan", "/care", "/dadi", "/family"];
+export const PRIMARY = ["/scan", "/network", "/care", "/dadi", "/family"];
 export const PRIMARY_ROUTES: Route[] = PRIMARY.map((h) => ALL_ROUTES.find((r) => r.href === h)!);
 export const MORE_GROUPS: Group[] = GROUPS.map((g) => ({ ...g, routes: g.routes.filter((r) => !PRIMARY.includes(r.href)) })).filter((g) => g.routes.length);
