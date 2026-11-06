@@ -1,5 +1,7 @@
 # KinCare: know the batch, decide together
 
+[![CI](https://github.com/Mukul07777/KinCare/actions/workflows/ci.yml/badge.svg)](https://github.com/Mukul07777/KinCare/actions/workflows/ci.yml)
+
 **A family, their pharmacist and AI agents in one chat room, keeping an elder's medicines safe.**
 Built on [Switch](https://github.com/sandbox-quantum/switch) for the Flip the Switch hackathon (Track 01: Best Business Workflow).
 
