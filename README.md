@@ -79,6 +79,14 @@ Replacements always match **salts, form and strength**: a 50 mcg thyroxine is ne
 **Humans decide, agents do the legwork.** Room rules (in the template) forbid any agent from telling anyone
 to stop or switch a medicine; only the pharmacist or a doctor approves, and that approval is what gets logged.
 
+### Who pays
+
+- **Families: free.** Checking a batch is never behind a paywall.
+- **Pharmacies pay (planned ₹499/month).** One Pharmacy Desk room shows every family a flagged batch reached,
+  keeps a logged record of who approved each replacement, and brings the customer back to the counter for the swap.
+- **Why a pharmacist adopts it:** CDSCO's 2024 recall guideline gives retailers recall duties too. KinCare turns that
+  duty into a few chat messages. Prices are hypotheses for pilots; see [docs/BUSINESS.md](docs/BUSINESS.md).
+
 ## Why this needs Switch
 
 Take Switch away and KinCare is a one-person app again. The whole idea is a **shared room**:
