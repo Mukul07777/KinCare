@@ -1,0 +1,221 @@
+{
+  "generated_at": "2026-11-07T05:24:54.603265+00:00",
+  "sets": {
+    "real": {
+      "photos": 5,
+      "batch_pct": 100.0,
+      "expiry_pct": 100.0,
+      "brand_pct": 80.0,
+      "median_ms": 5538
+    },
+    "synthetic": {
+      "photos": 5,
+      "batch_pct": 100.0,
+      "expiry_pct": 100.0,
+      "brand_pct": 100.0,
+      "median_ms": 2014
+    }
+  },
+  "results": [
+    {
+      "file": "../../../web/public/test-strips/telma-h.png",
+      "set": "synthetic",
+      "ms": 3350,
+      "batch": {
+        "want": "05240198",
+        "got": "05240198",
+        "ok": true
+      },
+      "expiry": {
+        "want": "01/2027",
+        "got": "01/2027",
+        "ok": true
+      },
+      "brand": {
+        "want": "Telma H",
+        "got": "Telma H",
+        "ok": true
+      }
+    },
+    {
+      "file": "../../../web/public/test-strips/chymoral-forte.png",
+      "set": "synthetic",
+      "ms": 1777,
+      "batch": {
+        "want": "2KU6L055",
+        "got": "2KU6L055",
+        "ok": true
+      },
+      "expiry": {
+        "want": "11/2027",
+        "got": "11/2027",
+        "ok": true
+      },
+      "brand": {
+        "want": "Chymoral Forte",
+        "got": "Chymoral Forte",
+        "ok": true
+      }
+    },
+    {
+      "file": "../../../web/public/test-strips/alzomac.png",
+      "set": "synthetic",
+      "ms": 1930,
+      "batch": {
+        "want": "60098",
+        "got": "60098",
+        "ok": true
+      },
+      "expiry": {
+        "want": "01/2028",
+        "got": "01/2028",
+        "ok": true
+      },
+      "brand": {
+        "want": "Alzomac-0.5",
+        "got": "Alzomac-0.5",
+        "ok": true
+      }
+    },
+    {
+      "file": "../../../web/public/test-strips/namik-mr.png",
+      "set": "synthetic",
+      "ms": 2014,
+      "batch": {
+        "want": "AT25-0938A",
+        "got": "AT25-0938A",
+        "ok": true
+      },
+      "expiry": {
+        "want": "10/2027",
+        "got": "10/2027",
+        "ok": true
+      },
+      "brand": {
+        "want": "Namik-MR",
+        "got": "Namik-MR",
+        "ok": true
+      }
+    },
+    {
+      "file": "../../../web/public/test-strips/amlodipine-clean.png",
+      "set": "synthetic",
+      "ms": 2018,
+      "batch": {
+        "want": "AML24017",
+        "got": "AML24017",
+        "ok": true
+      },
+      "expiry": {
+        "want": "02/2027",
+        "got": "02/2027",
+        "ok": true
+      },
+      "brand": {
+        "want": "Amlodipine 5 mg",
+        "got": "Amlodipine 5 5mg",
+        "ok": true
+      }
+    },
+    {
+      "file": "real/WhatsApp Image 2026-10-25 at 9.00.10 AM.jpeg",
+      "set": "real",
+      "ms": 5538,
+      "batch": {
+        "want": "DFNY0223",
+        "got": "DFNY0223",
+        "ok": true
+      },
+      "expiry": {
+        "want": "04/2030",
+        "got": "APR.2030",
+        "ok": true
+      },
+      "brand": {
+        "want": "Dolo-500",
+        "got": "Dolo-500",
+        "ok": true
+      }
+    },
+    {
+      "file": "real/WhatsApp Image 2026-10-25 at 9.00.10 AM (1).jpeg",
+      "set": "real",
+      "ms": 5146,
+      "batch": {
+        "want": "YZ463",
+        "got": "YZ463",
+        "ok": true
+      },
+      "expiry": {
+        "want": "06/2029",
+        "got": "06/29",
+        "ok": true
+      },
+      "brand": {
+        "want": "Disprin",
+        "got": "Acetyisalicylic Acid",
+        "ok": false
+      }
+    },
+    {
+      "file": "real/WhatsApp Image 2026-10-25 at 9.00.10 AM (2).jpeg",
+      "set": "real",
+      "ms": 11226,
+      "batch": {
+        "want": "JCHT6539",
+        "got": "JCHT6539",
+        "ok": true
+      },
+      "expiry": {
+        "want": "06/2029",
+        "got": "JUN.29",
+        "ok": true
+      },
+      "brand": {
+        "want": "Paracip-500",
+        "got": "PARACIP-500",
+        "ok": true
+      }
+    },
+    {
+      "file": "real/WhatsApp Image 2026-10-25 at 9.00.11 AM.jpeg",
+      "set": "real",
+      "ms": 9847,
+      "batch": {
+        "want": "DOBS4480",
+        "got": "DOBS4480",
+        "ok": true
+      },
+      "expiry": {
+        "want": "04/2030",
+        "got": "APR.2030",
+        "ok": true
+      },
+      "brand": {
+        "want": "Dolo-650",
+        "got": "Dolo-650",
+        "ok": true
+      }
+    },
+    {
+      "file": "real/WhatsApp Image 2026-10-25 at 9.00.11 AM (1).jpeg",
+      "set": "real",
+      "ms": 5047,
+      "batch": {
+        "want": "DOBS4480",
+        "got": "DOBS4480",
+        "ok": true
+      },
+      "expiry": {
+        "want": "04/2030",
+        "got": "APR.2030",
+        "ok": true
+      },
+      "brand": {
+        "want": "Dolo-650",
+        "got": "Dolo-650",
+        "ok": true
+      }
+    }
+  ]
+}
