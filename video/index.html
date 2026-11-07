@@ -198,6 +198,29 @@ path.a,circle.a{opacity:1}
 .closewrap .hi{font-size:54px;font-weight:800;color:var(--saffron)}
 .foot{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
 .foot .ic{font-size:26px;color:var(--teal)}
+
+/* web tour */
+.webwrap{display:grid;grid-template-columns:440px 1fr;gap:60px;margin-top:6px}
+.pages{display:flex;flex-direction:column;gap:12px;margin-top:26px}
+.pages .step{padding:13px 18px;font-size:23px}
+.pages .step .ic{font-size:26px;color:var(--saffron)}
+.browser{position:relative;width:1180px;border-radius:18px;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:0 50px 100px -40px rgba(29,39,51,.5)}
+.bbar{height:52px;display:flex;align-items:center;gap:10px;padding:0 18px;background:#f1ede6;border-bottom:1px solid var(--line)}
+.bbar .d{width:13px;height:13px;border-radius:50%}
+.url{position:relative;margin-left:18px;flex:1;height:32px;border-radius:10px;background:#fff;border:1px solid var(--line);overflow:hidden}
+.url span{position:absolute;inset:0;display:flex;align-items:center;padding:0 14px;font-size:17px;color:var(--ink2);background:#fff;font-family:Consolas,monospace}
+.vp{position:relative;height:737px;overflow:hidden;background:var(--bg)}
+.vp img.pg{position:absolute;left:0;top:0;width:1180px;display:block}
+@keyframes scrollv{from{opacity:1;transform:translateY(0)}to{opacity:1;transform:translateY(var(--sy))}}
+.ocr{position:absolute;right:28px;top:40px;width:470px;padding:22px;display:flex;gap:20px;z-index:5}
+.ocr .ph{position:relative;width:190px;height:253px;border-radius:14px;overflow:hidden;flex:none;background:#000}
+.ocr .ph img{width:100%;height:100%;object-fit:cover}
+.ocr .line{position:absolute;left:0;right:0;height:4px;background:var(--teal);box-shadow:0 0 18px 6px rgba(14,147,132,.55);top:0}
+@keyframes sweep{0%{opacity:1;top:0}100%{opacity:1;top:100%}}
+.ocr .f{font-size:16px;color:var(--muted);margin-top:10px}
+.ocr .v{font-size:24px;font-weight:800;font-family:Consolas,"Segoe UI",monospace;color:var(--ink)}
+.ocr .ok{display:inline-flex;gap:8px;align-items:center;margin-top:14px;padding:8px 14px;border-radius:999px;background:var(--green-l);color:var(--green);font-weight:800;font-size:18px;border:1px solid rgba(31,157,85,.4)}
+.ocr .tag{font-size:13px;font-weight:800;letter-spacing:.14em;color:var(--teal)}
 </style>
 </head>
 <body>
@@ -245,12 +268,12 @@ path.a,circle.a{opacity:1}
         <div class="av"><svg viewBox="0 0 150 150"><circle class="a" data-c="1" data-o=".4" data-k="ring" cx="75" cy="75" r="70" pathLength="100" style="stroke:var(--blue)"/></svg><div class="in" style="background:var(--blue-l);color:var(--blue)">R</div></div>
         <div class="name">Rahul</div><div class="role">Son · in Bengaluru</div>
       </div>
-      <div class="card person a" data-c="1" data-o="3.4" data-k="up">
-        <div class="av"><svg viewBox="0 0 150 150"><circle class="a" data-c="1" data-o="3.6" data-k="ring" cx="75" cy="75" r="70" pathLength="100" style="stroke:var(--teal)"/></svg><div class="in" style="background:var(--teal-l);color:var(--teal)">P</div></div>
+      <div class="card person a" data-c="1" data-o="2.4" data-k="up">
+        <div class="av"><svg viewBox="0 0 150 150"><circle class="a" data-c="1" data-o="2.6" data-k="ring" cx="75" cy="75" r="70" pathLength="100" style="stroke:var(--teal)"/></svg><div class="in" style="background:var(--teal-l);color:var(--teal)">P</div></div>
         <div class="name">Priya</div><div class="role">Daughter · buys medicines</div>
       </div>
-      <div class="card person a" data-c="1" data-o="6.6" data-k="up">
-        <div class="av"><svg viewBox="0 0 150 150"><circle class="a" data-c="1" data-o="6.8" data-k="ring" cx="75" cy="75" r="70" pathLength="100" style="stroke:var(--violet)"/></svg><div class="in" style="background:var(--violet-l);color:var(--violet)">V</div></div>
+      <div class="card person a" data-c="1" data-o="4.6" data-k="up">
+        <div class="av"><svg viewBox="0 0 150 150"><circle class="a" data-c="1" data-o="4.8" data-k="ring" cx="75" cy="75" r="70" pathLength="100" style="stroke:var(--violet)"/></svg><div class="in" style="background:var(--violet-l);color:var(--violet)">V</div></div>
         <div class="name">Mr. Verma</div><div class="role">Local pharmacist</div>
       </div>
     </div>
@@ -261,12 +284,12 @@ path.a,circle.a{opacity:1}
   <section class="scene" data-scene="problem">
     <div class="kicker a" data-c="0" data-k="left">The problem nobody tells you about</div>
     <div class="pgrid">
-      <div class="card stat a" data-c="0" data-o="3.4" data-k="up">
-        <div class="iconrow"><div class="tile" style="background:var(--red-l);color:var(--red)"><svg class="ic a" data-c="0" data-o="3.7" data-k="drawi"><use href="#i-doc"/></svg></div><div style="font-size:40px;font-weight:800">CDSCO</div></div>
+      <div class="card stat a" data-c="0" data-o="2.0" data-k="up">
+        <div class="iconrow"><div class="tile" style="background:var(--red-l);color:var(--red)"><svg class="ic a" data-c="0" data-o="2.3" data-k="drawi"><use href="#i-doc"/></svg></div><div style="font-size:40px;font-weight:800">CDSCO</div></div>
         <div class="lbl" style="font-size:27px">India's drug regulator lists every batch that <b style="color:var(--red)">fails a quality test</b>.</div>
       </div>
-      <div class="card stat a" data-c="0" data-o="10.2" data-k="up">
-        <div class="big" style="color:var(--saffron)" data-count="7920" data-c="0" data-o="10.4">0</div>
+      <div class="card stat a" data-c="0" data-o="8.4" data-k="up">
+        <div class="big" style="color:var(--saffron)" data-count="7920" data-c="0" data-o="8.6">0</div>
         <div class="lbl">real alerts we went through<br>2019 → 2026</div>
       </div>
       <div class="card stat a" data-c="1" data-k="up">
@@ -306,14 +329,14 @@ path.a,circle.a{opacity:1}
     <div class="diagram">
       <svg class="wires" viewBox="0 0 1680 560">
         <path class="a" data-c="1" data-o=".9" data-k="draw" style="--len:400" d="M300 280 L 675 280"/>
-        <path class="a" data-c="1" data-o="5.2" data-k="draw" style="--len:420" d="M840 115 C 840 70, 700 60, 600 60"/>
-        <path class="a" data-c="1" data-o="6.1" data-k="draw" style="--len:420" d="M840 115 C 840 70, 980 60, 1080 60"/>
-        <path class="a" data-c="1" data-o="7.0" data-k="draw" style="--len:420" d="M840 445 C 840 500, 700 510, 600 510"/>
-        <path class="a" data-c="1" data-o="7.9" data-k="draw" style="--len:420" d="M840 445 C 840 500, 980 510, 1080 510"/>
+        <path class="a" data-c="1" data-o="2.4" data-k="draw" style="--len:420" d="M840 115 C 840 70, 700 60, 600 60"/>
+        <path class="a" data-c="1" data-o="3.0" data-k="draw" style="--len:420" d="M840 115 C 840 70, 980 60, 1080 60"/>
+        <path class="a" data-c="1" data-o="3.6" data-k="draw" style="--len:420" d="M840 445 C 840 500, 700 510, 600 510"/>
+        <path class="a" data-c="1" data-o="4.2" data-k="draw" style="--len:420" d="M840 445 C 840 500, 980 510, 1080 510"/>
         <path class="a" data-c="2" data-o=".3" data-k="draw" style="--len:400" d="M1005 280 L 1350 280"/>
       </svg>
-      <div class="a" data-c="1" data-o="1.8" data-k="fade"><span class="flow" style="offset-path:path('M300 280 L 675 280')"></span><span class="flow" style="offset-path:path('M300 280 L 675 280');animation-delay:-1.3s"></span></div>
-      <div class="a" data-c="1" data-o="8.8" data-k="fade">
+      <div class="a" data-c="1" data-o="1.2" data-k="fade"><span class="flow" style="offset-path:path('M300 280 L 675 280')"></span><span class="flow" style="offset-path:path('M300 280 L 675 280');animation-delay:-1.3s"></span></div>
+      <div class="a" data-c="1" data-o="4.8" data-k="fade">
         <span class="flow" style="offset-path:path('M840 115 C 840 70, 700 60, 600 60');background:var(--green)"></span>
         <span class="flow" style="offset-path:path('M840 115 C 840 70, 980 60, 1080 60');background:var(--violet);animation-delay:-.6s"></span>
         <span class="flow" style="offset-path:path('M840 445 C 840 500, 700 510, 600 510');background:var(--saffron);animation-delay:-1.2s"></span>
@@ -321,17 +344,57 @@ path.a,circle.a{opacity:1}
       </div>
       <div class="a" data-c="2" data-o="1.0" data-k="fade"><span class="flow" style="offset-path:path('M1005 280 L 1350 280')"></span></div>
       <div class="card tg a" data-c="1" data-o=".2" data-k="left"><div class="tile" style="margin:0 auto;background:var(--blue-l);color:var(--blue)"><svg class="ic a" data-c="1" data-o=".4" data-k="drawi"><use href="#i-send"/></svg></div><div style="font-size:28px;font-weight:800;margin-top:12px">Telegram group</div><div class="muted" style="font-size:21px;margin-top:4px">Sharma Family Care</div></div>
-      <div class="orbit a" data-c="1" data-o="2.6" data-k="fade"><div class="spin"><i></i></div></div>
-      <div class="hub a" data-c="1" data-o="2.4" data-k="pop"><div><svg class="ic a" data-c="1" data-o="2.6" data-k="drawi"><use href="#i-hub"/></svg><div class="t">Switch room</div><div class="s">people + agents<br>one shared log</div></div></div>
-      <div class="card node a" data-c="1" data-o="5.4" data-k="pop" style="left:300px;top:0"><div class="tile" style="background:var(--green-l);color:var(--green)"><svg class="ic a" data-c="1" data-o="5.6" data-k="drawi"><use href="#i-scan"/></svg></div><div><div class="n">Scan</div><div class="d">reads the exact batch</div></div></div>
-      <div class="card node a" data-c="1" data-o="6.3" data-k="pop" style="left:1080px;top:0"><div class="tile" style="background:var(--violet-l);color:var(--violet)"><svg class="ic a" data-c="1" data-o="6.5" data-k="drawi"><use href="#i-pill"/></svg></div><div><div class="n">Pharmacist</div><div class="d">proposes, asks a human</div></div></div>
-      <div class="card node a" data-c="1" data-o="7.2" data-k="pop" style="left:300px;top:450px"><div class="tile" style="background:var(--saffron-l);color:var(--saffron)"><svg class="ic a" data-c="1" data-o="7.4" data-k="drawi"><use href="#i-clock"/></svg></div><div><div class="n">Dose Buddy</div><div class="d">schedule, missed doses</div></div></div>
-      <div class="card node a" data-c="1" data-o="8.1" data-k="pop" style="left:1080px;top:450px"><div class="tile" style="background:var(--blue-l);color:var(--blue)"><svg class="ic a" data-c="1" data-o="8.3" data-k="drawi"><use href="#i-radar"/></svg></div><div><div class="n">Recall Watcher</div><div class="d">speaks first on new alerts</div></div></div>
+      <div class="orbit a" data-c="1" data-o="1.6" data-k="fade"><div class="spin"><i></i></div></div>
+      <div class="hub a" data-c="1" data-o="1.4" data-k="pop"><div><svg class="ic a" data-c="1" data-o="1.6" data-k="drawi"><use href="#i-hub"/></svg><div class="t">Switch room</div><div class="s">people + agents<br>one shared log</div></div></div>
+      <div class="card node a" data-c="1" data-o="2.6" data-k="pop" style="left:300px;top:0"><div class="tile" style="background:var(--green-l);color:var(--green)"><svg class="ic a" data-c="1" data-o="2.8" data-k="drawi"><use href="#i-scan"/></svg></div><div><div class="n">Scan</div><div class="d">reads the exact batch</div></div></div>
+      <div class="card node a" data-c="1" data-o="3.2" data-k="pop" style="left:1080px;top:0"><div class="tile" style="background:var(--violet-l);color:var(--violet)"><svg class="ic a" data-c="1" data-o="3.4" data-k="drawi"><use href="#i-pill"/></svg></div><div><div class="n">Pharmacist</div><div class="d">proposes, asks a human</div></div></div>
+      <div class="card node a" data-c="1" data-o="3.8" data-k="pop" style="left:300px;top:450px"><div class="tile" style="background:var(--saffron-l);color:var(--saffron)"><svg class="ic a" data-c="1" data-o="4.0" data-k="drawi"><use href="#i-clock"/></svg></div><div><div class="n">Dose Buddy</div><div class="d">schedule, missed doses</div></div></div>
+      <div class="card node a" data-c="1" data-o="4.4" data-k="pop" style="left:1080px;top:450px"><div class="tile" style="background:var(--blue-l);color:var(--blue)"><svg class="ic a" data-c="1" data-o="4.6" data-k="drawi"><use href="#i-radar"/></svg></div><div><div class="n">Recall Watcher</div><div class="d">speaks first on new alerts</div></div></div>
       <div class="card records a" data-c="2" data-o=".5" data-k="right">
         <div style="font-size:24px;font-weight:800;color:var(--teal)">Shared record</div>
         <div class="row"><svg class="ic"><use href="#i-doc"/></svg>KinCare Decisions</div>
         <div class="row"><svg class="ic"><use href="#i-check"/></svg>KinCare Tasks</div>
         <div class="row"><svg class="ic"><use href="#i-user"/></svg>Role: pharmacist</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3b. WEBSITE -->
+  <section class="scene" data-scene="web" style="padding-top:80px">
+    <div class="webwrap">
+      <div>
+        <div class="kicker a" data-c="0" data-k="left">The KinCare website</div>
+        <h2 class="a" data-c="0" data-o=".2" data-k="up" style="margin-top:16px">Not only chat.<br><span style="color:var(--teal)">A full website.</span></h2>
+        <div class="pages">
+          <div class="step a" data-c="0" data-o=".4" data-k="left" data-hl="0"><svg class="ic"><use href="#i-home"/></svg>Landing page</div>
+          <div class="step a" data-c="0" data-o=".55" data-k="left" data-hl="1"><svg class="ic"><use href="#i-scan"/></svg>Scan a real strip</div>
+          <div class="step a" data-c="0" data-o=".7" data-k="left" data-hl="2"><svg class="ic"><use href="#i-hub"/></svg>Care network</div>
+          <div class="step a" data-c="0" data-o=".85" data-k="left" data-hl="3"><svg class="ic"><use href="#i-db"/></svg>Every alert, searchable</div>
+          <div class="step a" data-c="0" data-o="1.0" data-k="left" data-hl="3" data-hlo="2.4"><svg class="ic"><use href="#i-users"/></svg>Family, from anywhere</div>
+          <div class="step a" data-c="0" data-o="1.15" data-k="left" data-hl="3" data-hlo="4.4"><svg class="ic"><use href="#i-lang"/></svg>Dadi mode, by voice</div>
+        </div>
+      </div>
+      <div class="browser a" data-c="0" data-o=".1" data-k="up">
+        <div class="bbar"><i class="d" style="background:#ff6058"></i><i class="d" style="background:#ffbd2e"></i><i class="d" style="background:#28c840"></i>
+          <div class="url"><span>kincare / home</span><span class="a" data-c="1" data-k="fade">kincare / scan</span><span class="a" data-c="2" data-k="fade">kincare / network · built on Switch</span><span class="a" data-c="3" data-k="fade">kincare / alerts</span><span class="a" data-c="3" data-o="2.4" data-k="fade">kincare / family</span><span class="a" data-c="3" data-o="4.4" data-k="fade">kincare / dadi</span></div></div>
+        <div class="vp">
+          <img class="pg a" data-c="0" data-o=".6" data-k="scrollv" style="--sy:-2246px;animation-duration:4.2s" src="shots/home_full.png" alt="">
+          <img class="pg a" data-c="1" data-k="fade" src="shots/scan.png" alt="">
+          <div class="card ocr a" data-c="1" data-o=".5" data-k="pop">
+            <div class="ph"><img src="shots/real_dolo500.jpg" alt=""><div class="line a" data-c="1" data-o=".9" data-k="sweep" style="animation-duration:1.6s"></div></div>
+            <div>
+              <div class="tag">LIVE OCR · REAL PHOTO</div>
+              <div class="f a" data-c="1" data-o="1.8" data-k="up">Brand<div class="v">Dolo-500</div></div>
+              <div class="f a" data-c="1" data-o="2.3" data-k="up">Batch<div class="v">DFNY0223</div></div>
+              <div class="f a" data-c="1" data-o="2.8" data-k="up">Expiry<div class="v">04/2030</div></div>
+              <div class="ok a" data-c="1" data-o="3.5" data-k="pop"><svg class="ic"><use href="#i-check"/></svg>Not on any alert list</div>
+            </div>
+          </div>
+          <img class="pg a" data-c="2" data-k="fade" style="z-index:6" src="shots/network.png" alt="">
+          <img class="pg a" data-c="3" data-k="fade" style="z-index:6" src="shots/alerts.png" alt="">
+          <img class="pg a" data-c="3" data-o="2.4" data-k="fade" style="z-index:6" src="shots/family.png" alt="">
+          <img class="pg a" data-c="3" data-o="4.4" data-k="fade" style="z-index:6" src="shots/dadi.png" alt="">
+        </div>
       </div>
     </div>
   </section>
@@ -358,7 +421,7 @@ path.a,circle.a{opacity:1}
           <div class="msg a" data-c="1" data-o=".3" data-k="up" data-scroll><div class="who c-scan"><i style="background:var(--green)"></i>KinCare Scan</div><span class="warn hi">बैच AT25-0938A सरकारी अलर्ट सूची में है।</span><br>Namik-MR · CDSCO state NSQ alert: wrong amount of Aceclofenac.<br><b class="hi">दवाई अपने आप बंद न करें।</b> Please don't stop it on your own.</div>
           <div class="msg a" data-c="2" data-o=".2" data-k="up" data-scroll><div class="who c-scan"><i style="background:var(--green)"></i>KinCare Scan</div><span class="mention">@kincare-pharmacist</span> this batch is flagged. Please find a replacement and ask our pharmacist.</div>
           <div class="msg a" data-c="3" data-o=".1" data-k="up" data-scroll><div class="who c-ph"><i style="background:var(--violet)"></i>KinCare Pharmacist</div><span class="mention">@Mr.Verma</span> Proposed for Dadi (same 3 salts, makers with no alerts):<br>1) StayHappi 100/325/250 mg · <b>₹2.70</b>/tablet<br>2) Genericart 100/325/250 mg · ₹8.20/tablet<br>Reply <b>approve 1/2</b> or <b>reject</b>.</div>
-          <div class="wait a" data-c="4" data-o="2.4" data-k="pop" data-scroll><svg class="ic" style="font-size:22px"><use href="#i-lock"/></svg>Nothing changes until the pharmacist approves</div>
+          <div class="wait a" data-c="4" data-o="1.2" data-k="pop" data-scroll><svg class="ic" style="font-size:22px"><use href="#i-lock"/></svg>Nothing changes until the pharmacist approves</div>
           <div class="msg me a" data-c="5" data-o=".4" data-k="up" data-scroll><div class="who c-ver">Mr. Verma · pharmacist</div>approve 1</div>
           <div class="msg a" data-c="6" data-o=".2" data-k="up" data-scroll><div class="who c-ph"><i style="background:var(--violet)"></i>KinCare Pharmacist</div><span class="tick">Approved by Mr. Verma.</span> Saved in KinCare Decisions.<br>Task: <span class="mention">@Rahul</span> buy StayHappi today, keep the old strip for return.</div>
           <div class="msg me a" data-c="6" data-o="4.8" data-k="up" data-scroll><div class="who c-rahul">Rahul</div>done, bought</div>
@@ -387,8 +450,8 @@ path.a,circle.a{opacity:1}
     <div class="shots">
       <div class="realtag a" data-c="0" data-k="pop"><i></i>REAL RUN</div>
       <div class="shot a" data-c="0" data-o=".3" data-k="up" style="left:0;top:40px;width:550px"><img src="../docs/img/room-scan-handoff.png" alt=""></div>
-      <div class="shot a" data-c="0" data-o="2.2" data-k="up" style="left:580px;top:0;width:520px"><img src="../docs/img/room-approval-documents.png" alt=""></div>
-      <div class="shot a" data-c="0" data-o="4.6" data-k="up" style="left:1130px;top:70px;width:550px"><img src="../docs/img/console-agents.png" alt=""></div>
+      <div class="shot a" data-c="0" data-o="1.6" data-k="up" style="left:580px;top:0;width:520px"><img src="../docs/img/room-approval-documents.png" alt=""></div>
+      <div class="shot a" data-c="0" data-o="3.0" data-k="up" style="left:1130px;top:70px;width:550px"><img src="../docs/img/console-agents.png" alt=""></div>
     </div>
   </section>
 
@@ -425,8 +488,8 @@ path.a,circle.a{opacity:1}
       <div class="card stat a" data-c="0" data-o="4.4" data-k="up"><div class="tile" style="background:var(--violet-l);color:var(--violet)"><svg class="ic a" data-c="0" data-o="4.6" data-k="drawi"><use href="#i-lang"/></svg></div><div class="big hi" style="color:var(--violet);font-size:58px;margin-top:26px">हिंदी + EN</div><div class="lbl">every answer</div></div>
     </div>
     <div class="biz">
-      <div class="card plan a" data-c="0" data-o="7.0" data-k="up"><div class="tile" style="background:var(--green-l);color:var(--green)"><svg class="ic a" data-c="0" data-o="7.2" data-k="drawi"><use href="#i-heart"/></svg></div><div><div class="k">Families</div><div class="price" style="color:var(--green)">Free</div></div></div>
-      <div class="card plan a" data-c="0" data-o="8.6" data-k="up"><div class="tile" style="background:var(--saffron-l);color:var(--saffron)"><svg class="ic a" data-c="0" data-o="8.8" data-k="drawi"><use href="#i-store"/></svg></div><div><div class="k">Pharmacies pay · recall desk + audit trail</div><div class="price" style="color:var(--saffron)">₹499<span style="font-size:32px;color:var(--muted)">/month</span></div></div></div>
+      <div class="card plan a" data-c="0" data-o="6.0" data-k="up"><div class="tile" style="background:var(--green-l);color:var(--green)"><svg class="ic a" data-c="0" data-o="6.2" data-k="drawi"><use href="#i-heart"/></svg></div><div><div class="k">Families</div><div class="price" style="color:var(--green)">Free</div></div></div>
+      <div class="card plan a" data-c="0" data-o="7.2" data-k="up"><div class="tile" style="background:var(--saffron-l);color:var(--saffron)"><svg class="ic a" data-c="0" data-o="7.4" data-k="drawi"><use href="#i-store"/></svg></div><div><div class="k">Pharmacies pay · recall desk + audit trail</div><div class="price" style="color:var(--saffron)">₹499<span style="font-size:32px;color:var(--muted)">/month</span></div></div></div>
     </div>
   </section>
 
@@ -436,7 +499,7 @@ path.a,circle.a{opacity:1}
       <div class="logo a" data-c="0" data-k="pop"><div class="mark" style="width:140px;height:140px;font-size:84px;border-radius:38px"><svg class="ic a" data-c="0" data-o=".2" data-k="drawi" style="animation-duration:1.4s"><use href="#i-shield"/></svg></div><div class="word" style="font-size:132px"><span>Kin</span>Care</div></div>
       <div class="a" data-c="0" data-o=".7" data-k="up" style="font-size:50px;font-weight:700">Know the batch, decide together.</div>
       <div class="hi a" data-c="0" data-o="1.4" data-k="up">क्योंकि दादी की दवाई, पूरे परिवार की ज़िम्मेदारी है।</div>
-      <div class="foot a" data-c="0" data-o="6.8" data-k="up"><span class="chip"><svg class="ic"><use href="#i-hub"/></svg>Built on Switch</span><span class="chip"><svg class="ic"><use href="#i-bot"/></svg>Claude Code agents</span><span class="chip"><svg class="ic"><use href="#i-users"/></svg>Team Avengers</span><span class="chip">github.com/Mukul07777/KinCare</span></div>
+      <div class="foot a" data-c="0" data-o="3.8" data-k="up"><span class="chip"><svg class="ic"><use href="#i-hub"/></svg>Built on Switch</span><span class="chip"><svg class="ic"><use href="#i-bot"/></svg>Claude Code agents</span><span class="chip"><svg class="ic"><use href="#i-users"/></svg>Team Avengers</span><span class="chip">github.com/Mukul07777/KinCare</span></div>
     </div>
   </section>
 
@@ -464,7 +527,7 @@ path.a,circle.a{opacity:1}
         a.animate([{background:"transparent", borderColor:"#c3cbd4"}, {background:"#1f9d55", borderColor:"#1f9d55"}], {duration:400, delay:t*1000, fill:"forwards"});
       } else {
         const d = a.style.animationDuration ? parseFloat(a.style.animationDuration) : (DUR[k] || .8);
-        const ease = (k === "draw" || k === "drawi" || k === "ring") ? "ease-in-out" : EASE;
+        const ease = (k === "draw" || k === "drawi" || k === "ring" || k === "scrollv" || k === "sweep") ? "ease-in-out" : EASE;
         a.style.animation = `${k} ${d}s ${ease} ${t}s both`;
       }
       if (a.classList.contains("step")) {
