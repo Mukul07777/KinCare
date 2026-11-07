@@ -7,6 +7,7 @@ Labels are typed by a person from the strip (tests/strips/real/README.md). Resul
 set ("real" phone photos vs "synthetic" demo prints, never mixed), and saved to data/strip_bench.json for /status.
 """
 import argparse
+import sys
 import csv
 import json
 import re
@@ -87,6 +88,7 @@ def run(only: str | None = None) -> dict:
 
 
 if __name__ == "__main__":
+    sys.stdout.reconfigure(encoding="utf-8")  # the ✓/✗ marks crash a Windows cp1252 console
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--set", help="only this set (real / synthetic)")
     run(ap.parse_args().set)
