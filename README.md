@@ -16,6 +16,10 @@ Team Avengers: Mukul (lead), Ashpreet Singh Saini.
 Each agent is Claude Code run by Switch Console on this computer. Telegram is linked to a Switch room, and the scan
 agent passes the flagged batch to the pharmacist agent by @mention in the same room.
 
+| Pharmacist agent proposes, nothing changes yet | The human pharmacist approves; decision and task saved as room documents | "done" ticks the task; the dose agent takes over |
+|---|---|---|
+| ![KinCare Pharmacist proposes two same-salt replacements with prices and waits for approval](docs/img/room-proposal.png) | ![After "approve 1", KinCare Pharmacist creates the KinCare Decisions and KinCare Tasks room documents and posts the decision in Hindi and English](docs/img/room-approval-documents.png) | ![After "done", the task is updated and KinCare Pharmacist asks KinCare Dose Buddy to switch Dadi's 09:00 dose](docs/img/room-handoff-dose.png) |
+
 ---
 
 ## The problem nobody tells you about
