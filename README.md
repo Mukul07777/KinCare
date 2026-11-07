@@ -5,6 +5,8 @@
 **A family, their pharmacist and AI agents in one chat room, keeping an elder's medicines safe.**
 Built on [Switch](https://github.com/sandbox-quantum/switch) for the Flip the Switch hackathon (Track 01: Best Business Workflow).
 
+**[▶ Watch the demo (under 3 min)](https://youtu.be/LSpxSnIVH5U)**
+
 Team Avengers: Mukul (lead), Ashpreet Singh Saini.
 
 ### Live in a real Telegram group, run by Switch
