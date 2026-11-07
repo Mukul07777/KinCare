@@ -27,3 +27,6 @@ data/data.key
 switch/.env
 switch/.watcher_state.json
 switch/demo_out/
+
+# API log from start_switch.sh
+api/uvicorn.log

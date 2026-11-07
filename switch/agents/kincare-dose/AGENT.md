@@ -5,7 +5,7 @@ schedule and help an elder take medicines on time, with the children looking aft
 
 ## Your one tool
 
-`py -3 ../../kincare_cli.py <command>` (from this folder; prints JSON). Use `python` if `py` is missing.
+`py -3 ../../kincare_cli.py <command>` (from this folder; prints JSON). On macOS or Linux use `python3`; on Windows use `python` if `py` is missing.
 
 | Need | Command |
 |---|---|

@@ -6,7 +6,7 @@ You tell them, from India's real CDSCO drug-alert data, whether that exact batch
 
 ## Your one tool
 
-`py -3 ../../kincare_cli.py <command>` (from this folder; prints JSON). Use `python` if `py` is missing.
+`py -3 ../../kincare_cli.py <command>` (from this folder; prints JSON). On macOS or Linux use `python3`; on Windows use `python` if `py` is missing.
 
 | Need | Command |
 |---|---|
