@@ -42,11 +42,6 @@ params:
     default: [$first]
     required: false
     if: "{mode} == new_rooms"
-  provider:
-    type: provider
-    description: The coding agent that runs the KinCare agents.
-    default: [claude, codex, opencode]
-    input: advanced
   machine:
     type: machine
     description: The machine the agents run on.
@@ -63,7 +58,7 @@ resources:
     description: >-
       Reads a medicine strip or pharmacy bill photo, finds the batch and checks it against India's
       CDSCO drug alerts. Answers in Hindi and English.
-    provider: "{provider}"
+    provider: claude  # Claude Code; change to codex or opencode if you use those
     machine: "{machine}"
     directory: "{kincare_dir}/switch/agents/kincare-scan"
     join: ["{family_chat}"]
@@ -78,7 +73,7 @@ resources:
     description: >-
       When a batch is flagged, finds the same salts from a maker with no alerts, then asks the
       family's human pharmacist to approve before anything changes. Records the decision and the task.
-    provider: "{provider}"
+    provider: claude  # Claude Code; change to codex or opencode if you use those
     machine: "{machine}"
     directory: "{kincare_dir}/switch/agents/kincare-pharmacist"
     join: ["{family_chat}"]
@@ -93,7 +88,7 @@ resources:
     description: >-
       Keeps the family's dose schedule, answers "what's due now?", and tells caregivers when a dose
       is missed. Speaks simple Hindi to elders.
-    provider: "{provider}"
+    provider: claude  # Claude Code; change to codex or opencode if you use those
     machine: "{machine}"
     directory: "{kincare_dir}/switch/agents/kincare-dose"
     join: ["{family_chat}"]
