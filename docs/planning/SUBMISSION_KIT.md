@@ -36,21 +36,11 @@ Then paste under the README title:
 | ![](docs/img/room-chat.png) | ![](docs/img/pharmacy-desk.png) | ![](docs/img/room-documents.png) |
 ```
 
-## 3. Switch core PR ideas (Track 03)
+## 3. Track 03 (core contribution): only with an assigned issue
 
-Before opening any of these, check the Switch repo's issues, open PRs and CONTRIBUTING file, so it isn't a duplicate.
-Keep each PR small and separate.
-
-1. **Docs: Telegram "Group Privacy" gotcha.** Group Privacy must be turned off *before* the bot is added to a group,
-   and DMs with the bot do not create rooms. Both cost us time. A short note in the Telegram setup doc.
-2. **Template: human approval gate.** A generic `approval-gate.template.yaml`: a proposer agent suggests an action,
-   a named human role replies `approve`/`reject`, and the decision goes into a room document. Comes straight from
-   `switch/kincare-room.template.yaml`, with the medical parts removed.
-3. **Example: stdlib-only Python protocol agent.** `switch/recall_watcher.py` shows an agent that speaks first
-   (registration, `POST /agents/{id}/message`, room documents) with no dependencies. A trimmed version under examples.
-4. **Docs: SSE is deprecated, use the WebSocket connection.** If the docs still show SSE first (the Switch site
-   says "Server-sent events in"), point to `/agents/{id}/connection/ws`.
-5. **Docs: agent name rule.** State `^[a-z0-9][a-z0-9._-]*$` where agents are created, if it isn't there.
+Only pull requests for issues labelled `hackathon` and **assigned to you** are judged, and they must be open by
+Nov 7, 11:59 PM IST. Low-effort PRs (typos, docs only, unreviewed AI output) are not judged. With hours left, try
+this only if one of us already has an issue assigned. Otherwise put the time into the video.
 
 ## 4. Posting checklist
 
