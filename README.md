@@ -18,10 +18,24 @@ We pulled **7,920 real alerts (2019 to 2026)** from its public portal and monthl
 - A failed batch reaches the CDSCO list a median **10 months** after it was made.
 - When it is listed, **99.6%** of those batches are still within expiry, with a median **14 months** left.
 - So the medicine is still in homes, and people are still taking it. **Nobody tells them.**
+- It is not rare: **2,257 batches** were flagged in the 11 months from Nov 2025 to Sep 2026, about **200 a month**
+  (322 in Sep 2026 alone).
+- It hits elders' daily medicines: at least **1,940 alerts (24.5%)** are for blood pressure and heart (514),
+  diabetes (191), cholesterol (95), pain and fever (764) or calcium and vitamin D (409) medicines. That is a lower
+  bound, matched on the salt name only. Reproduce: `cd api && .venv\Scripts\python impact_stats.py`.
 
 And looking after an elder's medicines is a team job: Dadi takes them, her son lives in another city,
 her daughter buys them, the local pharmacist knows what to replace them with. Today that "team" is a
 messy WhatsApp group where a government PDF never arrives.
+
+### Why this is new
+
+- **The agent speaks first.** Chat agents usually wait to be asked. KinCare's Recall Watcher raises the alarm in
+  the room on its own, the moment a new government alert matches a batch the family owns.
+- **The pharmacist approves, the agent proposes.** A professional signs off on every replacement in the chat,
+  and the decision is written to a room document everyone reads. No chatbot verdict on medicine.
+- **One alert, every home it reached.** The Pharmacy Desk room turns one flagged batch into action across every
+  family room linked to that pharmacy, instead of one PDF nobody opens.
 
 ## What KinCare does
 
