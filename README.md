@@ -7,6 +7,15 @@ Built on [Switch](https://github.com/sandbox-quantum/switch) for the Flip the Sw
 
 Team Avengers: Mukul (lead), Ashpreet Singh Saini.
 
+### Live in a real Telegram group, run by Switch
+
+| Scan agent flags the batch and hands off | Agents invited into the family group | The agents in Switch Console |
+|---|---|---|
+| ![KinCare Scan flags batch AT25-0938A in Hindi and English and hands off to KinCare Pharmacist](docs/img/room-scan-handoff.png) | ![The three KinCare agents invited into the Telegram group with !invite-agent](docs/img/room-invite-agents.png) | ![KinCare Scan, Pharmacist and Dose Buddy running on Claude Code in Switch Console](docs/img/console-agents.png) |
+
+Each agent is Claude Code run by Switch Console on this computer. Telegram is linked to a Switch room, and the scan
+agent passes the flagged batch to the pharmacist agent by @mention in the same room.
+
 ---
 
 ## The problem nobody tells you about
