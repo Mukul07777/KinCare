@@ -41,10 +41,10 @@ async def tts_all() -> None:
         for ci, text in enumerate(cues):
             f = AUDIO / f"s{si}_c{ci}.mp3"
             meta = AUDIO / f"s{si}_c{ci}.txt"
-            if f.exists() and meta.exists() and meta.read_text(encoding="utf-8") == text:
+            if f.exists() and meta.exists() and meta.read_text(encoding="utf-8") == VOICE + RATE + text:
                 continue   # unchanged line: keep the cached audio
             await edge_tts.Communicate(text, VOICE, rate=RATE).save(str(f))
-            meta.write_text(text, encoding="utf-8")
+            meta.write_text(VOICE + RATE + text, encoding="utf-8")
 
 
 def timeline() -> dict:
@@ -73,9 +73,21 @@ def mix(tl: dict) -> Path:
         filters.append(f"[{i}:a]adelay={ms}|{ms},aresample=48000[a{i}]")
     filters.append("".join(f"[a{i}]" for i in range(len(cues))) +
                    f"amix=inputs={len(cues)}:normalize=0,apad=whole_dur={tl['total']}[out]")
-    out = BUILD / "narration.wav"
+    voice = BUILD / "voice.wav"
     subprocess.run([FF, "-y", *inputs, "-filter_complex", ";".join(filters), "-map", "[out]",
-                    "-t", str(tl["total"]), str(out)], check=True, capture_output=True)
+                    "-t", str(tl["total"]), str(voice)], check=True, capture_output=True)
+    # soft warm pad under the voice (two slowly alternating chords), ducked whenever someone speaks
+    T = tl["total"]
+    pad = ("aevalsrc='0.5*(1+sin(2*PI*t/16))*(sin(2*PI*261.63*t)+sin(2*PI*329.63*t)+sin(2*PI*392.0*t)+0.7*sin(2*PI*130.81*t))"
+           "+0.5*(1-sin(2*PI*t/16))*(sin(2*PI*220.0*t)+sin(2*PI*261.63*t)+sin(2*PI*329.63*t)+0.7*sin(2*PI*110.0*t))'"
+           f":s=48000:d={T}")
+    out = BUILD / "narration.wav"
+    graph = (f"[1:a]lowpass=f=900,volume=0.018,afade=t=in:d=2.5,afade=t=out:st={T - 3}:d=3,"
+             "aformat=channel_layouts=stereo[m];[0:a]aformat=channel_layouts=stereo,asplit[v][sc];"
+             "[m][sc]sidechaincompress=threshold=0.02:ratio=6:attack=40:release=600[md];"
+             "[v][md]amix=inputs=2:normalize=0[out]")
+    subprocess.run([FF, "-y", "-i", str(voice), "-f", "lavfi", "-i", pad, "-filter_complex", graph, "-map", "[out]",
+                    "-t", str(T), str(out)], check=True, capture_output=True)
     return out
 
 
