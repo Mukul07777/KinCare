@@ -121,6 +121,16 @@ You need Windows, Python 3.12, [Switch Console](https://docs.switchagents.ai/swi
 
 Demo data: [`switch/family.json`](switch/family.json) holds a simulated family. **The batch AT25-0938A and its alert are real** (CDSCO NSQ list, Sep 2026); the family and pharmacist are simulated.
 
+## Scope: what to judge
+
+The hackathon entry is one loop, and it works end to end in Telegram and in `demo_local.py`:
+
+**recall alert → scan the exact batch → pharmacist agent proposes a replacement → human pharmacist approves → task to family → dose schedule switches.**
+
+Everything that loop touches: [`switch/`](switch/), and in the API the ingest, matcher, OCR, medicines, prices,
+blast radius and Switch room routes. The rest of the web app (SOS, live vitals, billing, regulator pages, check-ins)
+was in our earlier app, Carely. It still works, but the Switch workflow does not use it.
+
 ## How it is built
 
 ```
@@ -140,7 +150,7 @@ Demo data: [`switch/family.json`](switch/family.json) holds a simulated family. 
 | [`api/`](api/) | KinCare API: CDSCO ingest, batch matcher, OCR, prices, care plans |
 | [`web/`](web/) | KinCare web app (optional for the Switch workflow) |
 
-Tests: `api\.venv\Scripts\python -m pytest switch -q` (Switch layer) and `cd api && .venv\Scripts\python -m pytest -q` (KinCare API).
+Tests: `api\.venv\Scripts\python -m pytest switch -q` (Switch layer) and `cd api && .venv\Scripts\python -m pytest -q` (KinCare API, tests in `api/tests/`). OCR benchmark: `cd api && .venv\Scripts\python bench_strips.py`.
 
 ## What is new for Flip the Switch
 
@@ -152,6 +162,17 @@ the decision and task workflow, and the tests in `switch/`.
 ## Data and safety
 
 - Alerts: CDSCO public NSQ and spurious-drug portal plus monthly alert PDFs. Medicines: Indian Medicine Dataset (MIT).
+- OCR, measured with [`api/bench_strips.py`](api/bench_strips.py) on strip photos labelled by a person
+  ([`api/tests/strips/labels.csv`](api/tests/strips/labels.csv)):
+
+  | Set | Photos | Batch | Expiry | Brand | Median time |
+  |---|---|---|---|---|---|
+  | Real phone photos (WhatsApp) | 5 | 100% | 100% | 80% | 5.5 s |
+  | Demo strip prints | 5 | 100% | 100% | 100% | 2.0 s |
+
+  That is a small set, so it is evidence, not proof. If OCR misreads or finds no batch, anyone in the room can
+  type the batch number (`AT25-0938A`), or the scan agent asks for a closer photo of the "B.No." line.
+  The agent never guesses a batch.
 - Batch numbers are matched exactly; a near miss never raises an alert.
 - KinCare never says a medicine is "safe" or "genuine", only whether a batch is on an alert list.
 - No agent ever advises stopping or switching a medicine. A human pharmacist or doctor approves.
