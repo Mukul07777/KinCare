@@ -5,7 +5,7 @@ Everything below is on `main`. We now both work on `main` only (no feature branc
 ## Start here (5 minutes)
 1. `git pull origin main`
 2. Restart the API once. On startup it now warms its caches and builds the medicine search index in the background (~10 s).
-3. Open **`pitch/KinCare_Pitch_Deck.pptx`** (repo root). 13 slides; the spoken script is in the **speaker notes**.
+3. Open **`pitch/archive/KinCare_Pitch_Deck_v1.pptx` (superseded by `pitch/KinCare_Pitch_Deck_v2.pptx`)** (repo root). 13 slides; the spoken script is in the **speaker notes**.
 4. Open **`/status`** on the site: live accuracy, response times and data freshness. That page is our answer to "is this real?".
 
 ## What changed today, and why
@@ -35,7 +35,7 @@ Everything below is on `main`. We now both work on `main` only (no feature branc
 - **All headings are sentence case** ("Know the batch, not just the brand.").
 
 ### 4. Pitch deck (`5c76f77`, updated in `9373b89`)
-`pitch/KinCare_Pitch_Deck.pptx`: one section per evaluation criterion — **Workflow** (slides 4–5), **MVP execution** (6–7), **Technical feasibility & architecture** (8–10), **Progress** (11), **Team contribution** (12). Every number comes from the repo, git or `/status`. Slide 7 is the live `/demo` walkthrough. `pitch/PITCH_SCRIPT.md` points to it.
+`pitch/archive/KinCare_Pitch_Deck_v1.pptx` (superseded by `pitch/KinCare_Pitch_Deck_v2.pptx`): one section per evaluation criterion — **Workflow** (slides 4–5), **MVP execution** (6–7), **Technical feasibility & architecture** (8–10), **Progress** (11), **Team contribution** (12). Every number comes from the repo, git or `/status`. Slide 7 is the live `/demo` walkthrough. `pitch/PITCH_SCRIPT.md` points to it.
 
 ### 5. PROGRESS.md
 Dashboard recounted: **246 / 345 tasks (71%)**, tracks 32–33 added, team table recounted from git with one method for both of us (Mukul 66% of lines, Ashpreet 34%).
