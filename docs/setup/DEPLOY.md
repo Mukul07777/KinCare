@@ -15,9 +15,9 @@ can reach the webhook.
    - `PUBLIC_WEB_URL`: leave blank for now. You'll set it after step 2.
    - WhatsApp, Stripe and TinyFish keys: optional. Without them, KinCare uses the outbox and shows login codes on screen.
 3. Deploy.
-   - **The first boot builds the database (~10 minutes).** The API answers immediately with partial data, then restarts once with all 6,865 alerts and 246k medicines.
+   - **The first boot builds the database (~10 minutes).** The API answers immediately with partial data, then restarts once with all 7,920 alerts and 246k medicines.
    - Watch the logs for `Database ready, restarting the API`.
-4. Check that `https://kincare-api-XXXX.onrender.com/health` shows `"alerts": 6865`.
+4. Check that `https://kincare-api-XXXX.onrender.com/health` shows `"alerts": 7920`.
 
 ## 2. Web on Vercel
 

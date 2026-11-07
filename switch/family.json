@@ -10,21 +10,21 @@
     ]
   },
   {
-    "person": "Dadi",
-    "brand": "Namik-MR",
-    "batch": "AT25-0938A",
-    "maker": "",
-    "times": [
-      "09:00"
-    ]
-  },
-  {
     "person": "Dadaji",
     "brand": "Telma-H",
     "batch": "TLH2511",
     "maker": "",
     "times": [
       "08:00"
+    ]
+  },
+  {
+    "person": "Dadi",
+    "brand": "StayHappi Aceclofenac+Paracetamol+Chlorzoxazone 100/325/250mg",
+    "batch": "PENDING",
+    "maker": "Sarvagunaushdhi",
+    "times": [
+      "09:00"
     ]
   }
 ]
