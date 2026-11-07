@@ -85,7 +85,7 @@ def call(base: str, method: str, path: str, key: str, body: dict | None = None):
 def register(env: dict) -> None:
     base, reg = env.get("SWITCH_URL"), env.get("SWITCH_REGISTRATION_KEY")
     if not base or not reg:
-        sys.exit("Set SWITCH_URL and SWITCH_REGISTRATION_KEY in switch/.env first (see REMINDER_MUKUL.txt).")
+        sys.exit("Set SWITCH_URL and SWITCH_REGISTRATION_KEY in switch/.env first (see docs/planning/SETUP_CHECKLIST.txt).")
     r = call(base, "POST", "/agents", reg, {
         "name": AGENT_NAME,
         "display_name": "KinCare Recall Watcher",

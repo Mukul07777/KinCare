@@ -6,7 +6,7 @@ Drug recall system for India. Scan a medicine strip or pharmacy bill, live agent
 
 Team Avengers: Mukul (Team Lead), Ashpreet Singh Saini. Flip the Switch 2026.
 
-**Start here:** [PROGRESS.md](../PROGRESS.md) (what's done, what's open, latest handoff).
+**Start here:** [PROGRESS.md](planning/PROGRESS.md) (what's done, what's open, latest handoff).
 
 ## Folder structure
 
@@ -77,7 +77,7 @@ cd .. && ./dev.sh   # API :8000, web :3000
 
 | Need toâ€¦ | Read |
 |---|---|
-| See progress / pick up a shift | [PROGRESS.md](../PROGRESS.md) |
+| See progress / pick up a shift | [PROGRESS.md](planning/PROGRESS.md) |
 | Deploy | [docs/setup/DEPLOY.md](setup/DEPLOY.md) |
 | Turn on Telegram (free) | [docs/setup/TELEGRAM_SETUP.md](setup/TELEGRAM_SETUP.md) |
 | Turn on WhatsApp | [docs/setup/WHATSAPP_SETUP.md](setup/WHATSAPP_SETUP.md) |
