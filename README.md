@@ -7,6 +7,8 @@ Built on [Switch](https://github.com/sandbox-quantum/switch) for the Flip the Sw
 
 **[▶ Watch the demo (under 3 min)](https://youtu.be/LSpxSnIVH5U)**
 
+![Quick look: the scan agent flags the batch, the pharmacist agent proposes same-salt replacements and waits for the human pharmacist](docs/img/quick-look.gif)
+
 Team Avengers: Mukul (lead), Ashpreet Singh Saini.
 
 ### Live in a real Telegram group, run by Switch
