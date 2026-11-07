@@ -22,7 +22,7 @@ We pulled **7,920 real alerts (2019 to 2026)** from its public portal and monthl
   (322 in Sep 2026 alone).
 - It hits elders' daily medicines: at least **1,940 alerts (24.5%)** are for blood pressure and heart (514),
   diabetes (191), cholesterol (95), pain and fever (764) or calcium and vitamin D (409) medicines. That is a lower
-  bound, matched on the salt name only. Reproduce: `cd api && .venv\Scripts\python impact_stats.py`.
+  bound, matched on salt and a few brand names in the alert. Reproduce: `cd api && .venv\Scripts\python impact_stats.py`.
 
 And looking after an elder's medicines is a team job: Dadi takes them, her son lives in another city,
 her daughter buys them, the local pharmacist knows what to replace them with. Today that "team" is a

@@ -2,7 +2,7 @@
 
     python impact_stats.py
 
-Medicine groups are matched on the generic (salt) name in the alert's product name, so the counts are a lower
+Medicine groups are matched on salt names (and a few common brands) in the alert's product name, so the counts are a lower
 bound: an alert that names only a brand is not counted.
 """
 import collections
