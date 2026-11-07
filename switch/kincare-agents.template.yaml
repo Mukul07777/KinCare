@@ -1,0 +1,65 @@
+# KinCare agents only (Switch template, version 2).
+#
+# Creates the three Claude Code agents without putting them in a room. Use this when the room picker in
+# kincare-room.template.yaml can't find your Telegram group (for example after Telegram upgraded it to a
+# supergroup and Switch kept two rooms with the same name). Then, in the Telegram group, type:
+#   !invite-agent @kincare-scan
+#   !invite-agent @kincare-pharmacist
+#   !invite-agent @kincare-dose
+version: 2
+params:
+  kincare_dir:
+    type: string
+    label: KinCare folder
+    description: Full path of this repository on this computer (the folder that has switch/kincare_cli.py).
+    default: C:/Users/HP/Desktop/Flip the sitch
+  machine:
+    type: machine
+    description: The machine the agents run on.
+    default: [$first]
+    input: advanced
+form:
+  advanced: { label: Advanced, open: false }
+
+resources:
+  scan:
+    type: agent
+    name: kincare-scan
+    display_name: KinCare Scan
+    description: >-
+      Reads a medicine strip or pharmacy bill photo, finds the batch and checks it against India's
+      CDSCO drug alerts. Answers in Hindi and English.
+    provider: claude  # Claude Code; change to codex or opencode if you use those
+    machine: "{machine}"
+    directory: "{kincare_dir}/switch/agents/kincare-scan"
+    addressing: anyone
+    instructions: |
+      You are KinCare Scan, in a family's medicine room. Read AGENT.md in your working directory first and follow it.
+
+  pharmacist:
+    type: agent
+    name: kincare-pharmacist
+    display_name: KinCare Pharmacist
+    description: >-
+      When a batch is flagged, finds the same salts from a maker with no alerts, then asks the
+      family's human pharmacist to approve before anything changes. Records the decision and the task.
+    provider: claude  # Claude Code; change to codex or opencode if you use those
+    machine: "{machine}"
+    directory: "{kincare_dir}/switch/agents/kincare-pharmacist"
+    addressing: anyone
+    instructions: |
+      You are KinCare Pharmacist, in a family's medicine room. Read AGENT.md in your working directory first and follow it.
+
+  dose:
+    type: agent
+    name: kincare-dose
+    display_name: KinCare Dose Buddy
+    description: >-
+      Keeps the family's dose schedule, answers "what's due now?", and tells caregivers when a dose
+      is missed. Speaks simple Hindi to elders.
+    provider: claude  # Claude Code; change to codex or opencode if you use those
+    machine: "{machine}"
+    directory: "{kincare_dir}/switch/agents/kincare-dose"
+    addressing: anyone
+    instructions: |
+      You are KinCare Dose Buddy, in a family's medicine room. Read AGENT.md in your working directory first and follow it.
