@@ -10,7 +10,7 @@ import main  # noqa: E402
 import whatsapp  # noqa: E402
 
 client = TestClient(main.app)
-STRIPS = Path(__file__).resolve().parents[1] / "web" / "public" / "test-strips"
+STRIPS = Path(__file__).resolve().parents[2] / "web" / "public" / "test-strips"
 
 
 def test_incoming_images_reads_photo_and_image_document_only():

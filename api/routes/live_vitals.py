@@ -81,7 +81,7 @@ def status(refresh_quality: bool = False):
         by_route.setdefault(path, []).append(ms)
     routes = sorted(by_route.items(), key=lambda kv: -_pct(sorted(kv[1]), 0.95))[:10]  # slowest first
     api_dir = Path(__file__).resolve().parent.parent  # routes/ -> api/
-    tests = sum(open(f, encoding="utf-8").read().count("\ndef test_") for f in api_dir.glob("test_*.py"))
+    tests = sum(open(f, encoding="utf-8").read().count("\ndef test_") for f in (api_dir / "tests").glob("test_*.py"))
     runs = rows("SELECT trigger, started_at, finished_at, status, alerts_before, alerts_after, error FROM ingest_runs ORDER BY id DESC LIMIT 5")
     return {
         "ok": True,

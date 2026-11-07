@@ -99,7 +99,7 @@ def test_pharmacy_state_roundtrip():
 
 
 def test_scan_ocr():
-    img = Path(__file__).parent / "tests" / "fixtures" / "strip_telma.png"
+    img = Path(__file__).parent / "fixtures" / "strip_telma.png"
     r = client.post("/api/scan", files={"image": ("s.png", img.read_bytes(), "image/png")}).json()
     assert r["fields"]["batch"] == "05240198" and r["fields"]["brand"] == "Telma H"
 
@@ -170,7 +170,7 @@ def test_failure_explainer_and_insights():
 
 
 def test_bill_scan_checks_every_batch():
-    img = Path(__file__).parent / "tests" / "fixtures" / "bill_shree.png"
+    img = Path(__file__).parent / "fixtures" / "bill_shree.png"
     r = client.post("/api/scan/bill", files={"image": ("b.png", img.read_bytes(), "image/png")}).json()
     batches = [i["batch"] for i in r["items"]]
     assert {"BDS25003", "05240198", "AML24017", "MHPL-733"} <= set(batches)
@@ -218,7 +218,7 @@ def test_care_vitals_never_suggest_medicine():
 
 
 def test_prescription_to_reminders_and_report():
-    img = Path(__file__).parent / "tests" / "fixtures" / "prescription.png"
+    img = Path(__file__).parent / "fixtures" / "prescription.png"
     rx = client.post("/api/care/prescription/scan", files={"image": ("rx.png", img.read_bytes(), "image/png")}).json()
     names = [m["name"] for m in rx["medicines"]]
     assert names == ["Dolo", "Pantocid", "Ascoril", "Cetzine"] and "Rest" in [a["en"] for a in rx["advice"]]

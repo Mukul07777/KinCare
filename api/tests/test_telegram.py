@@ -14,7 +14,7 @@ import main  # noqa: E402
 from testutil import auth_as  # noqa: E402
 
 client = TestClient(main.app)
-FIX = Path(__file__).parent / "tests" / "fixtures"
+FIX = Path(__file__).parent / "fixtures"
 
 
 @pytest.fixture

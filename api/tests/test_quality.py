@@ -37,7 +37,7 @@ def test_same_maker_respelled_still_matches(a, b):
     assert _maker_score(a, b) >= 80
 
 
-REAL_DB = Path(__file__).resolve().parent.parent / "data" / "kincare.db"
+REAL_DB = Path(__file__).resolve().parents[2] / "data" / "kincare.db"
 
 
 @pytest.mark.skipif(not REAL_DB.exists(), reason="needs the real alert database")
