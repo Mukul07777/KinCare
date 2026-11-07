@@ -30,3 +30,7 @@ switch/demo_out/
 
 # API log from start_switch.sh
 api/uvicorn.log
+
+# Demo video build output (rebuild with video/build.py)
+video/build/
+video/out/
