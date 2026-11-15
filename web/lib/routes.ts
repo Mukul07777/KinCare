@@ -14,6 +14,7 @@ export const GROUPS: Group[] = [
       { href: "/scan", label: "Scan a strip", hint: "Photo, QR or bill, checked against every alert", icon: ScanLine, keywords: "batch check ocr camera qr bill" },
       { href: "/whatsapp", label: "WhatsApp", hint: "Send a strip photo, get the verdict. No app", icon: MessageCircle, keywords: "chat photo bot" },
       { href: "/dadi", label: "Dadi mode", hint: "Talk or type in Hindi. Big, simple, spoken back", icon: Mic, keywords: "voice hindi elder speak chat talk telegram" },
+      { href: "/circle", label: "Care circle", hint: "Passcode-shared profile: medicines, adherence, appointments, email reminders", icon: ShieldCheck, keywords: "passcode family caretaker appointment adherence email reminder schedule" },
       { href: "/family", label: "Family", hint: "Look after a parent's doses and vitals, with consent", icon: Users, keywords: "caregiver son daughter parent elder monitor adherence consent" },
       { href: "/care", label: "Care", hint: "Doses, vitals, reminders, your doctor", icon: HeartPulse, keywords: "prescription reminders vitals doctor family" },
       { href: "/save", label: "Save money", hint: "Same salt, lower price, clean maker", icon: IndianRupee, keywords: "price cheaper generic jan aushadhi" },
@@ -59,6 +60,6 @@ export const ALL_ROUTES: Route[] = GROUPS.flatMap((g) => g.routes);
 
 // The one story the top bar tells: check the strip, take it on time, talk in Hindi, family keeps watch.
 // Every other page sits under More (and the footer, and ⌘K).
-export const PRIMARY = ["/scan", "/network", "/care", "/dadi", "/family"];
+export const PRIMARY = ["/circle", "/scan", "/care", "/dadi", "/family"];
 export const PRIMARY_ROUTES: Route[] = PRIMARY.map((h) => ALL_ROUTES.find((r) => r.href === h)!);
 export const MORE_GROUPS: Group[] = GROUPS.map((g) => ({ ...g, routes: g.routes.filter((r) => !PRIMARY.includes(r.href)) })).filter((g) => g.routes.length);

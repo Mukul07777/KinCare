@@ -26,6 +26,35 @@ agent passes the flagged batch to the pharmacist agent by @mention in the same r
 
 ---
 
+
+## Care circle: the elder's shared health profile
+
+**Page:** `/circle` · **Code:** [api/circle.py](api/circle.py), [api/routes/care_circle.py](api/routes/care_circle.py), [web/app/circle/page.tsx](web/app/circle/page.tsx)
+
+- **Passcode access.** The elder creates a profile (ID like `KC-7HQ2PX`) and a passcode (PBKDF2-hashed, weak codes refused).
+  Family and caretakers unlock it with their name and email and get their own revocable session. After 5 wrong
+  passcodes the profile locks for 15 minutes and the elder is emailed.
+- **The elder stays in charge.** With "ask me first" on, medicine changes by others wait for the elder's approval.
+  The elder is emailed about every change and every new member, can make anyone view-only, can remove anyone,
+  and can read the full activity log.
+- **Medicines and adherence.** Anyone with edit access can add, edit or stop medicines (morning, noon or night, before
+  or after food, as needed). Anyone in the circle can tick doses. The page shows 7- and 30-day adherence, a streak,
+  and which medicines are often missed. The schedule is the same one the Care page, Dadi mode and WhatsApp or
+  Telegram reminders use.
+- **Email reminders** (Gmail SMTP or Resend):
+  - the upcoming dose, 15 minutes before, to the elder and caretakers;
+  - a missed dose, 1 hour late, to the whole circle;
+  - appointments, 24 hours and 2 hours before, to the whole circle.
+
+  Each reminder is sent once and is never sent for something hours old.
+- **Google services.**
+  - **Gemini** writes a warm weekly note in English or Hindi from the adherence numbers. It is told never to change a
+    medicine, and the page falls back to rule-based text without a key.
+  - **"Add to Google Calendar"** appears on every appointment.
+  - **Gmail** can deliver the emails.
+  - **Cloud Run** hosts the app ([docs/setup/CLOUD_RUN.md](docs/setup/CLOUD_RUN.md)).
+- **Tests:** `cd api && .venv\Scripts\python -m pytest tests/test_circle.py`
+
 ## The problem nobody tells you about
 
 India's drug regulator (CDSCO) publishes the batches that failed a quality test or turned out to be fake.

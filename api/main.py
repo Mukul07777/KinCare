@@ -20,7 +20,7 @@ from core import (  # noqa: F401  (re-exported: tests and tools import these fro
     NIGHTLY_HOUR_IST, _next_nightly, _refresh, _timings, alert_device, candidates, conn, now,
 )
 from routes import (
-    account, alerts, blast_radius, care_plan, checkins, dadi, doctor_connect, emergency, family, live_vitals, medicines,
+    account, alerts, blast_radius, care_circle, care_plan, checkins, dadi, doctor_connect, emergency, family, live_vitals, medicines,
     notifications, pack_radar, pharmacy, pharmacy_desk, recall_live, reference, regulator, reports, switch_room, telegram_bot, watchlist,
     whatsapp_bot,
 )
@@ -44,7 +44,7 @@ app = FastAPI(title="KinCare API", lifespan=lifespan)
 # KINCARE_ORIGINS lists any other site allowed to call it with credentials (comma separated).
 ORIGINS = [o.strip() for o in os.environ.get("KINCARE_ORIGINS", os.environ.get("PUBLIC_WEB_URL", "http://localhost:3000")).split(",") if o.strip()]
 app.add_middleware(CORSMiddleware, allow_origins=ORIGINS, allow_credentials=True,
-                   allow_methods=["GET", "POST", "PUT", "DELETE"], allow_headers=["Content-Type", "Authorization", "X-KinCare"])
+                   allow_methods=["GET", "POST", "PUT", "DELETE"], allow_headers=["Content-Type", "Authorization", "X-KinCare", "X-Circle-Token"])
 
 SECURITY_HEADERS = {
     "X-Content-Type-Options": "nosniff",
@@ -93,5 +93,5 @@ async def _time_requests(request: Request, call_next):
 # Same order as the sections of the old single-file main.py, so route matching is unchanged.
 for area in (alerts, recall_live, checkins, care_plan, pharmacy, watchlist, pharmacy_desk, reports, account, emergency, blast_radius,
              live_vitals, medicines, whatsapp_bot, regulator, pack_radar, notifications, reference, doctor_connect, family, dadi, telegram_bot,
-             switch_room):
+             switch_room, care_circle):
     app.include_router(area.router)
