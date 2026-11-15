@@ -1,6 +1,6 @@
-# Switch notes for KinCare
+# Switch notes for Dosely
 
-What we learned from docs.switchagents.ai (Switch Console v0.40.1), and how KinCare uses it.
+What we learned from docs.switchagents.ai (Switch Console v0.40.1), and how Dosely uses it.
 
 ## How agents join a room (two ways)
 
@@ -20,7 +20,7 @@ Agent names: `^[a-z0-9][a-z0-9._-]*$`. New agents answer only their owner; widen
 `update_agent_detail` `addressing`: `owner_only` | `owner_and_owner_agents` | `anyone`.
 Agents hand work to each other by @mention; there is no separate task protocol.
 
-## KinCare design
+## Dosely design
 
 | Agent | Kind | Job |
 |---|---|---|
@@ -30,7 +30,7 @@ Agents hand work to each other by @mention; there is no separate task protocol.
 | `kincare-recall-watcher` | Custom protocol (Python) | Watches CDSCO alerts and posts on its own in the room when a family batch matches |
 
 Console-run agents get a working directory under `switch/agents/<name>/` with their instructions and call
-KinCare through one small CLI (`switch/kincare_cli.py`) that talks to the KinCare API on `localhost:8000`.
+Dosely through one small CLI (`switch/kincare_cli.py`) that talks to the Dosely API on `localhost:8000`.
 The watcher is a real protocol agent because it must speak first, without being asked.
 
 Decisions and tasks are kept as **room documents** (`create_room_document` / `update_room_document`):

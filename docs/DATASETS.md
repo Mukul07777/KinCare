@@ -1,6 +1,6 @@
-# Datasets used in KinCare
+# Datasets used in Dosely
 
-All numbers in KinCare come from public datasets. The only simulated data is Early Signal's demo seed, which the app labels.
+All numbers in Dosely come from public datasets. The only simulated data is Early Signal's demo seed, which the app labels.
 
 | Dataset | Size | Used for | Licence |
 |---|---|---|---|

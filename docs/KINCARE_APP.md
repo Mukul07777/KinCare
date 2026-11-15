@@ -1,8 +1,8 @@
-﻿# KinCare
+﻿# Dosely
 
 > Know the batch, not just the brand.
 
-Drug recall system for India. Scan a medicine strip or pharmacy bill, live agents check every regulator alert source, and patients get a WhatsApp + Hindi voice alert if their batch is flagged. Elders can talk to KinCare in Hindi (Dadi mode), and family caregivers can look after a parent's doses and vitals, with the parent's consent.
+Drug recall system for India. Scan a medicine strip or pharmacy bill, live agents check every regulator alert source, and patients get a WhatsApp + Hindi voice alert if their batch is flagged. Elders can talk to Dosely in Hindi (Dadi mode), and family caregivers can look after a parent's doses and vitals, with the parent's consent.
 
 Team Avengers: Mukul (Team Lead), Ashpreet Singh Saini. Flip the Switch 2026.
 
@@ -44,7 +44,7 @@ Flip-the-Switch/
 â”œâ”€â”€ docs/
 â”‚   â”œâ”€â”€ BUSINESS.md        business model, plans, unit economics
 â”‚   â”œâ”€â”€ SECURITY.md        what protects the medical data, how it is tested, what is still open
-â”‚   â”œâ”€â”€ DATASETS.md        every dataset behind KinCare and where it comes from
+â”‚   â”œâ”€â”€ DATASETS.md        every dataset behind Dosely and where it comes from
 â”‚   â”œâ”€â”€ setup/
 â”‚   â”‚   â”œâ”€â”€ DEPLOY.md          Render + Vercel deployment
 â”‚   â”‚   â”œâ”€â”€ TELEGRAM_SETUP.md  free Telegram bot (chat + caregiver alerts)
@@ -56,7 +56,7 @@ Flip-the-Switch/
 
 ## Run locally
 
-**Windows, one click:** double-click `run.bat`. The first run installs everything, downloads the real alert data and builds the web app; later runs rebuild the web app only when the code changed (after a `git pull`). Keys go in `api\.env.bat` (created on first run from `api\env.example.bat`, git-ignored). Everything is optional: with no keys KinCare runs in demo mode.
+**Windows, one click:** double-click `run.bat`. The first run installs everything, downloads the real alert data and builds the web app; later runs rebuild the web app only when the code changed (after a `git pull`). Keys go in `api\.env.bat` (created on first run from `api\env.example.bat`, git-ignored). Everything is optional: with no keys Dosely runs in demo mode.
 
 **Manually:**
 

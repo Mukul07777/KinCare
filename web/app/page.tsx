@@ -48,12 +48,12 @@ const STEPS = [
   { icon: BellRing, title: "Watched for good", body: "If a new list names your batch, WhatsApp and a Hindi voice call reach you before the next dose." },
 ];
 
-// Three people Carely protects, each with the one thing it does for them.
+// Three people Dosely protects, each with the one thing it does for them.
 const AUDIENCES = [
   { icon: HeartPulse, who: "Families", line: "Know the medicine in your home is not on a failed list, and never miss a dose.",
     points: ["Scan, WhatsApp or ask in Hindi", "Dose reminders and refills", "Same salt, lower price"], href: "/scan", cta: "Check a batch" },
   { icon: Store, who: "Pharmacies", line: "Check your stock against every alert and reach every customer who bought a flagged batch.",
-    points: ["Stock matched automatically", "Buyers alerted, response logged", "Customers get Carely free"], href: "/pharmacy", cta: "Open the recall desk" },
+    points: ["Stock matched automatically", "Buyers alerted, response logged", "Customers get Dosely free"], href: "/pharmacy", cta: "Open the recall desk" },
   { icon: Landmark, who: "Regulators", line: "See who still holds a failed batch, where copied pack codes travel, and what patients report.",
     points: ["Recall blast radius", "Fake-pack radar", "Ranked action queue"], href: "/controller", cta: "See the dashboard" },
 ];
@@ -75,7 +75,7 @@ export default async function Home() {
             </div>
             {/* The name, huge and bold across the middle; the medicine strip below floats up over it. */}
             <h1 className="relative z-0 mt-6 select-none text-center text-[22vw] font-black uppercase leading-[0.85] tracking-tighter text-espresso sm:text-[13rem] lg:text-[15rem]">
-              Carely
+              Dosely
               <span className="sr-only">: know the batch, not just the brand.</span>
             </h1>
             <div className="mt-6 grid items-start gap-6 sm:grid-cols-[1fr_auto_1fr]">
@@ -97,7 +97,7 @@ export default async function Home() {
         <div className="mx-auto max-w-4xl text-center">
           <Reveal>
             <p className="mx-auto mt-6 max-w-xl text-lg text-muted">
-              <b className="text-espresso">Know the batch, not just the brand.</b> Carely checks your medicine against every government drug alert, then keeps watching it, so a failed batch never reaches your next dose.
+              <b className="text-espresso">Know the batch, not just the brand.</b> Dosely checks your medicine against every government drug alert, then keeps watching it, so a failed batch never reaches your next dose.
             </p>
             <div className="mt-9 flex flex-wrap justify-center gap-3">
               <Link
@@ -315,7 +315,7 @@ function RecallGap({ g }: { g: Gap }) {
               </div>
             </div>
             <div className="rounded-3xl bg-teal p-6">
-              <p className="text-xs font-medium uppercase tracking-wider text-paper/70">Carely closes the second half</p>
+              <p className="text-xs font-medium uppercase tracking-wider text-paper/70">Dosely closes the second half</p>
               <p className="mt-2 text-xl font-medium leading-snug">The moment a batch is listed, everyone holding it hears, soonest next dose first.</p>
               <Link href="/blast" className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-paper px-4 py-2 text-sm font-medium text-teal hover:bg-sand">
                 See the recall blast radius <ArrowRight className="size-4" />

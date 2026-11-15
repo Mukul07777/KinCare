@@ -1,4 +1,4 @@
-"""The Switch side of Carely, as data for the web app's Care Network page.
+"""The Switch side of Dosely, as data for the web app's Care Network page.
 
 It runs the same logic the Switch agents run (switch/kincare_cli.py: network check, blast radius, doctor
 escalation, safe replacements) inside this process, so the page shows exactly what the agents would say

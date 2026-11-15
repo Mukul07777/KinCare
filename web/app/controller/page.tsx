@@ -45,7 +45,7 @@ function Controller() {
         <div>
           <Eyebrow>State drug controller</Eyebrow>
           <Heading as="h1" lead="Every failed batch," tail="followed to the home." className="mt-4 text-4xl sm:text-5xl" />
-          <p className="mt-3 max-w-2xl text-muted">The regulator&apos;s own alerts, joined with what Carely sees on the ground: who still holds a flagged batch, copied pack codes, and patients reporting problems before any list does.</p>
+          <p className="mt-3 max-w-2xl text-muted">The regulator&apos;s own alerts, joined with what Dosely sees on the ground: who still holds a flagged batch, copied pack codes, and patients reporting problems before any list does.</p>
         </div>
         <div className="flex flex-wrap items-center gap-2 print:hidden">
           <select value={state} onChange={(e) => setState(e.target.value)} className="rounded-full border border-line bg-paper px-4 py-2.5 text-sm font-medium outline-none">
@@ -103,12 +103,12 @@ function Controller() {
           {/* Batches in homes */}
           <div className="card mt-5 rounded-[2rem] p-6">
             <p className="text-lg font-medium">Flagged batches still in homes</p>
-            <p className="text-xs text-muted">From Carely purchases, pharmacy sales and watchlists, all India.</p>
+            <p className="text-xs text-muted">From Dosely purchases, pharmacy sales and watchlists, all India.</p>
             <div className="mt-4 overflow-x-auto">
               <table className="w-full min-w-[640px] text-sm">
                 <thead><tr className="text-left text-xs text-muted"><th className="py-2">Medicine</th><th>Batch</th><th>List</th><th className="text-right">Holders</th><th className="text-right">Alerted</th><th className="text-right">Due 24 h</th><th /></tr></thead>
                 <tbody className="divide-y divide-line">
-                  {d.held.length === 0 && <tr><td colSpan={7} className="py-6 text-center text-muted">No flagged batch is held by anyone Carely knows.</td></tr>}
+                  {d.held.length === 0 && <tr><td colSpan={7} className="py-6 text-center text-muted">No flagged batch is held by anyone Dosely knows.</td></tr>}
                   {d.held.map((h) => (
                     <tr key={h.batch_norm}>
                       <td className="py-2.5 font-medium">{h.medicine}{h.simulated ? <span className="ml-2 rounded-full bg-sand px-2 py-0.5 text-[10px] font-semibold text-brown">SIMULATED</span> : null}</td>

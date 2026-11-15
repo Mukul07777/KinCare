@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Download, Eye, Lock, Trash2, UserCheck, Users } from "lucide-react";
 import { Eyebrow, Heading } from "@/components/Heading";
 
-export const metadata = { title: "Privacy · Carely" };
+export const metadata = { title: "Privacy · Dosely" };
 
 const HOLD: [string, string, string][] = [
   ["Prescriptions you scan or type", "To remind you of doses and check each batch against regulator alerts", "Until you delete them"],
@@ -27,7 +27,7 @@ export default function PrivacyPage() {
       <Eyebrow>Privacy</Eyebrow>
       <Heading as="h1" lead="Your health data" tail="belongs to you." className="mt-4 text-4xl sm:text-6xl" />
       <p className="mt-4 max-w-2xl text-lg text-muted">
-        Carely is built around India&apos;s Digital Personal Data Protection Act, 2023: we collect only what a feature needs, use it only for that,
+        Dosely is built around India&apos;s Digital Personal Data Protection Act, 2023: we collect only what a feature needs, use it only for that,
         keep it only as long as needed, and you can see or erase all of it yourself.
       </p>
 
@@ -73,7 +73,7 @@ export default function PrivacyPage() {
       </ul>
 
       <p className="mt-14 rounded-2xl bg-cream p-5 text-sm text-muted">
-        Carely is a Flip the Switch 2026 project, not yet a certified medical device. Questions or a complaint about your data: write to the team
+        Dosely is a Flip the Switch 2026 project, not yet a certified medical device. Questions or a complaint about your data: write to the team
         (Team Avengers).
       </p>
     </main>

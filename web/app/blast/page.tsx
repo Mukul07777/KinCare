@@ -102,7 +102,7 @@ function Blast() {
       <Eyebrow>Recall blast radius</Eyebrow>
       <Heading as="h1" lead="Who has the bad batch." tail="Before the next dose." className="mt-4 text-4xl sm:text-6xl" />
       <p className="mt-4 max-w-2xl text-muted">
-        A regulator list says which batch failed. Carely knows <b className="text-espresso">who is holding it</b>, when each person&apos;s next tablet is due,
+        A regulator list says which batch failed. Dosely knows <b className="text-espresso">who is holding it</b>, when each person&apos;s next tablet is due,
         and <b className="text-espresso">whether their vitals changed</b> since they started it. Then it alerts them, soonest dose first.
       </p>
 
@@ -341,7 +341,7 @@ const SOURCE = {
 
 function countdown(h: Holder) {
   const m = h.minutes;
-  if (m == null) return "No dose schedule on Carely";
+  if (m == null) return "No dose schedule on Dosely";
   if (m <= 0) return "Next dose due now";
   if (m < 60) return `Next dose in ${m} min`;
   if (m < 1440) return `Next dose in ${Math.floor(m / 60)} h${m % 60 ? ` ${m % 60} m` : ""}`;
@@ -358,7 +358,7 @@ function BodyPanel({ view }: { view: BlastView }) {
     <div className="card rounded-[2rem] p-6">
       <p className="flex items-center gap-2 text-lg font-medium tracking-tight"><HeartPulse className="size-5 text-warn" /> Is this batch hurting anyone?</p>
       {s.with_vitals === 0 ? (
-        <p className="mt-2 text-sm text-muted">No holder has vitals logged both before and after starting this batch yet. When they do, Carely compares them here.</p>
+        <p className="mt-2 text-sm text-muted">No holder has vitals logged both before and after starting this batch yet. When they do, Dosely compares them here.</p>
       ) : (
         <>
           <div className="mt-4 flex items-end gap-4">

@@ -1,6 +1,6 @@
 # Security and privacy
 
-KinCare holds medical data: prescriptions, doses, vitals, diagnoses, chats with family and doctors. This page lists what
+Dosely holds medical data: prescriptions, doses, vitals, diagnoses, chats with family and doctors. This page lists what
 protects it, how each protection is checked, and what is still open. Every item marked ✅ has a test in
 `api/test_security.py` (or the file named), which runs in CI on every push.
 
@@ -33,7 +33,7 @@ chosen scopes (see Stored data).
 | Run a recall | | ✅ | ✅ | ✅ | `/api/recall/run`, `/api/recall/stream` |
 | Controller dashboard | | | ✅ | ✅ | `/api/controller` |
 | See who holds a flagged batch (names, phones, next dose), alert them | | | ✅ | ✅ | `/api/blast*` |
-| Messages KinCare sent | | | masked phones | full | `/api/notifications` |
+| Messages Dosely sent | | | masked phones | full | `/api/notifications` |
 | Message a typed-in demo number, seed demo data, fetch new alerts | | | | ✅ | `/api/recall/run` with `demo_phone`, `/api/*/demo`, `/api/admin/ingest` |
 | Approve / revoke roles, read the audit log, operations | | | | ✅ | `/api/admin/*` |
 
@@ -80,4 +80,4 @@ chosen scopes (see Stored data).
 - **Not everything is encrypted at rest.** Vitals numbers, medicine names and phone numbers (needed to send WhatsApp messages and to look people up) are stored in clear text in SQLite, protected by the server's disk encryption. Next step: encrypt phone numbers with a keyed hash for lookups.
 - **The web CSP allows inline scripts** (`'unsafe-inline'`), which Next.js needs without per-request nonces. Next step: nonce-based CSP via middleware.
 - **Sign-in depends on WhatsApp delivery.** Without a WhatsApp provider, production has no phone login (by design: no codes on screen).
-- **No external audit or penetration test yet**, and KinCare is not a certified medical device.
+- **No external audit or penetration test yet**, and Dosely is not a certified medical device.

@@ -1,4 +1,4 @@
-# KinCare: Business Model & Plan
+# Dosely: Business Model & Plan
 
 > **Free for patients. Paid by pharmacies.**
 > One source-linked database of official drug alerts powers a free consumer check and paid recall software for organisations.
@@ -9,7 +9,7 @@ All prices and numbers below are **hypotheses to test with pilot customers**, no
 
 ## 1. Positioning
 
-KinCare is a **medicine-batch alert and recall-response platform**. It:
+Dosely is a **medicine-batch alert and recall-response platform**. It:
 - checks whether a batch appears in a **published regulator alert** (CDSCO, state regulators, manufacturer notices),
 - traces that batch through **recorded inventory and sales**,
 - gives organisations a **tracked, auditable response workflow**.
@@ -34,7 +34,7 @@ It does **not** test medicines, certify authenticity, guarantee safety, or repla
 
 ## 3. Pricing (in the app: `api/billing.py`, one place)
 
-Each plan includes everything in the plan below it. **Pharmacy Pro has every KinCare feature.**
+Each plan includes everything in the plan below it. **Pharmacy Pro has every Dosely feature.**
 
 | Plan | Price | Adds |
 |---|---|---|
@@ -54,8 +54,8 @@ Each plan includes everything in the plan below it. **Pharmacy Pro has every Kin
 ## 4. Growth loop: pharmacies bring the patients
 
 1. A pharmacy subscribes (₹499, first month free). Its stock is checked against every new alert.
-2. **Its customers get Basic free**: phone numbers on the store's sales records get WhatsApp reminders, paid for by the pharmacy. KinCare gets users without paying to advertise.
-3. When a batch is flagged, KinCare finds who bought it and alerts them before the next dose. The store looks responsible, and customers come back.
+2. **Its customers get Basic free**: phone numbers on the store's sales records get WhatsApp reminders, paid for by the pharmacy. Dosely gets users without paying to advertise.
+3. When a batch is flagged, Dosely finds who bought it and alerts them before the next dose. The store looks responsible, and customers come back.
 4. Customers add parents and grandparents with Family (₹69). Their symptom reports feed Early Signal for every store.
 
 ## 5. Unit economics (worst case, every message paid)
@@ -90,26 +90,26 @@ Lean fixed cost ₹30k–90k/month → break-even at roughly **70–200 pharmaci
 4. **Convert to paid.** First month free, then ₹499. Interview everyone who declines.
 5. **Distribute through partners.** Integrate with existing pharmacy software (Marg, GoFrugal) and pharmacy groups instead of asking stores to switch.
 
-**Sales line:** *"KinCare helps pharmacies find batches named in official alerts in their recorded stock, act on them, and keep a record, without replacing their pharmacy software."*
+**Sales line:** *"Dosely helps pharmacies find batches named in official alerts in their recorded stock, act on them, and keep a record, without replacing their pharmacy software."*
 
 ---
 
 ## 7. Competitive positioning
 
-- **Not another billing/inventory system.** Many already track batches and expiry. KinCare adds cross-source regulator monitoring on top of them.
-- **Complements government QR codes.** QR shows the pack came from the maker; KinCare shows whether a regulator flagged the batch.
+- **Not another billing/inventory system.** Many already track batches and expiry. Dosely adds cross-source regulator monitoring on top of them.
+- **Complements government QR codes.** QR shows the pack came from the maker; Dosely shows whether a regulator flagged the batch.
 - **Never presented as an official verification service.**
 - **Moat:** a normalised, source-linked alert database + integrations + measured match accuracy + a network of pharmacies acting on it. Not the OCR or the agent alone.
 
 ### Prior art on GitHub (checked 24 Oct 2026)
 
-| Project | What it does well | What we took | Where KinCare goes further |
+| Project | What it does well | What we took | Where Dosely goes further |
 |---|---|---|---|
 | [medcheck](https://github.com/ankithsurapani/medcheck) | Searchable NSQ database, 2019 → 2026, via CDSCO's public JSON portal | Discovered the portal endpoint (we wrote our own client; their dataset is CC0) | Scan + OCR, watchlist, pharmacy recall workflow |
 | [AushadhIQ](https://github.com/manojk909/AushadhIQ) | Batch lookup, careful manufacturer entity resolution, "never says safe" enforced by tests | Strip only legal forms when normalising makers; show grouped spellings; a test that fails if a result says "safe" | Inventory bulk check, review tasks + audit trail, return note, notifications |
 | [pharmawatch](https://github.com/COSMICnoob80/pharmawatch) (blueprint) | WhatsApp-shareable alert cards | One-tap WhatsApp share of a verdict with the source link | Working product, Indian data |
 
-**Our position:** others make the data *searchable*; KinCare makes it *actionable*: scan a strip, watch a batch, and run a pharmacy's recall response end to end.
+**Our position:** others make the data *searchable*; Dosely makes it *actionable*: scan a strip, watch a batch, and run a pharmacy's recall response end to end.
 
 ---
 

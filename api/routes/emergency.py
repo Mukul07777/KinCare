@@ -67,7 +67,7 @@ def sos_trigger(b: SosIn, account: str = Depends(current_account)):
     contacts = rows("SELECT name, phone FROM contacts WHERE device = ?", (dev,))
     deliveries = sos.deliver(contacts, text)
     for name in tell_caregivers(dev, b.member, "sos", f"🚨 SOS from {b.member}", text, "sos"):
-        deliveries.append({"name": name, "phone": "Carely caregiver", "status": "caregiver", "link": None})
+        deliveries.append({"name": name, "phone": "Dosely caregiver", "status": "caregiver", "link": None})
     cur = conn.execute("INSERT INTO sos_events (device, member, lat, lng, message, delivered) VALUES (?, ?, ?, ?, ?, ?)",
                        (dev, b.member, b.lat, b.lng, text, sum(d["status"] == "sent" for d in deliveries)))
     conn.commit()

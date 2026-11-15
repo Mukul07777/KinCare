@@ -1,6 +1,6 @@
 """SOS: one tap tells family where you are and what you take, so a doctor gets the facts fast.
 
-Carely does not call an ambulance itself; the page offers 112 / 108 as plain phone links.
+Dosely does not call an ambulance itself; the page offers 112 / 108 as plain phone links.
 """
 from urllib.parse import quote
 
@@ -20,7 +20,7 @@ def card(conn, device: str, member: str) -> dict:
 
 
 def message(c: dict, lat: float | None, lng: float | None) -> str:
-    lines = [f"EMERGENCY (Carely SOS): {c['member']} needs help now."]
+    lines = [f"EMERGENCY (Dosely SOS): {c['member']} needs help now."]
     if lat is not None and lng is not None:
         lines.append(f"Location: https://maps.google.com/?q={lat:.5f},{lng:.5f}")
     v = c["last_vitals"]

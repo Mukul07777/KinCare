@@ -5,7 +5,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { Clock, Loader2, ShieldCheck } from "lucide-react";
 import { authMe, myRoles, requestRole, type Me, type RoleGrant } from "@/lib/api";
 
-const NAME = { pharmacist: "Pharmacist", regulator: "Drug regulator", admin: "Carely admin" } as const;
+const NAME = { pharmacist: "Pharmacist", regulator: "Drug regulator", admin: "Dosely admin" } as const;
 const FIELDS = {
   pharmacist: { org: "Pharmacy name and city", licence: "Drug licence no. (Form 20/21)" },
   regulator: { org: "Office (e.g. State Drugs Control, Gujarat)", licence: "Employee / officer ID" },
@@ -31,7 +31,7 @@ export function RoleGate({ perm, role, what, children }: { perm: string; role: k
           ? <Link href={`/login?next=${encodeURIComponent(typeof window === "undefined" ? "/" : window.location.pathname)}`}
               className="mt-5 inline-flex rounded-full bg-espresso px-5 py-2.5 text-sm font-medium text-paper hover:bg-brown">Sign in with your phone</Link>
           : role === "admin"
-            ? <p className="mt-5 rounded-2xl bg-sand px-4 py-3 text-sm">Admin is granted by an existing Carely admin, never requested.</p>
+            ? <p className="mt-5 rounded-2xl bg-sand px-4 py-3 text-sm">Admin is granted by an existing Dosely admin, never requested.</p>
             : <RequestRole role={role} onActive={() => authMe().then(setMe)} />}
       </div>
     </main>
@@ -61,7 +61,7 @@ export function RequestRole({ role, onActive }: { role: "pharmacist" | "regulato
   if (open?.status === "pending") return (
     <p className="mt-5 flex items-start gap-2 rounded-2xl bg-sand px-4 py-3 text-sm">
       <Clock className="mt-0.5 size-4 shrink-0 text-brown" />
-      Request sent for <b className="mx-1">{open.org}</b> ({open.licence}). A Carely admin checks the licence and approves it.
+      Request sent for <b className="mx-1">{open.org}</b> ({open.licence}). A Dosely admin checks the licence and approves it.
     </p>
   );
   if (open?.status === "active") return <p className="mt-5 rounded-2xl bg-mint px-4 py-3 text-sm text-teal">You have the {NAME[role]} role for {open.org}.</p>;

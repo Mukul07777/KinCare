@@ -9,7 +9,7 @@ We measured how often that happens. From 7,920 public alerts by CDSCO (India's d
 batch reaches the list a median **10 months** after it was made, and **99.6%** of listed batches are still
 within expiry when they appear. The medicine is still in homes. Nobody tells the people taking it.
 
-We had already built the hard part, KinCare: a batch matcher over CDSCO data, OCR for strip photos, and a
+We had already built the hard part, Dosely: a batch matcher over CDSCO data, OCR for strip photos, and a
 246,000-brand medicine dataset. What it lacked was the *team*. Looking after an elder's medicines is never
 one person: the elder takes them, a son in another city worries, a daughter buys them, the local pharmacist
 knows what to swap. This post is how we used **Switch** to put all of them, plus four agents, in one chat,
@@ -29,13 +29,13 @@ Switch Console, the desktop app, runs a local Switch server and your agents.
 Dadi            [photo of a Namik-MR strip]  @kincare-scan
 Recall Watcher  ⚠️ Batch AT25-0938A is on the CDSCO Not of Standard Quality list (Sep 2026).
                 @kincare-pharmacist please find a replacement. Family: don't stop it on your own.
-KinCare Pharm.  Same three salts, makers with no alerts: 1) StayHappi ₹2.70/tablet 2) Genericart ₹8.20
+Dosely Pharm.  Same three salts, makers with no alerts: 1) StayHappi ₹2.70/tablet 2) Genericart ₹8.20
                 @Pharmacist reply approve 1/2 or reject.
 Rahul (son)     approve 1
-KinCare Pharm.  Only the pharmacist can approve. @Pharmacist please confirm.
+Dosely Pharm.  Only the pharmacist can approve. @Pharmacist please confirm.
 Pharmacist      approve 1
-KinCare Pharm.  ✅ Decision logged. Task for @Rahul: buy StayHappi today.
-KinCare Dose    दादी, कल सुबह 9 बजे से नई दवा: StayHappi, 1 गोली।
+Dosely Pharm.  ✅ Decision logged. Task for @Rahul: buy StayHappi today.
+Dosely Dose    दादी, कल सुबह 9 बजे से नई दवा: StayHappi, 1 गोली।
 ```
 
 Four agents, each with one job:
@@ -79,7 +79,7 @@ and say hi. The group appears under **Your Rooms**. Two things that surprised us
 The nicest discovery: most agents need **no protocol code at all**. In Console, an agent is a coding agent
 (Claude Code here) running in a **directory** you choose. Switch starts it when someone @mentions it.
 
-So each KinCare agent is just a folder:
+So each Dosely agent is just a folder:
 
 ```
 switch/agents/kincare-pharmacist/
@@ -87,9 +87,9 @@ switch/agents/kincare-pharmacist/
   CLAUDE.md    # one line, "@AGENT.md", so Claude Code loads it automatically
 ```
 
-and one shared tool, `switch/kincare_cli.py`, a standard-library Python script that talks to the KinCare
+and one shared tool, `switch/kincare_cli.py`, a standard-library Python script that talks to the Dosely
 API and prints JSON. The pharmacist's instructions say: run `kincare_cli.py replacements <batch>`, offer up to
-three options, ask the pharmacist, and only on their "approve" write to the room's *KinCare Decisions* document.
+three options, ask the pharmacist, and only on their "approve" write to the room's *Dosely Decisions* document.
 
 **Lesson: move safety-critical logic out of the prompt and into code.** Our first version asked the agent to
 "pick alternatives with the same salts". Testing on real data, the cheapest "same salt" option for Namik-MR
@@ -105,7 +105,7 @@ Switch templates are YAML. Ours creates the three Claude Code agents and, depend
 - **Telegram group:** the agents join the group you already made, or
 - **New rooms:** a *group* of two linked rooms, "Sharma Family Care" and "Sharma Pharmacy Desk", with roles
   (`elder`, `caregiver`, and an exclusive `pharmacist`), three pre-made room documents
-  (*KinCare Decisions*, *KinCare Tasks*, *KinCare data sources*) and room rules every agent reads.
+  (*Dosely Decisions*, *Dosely Tasks*, *Dosely data sources*) and room rules every agent reads.
 
 The rules are the product: *never tell anyone to stop or switch a medicine; only the pharmacist approves;
 Hindi first; hand off by @name; write decisions to the shared document.*
@@ -131,7 +131,7 @@ someone writes `@kincare-recall-watcher check`, it checks on the spot.
 
 ## What made Switch essential, not decoration
 
-Take Switch away and KinCare is a one-person app again. What Switch gave us:
+Take Switch away and Dosely is a one-person app again. What Switch gave us:
 
 - **People and agents in the chat the family already uses**, each with a name and a role.
 - **Handoffs in the open**: watcher → pharmacist agent → human pharmacist → dose agent, all visible.

@@ -18,7 +18,7 @@ PAGES = [
     f"{BASE}/opencms/opencms/en/Notifications/Alerts/",
 ]
 OUT = Path(__file__).resolve().parents[2] / "data" / "raw_pdfs"
-HEADERS = {"User-Agent": "Mozilla/5.0 (Carely research; Flip the Switch 2026)"}
+HEADERS = {"User-Agent": "Mozilla/5.0 (Dosely research; Flip the Switch 2026)"}
 
 MONTHS = "january february march april may june july august september october november december".split()
 

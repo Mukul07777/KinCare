@@ -1,7 +1,7 @@
 # Real strip photos for the OCR benchmark
 
 Put phone photos of the **back of real medicine strips** here (jpg or png), then add one line per photo to
-`../labels.csv`, typed by a person from what is printed on the strip (never copied from KinCare's output):
+`../labels.csv`, typed by a person from what is printed on the strip (never copied from Dosely's output):
 
 ```
 real/IMG_0412.jpg,real,Dolo 650,DOBS3975,08/2027,

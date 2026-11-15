@@ -49,8 +49,8 @@ export default function CarePage() {
         <div className="flex flex-wrap items-center gap-3"><Eyebrow>Care</Eyebrow><PlanBadge /></div>
         <Heading as="h1" lead="Vitals, the doctor’s plan," tail="daily reminders." className="mt-4 text-4xl sm:text-6xl" />
         <p className="mt-4 max-w-2xl text-muted">
-          Log readings. If something looks off, Carely tells you to see a doctor. Scan the doctor’s prescription and Carely reminds you of every dose and every piece of advice.
-          <b className="text-espresso"> Carely never suggests medicines; only your doctor does.</b>
+          Log readings. If something looks off, Dosely tells you to see a doctor. Scan the doctor’s prescription and Dosely reminds you of every dose and every piece of advice.
+          <b className="text-espresso"> Dosely never suggests medicines; only your doctor does.</b>
         </p>
 
         <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
@@ -173,9 +173,9 @@ function Today() {
           {data.doses.length === 0 && <p className="rounded-2xl bg-cream/60 p-6 text-center text-sm text-muted">Scan the doctor’s prescription in the Prescription tab to get a dose schedule.</p>}
         </div>
         <p className="mt-5 text-xs text-muted">
-          {notifyMode === "push" ? "Phone notifications are on: doses, refills and recalls arrive even when Carely is closed. "
+          {notifyMode === "push" ? "Phone notifications are on: doses, refills and recalls arrive even when Dosely is closed. "
             : notifyMode === "denied" ? "Notifications are blocked in this browser’s site settings. "
-            : "Turn on reminders to get phone notifications, even when Carely is closed. "}
+            : "Turn on reminders to get phone notifications, even when Dosely is closed. "}
           Once you record a purchase, WhatsApp reminders arrive at every dose too.
         </p>
       </div>
@@ -274,7 +274,7 @@ function Vitals({ member, shared }: { member: string; shared: boolean }) {
             </motion.div>
           )}
         </AnimatePresence>
-        <p className="mt-4 text-[11px] text-muted">Thresholds are general adult red flags, not a diagnosis. Carely will never tell you which medicine to take.</p>
+        <p className="mt-4 text-[11px] text-muted">Thresholds are general adult red flags, not a diagnosis. Dosely will never tell you which medicine to take.</p>
       </div>
 
       <div className="card rounded-[2rem] p-6">
@@ -548,7 +548,7 @@ function Report({ member }: { member: string }) {
           </tbody>
         </table>
         {r.vitals.length === 0 && <p className="text-sm text-muted">No readings recorded.</p>}
-        <p className="mt-8 border-t border-line pt-3 text-[11px] text-muted">Patient-entered readings and doses. Not a diagnosis. Prepared with Carely.</p>
+        <p className="mt-8 border-t border-line pt-3 text-[11px] text-muted">Patient-entered readings and doses. Not a diagnosis. Prepared with Dosely.</p>
       </article>
     </div>
   );

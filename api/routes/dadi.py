@@ -97,7 +97,7 @@ def dadi_turn(dev: str, text: str, lang: str, member: str = "Me", channel: str =
     if a is None:
         a = voice.answer(conn, text, "hi" if hi else "en", run_check, care_today(None, dev))
         if a["kind"] == "emergency":
-            told = tell_caregivers(dev, member, "sos", f"🚨 {member} may need urgent help", f"They told Carely: “{text}”. Call them now. If you can't reach them, call 108.", "sos-voice")
+            told = tell_caregivers(dev, member, "sos", f"🚨 {member} may need urgent help", f"They told Dosely: “{text}”. Call them now. If you can't reach them, call 108.", "sos-voice")
             if told:
                 a["say"] += f" मैंने {', '.join(told)} को भी बता दिया है।" if hi else f" I've also alerted {', '.join(told)}."
                 a["show"] = a["say"]

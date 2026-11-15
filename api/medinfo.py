@@ -1,7 +1,7 @@
 """Medicine info page: what a medicine is for, how to take it, side effects and warnings.
 
 Text comes from the official US FDA label of each salt (openFDA, cached). Indian brands share the
-salt, not always the label, so the page says so. Carely adds what no label has: CDSCO batch alerts
+salt, not always the label, so the page says so. Dosely adds what no label has: CDSCO batch alerts
 for that salt, the maker's record, and where this brand sits on price.
 """
 import json

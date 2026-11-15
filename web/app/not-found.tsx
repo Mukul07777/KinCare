@@ -8,7 +8,7 @@ export default function NotFound() {
     <main className="blush mx-auto flex min-h-[60dvh] max-w-3xl flex-col items-center justify-center px-4 py-20 text-center sm:px-6">
       <Eyebrow>404 · page not found</Eyebrow>
       <Heading as="h1" lead="This page isn't here." tail="Your medicines still are." className="mt-5 text-4xl sm:text-6xl" />
-      <p className="mt-5 max-w-md text-muted">The link may be old or mistyped. Check a batch, or see how Carely works.</p>
+      <p className="mt-5 max-w-md text-muted">The link may be old or mistyped. Check a batch, or see how Dosely works.</p>
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <Link href="/scan" className="inline-flex items-center gap-2 rounded-full bg-brown px-6 py-3 text-sm font-medium text-paper transition hover:bg-brown-2">
           <ScanLine className="size-4" /> Check a batch <ArrowRight className="size-4" />

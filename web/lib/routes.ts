@@ -27,7 +27,7 @@ export const GROUPS: Group[] = [
     routes: [
       { href: "/network", label: "Care network", hint: "Family rooms + Pharmacy Desk on Switch: one recall, every home, a human decides", icon: Network, keywords: "switch room telegram agents pharmacist doctor approve blast" },
       { href: "/pharmacy", label: "Recall desk", hint: "Check stock, alert every buyer", icon: Store, keywords: "inventory sales csv" },
-      { href: "/pricing", label: "Plans", hint: "₹499 a month, customers get Carely free", icon: BadgeIndianRupee, keywords: "pricing subscription business" },
+      { href: "/pricing", label: "Plans", hint: "₹499 a month, customers get Dosely free", icon: BadgeIndianRupee, keywords: "pricing subscription business" },
       { href: "/live", label: "60-second recall", hint: "A new list, matched and alerted live", icon: Waves, keywords: "live recall agents" },
     ],
   },

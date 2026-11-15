@@ -1,4 +1,4 @@
-# KinCare on Google Cloud Run: one container, one public port.
+# Dosely on Google Cloud Run: one container, one public port.
 # Next.js serves the site on $PORT and forwards /api/* to the FastAPI app on 127.0.0.1:8000 inside the same container,
 # so the session cookie stays first-party and no CORS is needed.
 FROM node:22-slim AS web

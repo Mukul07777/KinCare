@@ -82,5 +82,5 @@ export function auditCsv(s: PharmacyState) {
     ...s.tasks.map((t) => [t.row.product, t.row.batch, t.row.maker, t.row.qty, t.alert.product_name, t.alert.category, t.alert.alert_month, t.status, t.assignee, t.note, t.alert.alert_url]),
   ];
   const log = [["time", "who", "action"], ...s.audit.map((a) => [a.at, a.who, a.action])];
-  return [`# Carely recall report, checked ${s.checkedAt ?? ""}`, ...tasks.map((r) => r.map(esc).join(",")), "", "# Audit log", ...log.map((r) => r.map(esc).join(","))].join("\n");
+  return [`# Dosely recall report, checked ${s.checkedAt ?? ""}`, ...tasks.map((r) => r.map(esc).join(",")), "", "# Audit log", ...log.map((r) => r.map(esc).join(","))].join("\n");
 }

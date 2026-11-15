@@ -1,6 +1,6 @@
 """Phone login with a one-time code on WhatsApp. One account per phone number, any number of devices.
 
-Carely keys everything by a device id. Logging in maps the phone to one *account device id*; a new phone that
+Dosely keys everything by a device id. Logging in maps the phone to one *account device id*; a new phone that
 logs in adopts that id, and anything it had created before is merged in. So a family's data follows them.
 
 Codes: 6 digits, stored hashed, 10 minutes, 5 tries, at most 3 sends per number per 10 minutes.
@@ -122,4 +122,4 @@ def phone_of(conn: sqlite3.Connection, device: str) -> str | None:
 
 
 def otp_text(code: str) -> str:
-    return f"Carely login code: *{code}*\nValid for 10 minutes. Never share it with anyone, not even Carely staff."
+    return f"Dosely login code: *{code}*\nValid for 10 minutes. Never share it with anyone, not even Dosely staff."

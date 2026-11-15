@@ -16,7 +16,7 @@ Everything below is on `main`. We now both work on `main` only (no feature branc
 | API crashed under parallel load: 15 of 240 parallel requests returned 500 (`/controller`, `/blast`). One SQLite connection was shared by every request thread | One connection per thread (`api/db.py` → `ThreadConnection`). Now 0 of 600 fail |
 | First `/demo` after a restart took 23 s (one openFDA call timed out) | Drug labels for common brands are fetched in the background at startup. Demo runs in ~5 s |
 | Unknown URL showed Next's black 404; a crash showed "Application error" | Branded `not-found.tsx` and `error.tsx` |
-| Raw "Failed to fetch" when the API is down; `/controller` spun forever | Clear "Can't reach the KinCare server" message; Retry button |
+| Raw "Failed to fetch" when the API is down; `/controller` spun forever | Clear "Can't reach the Dosely server" message; Retry button |
 | Users could see "Run: python -m ingest.medicines" | Plain message |
 
 ### 2. Engineering depth, measured (`38962d3`)
@@ -28,7 +28,7 @@ Everything below is on `main`. We now both work on `main` only (no feature branc
 - **103 API tests pass.**
 
 ### 3. Professional UI pass (`9373b89`)
-- **Removed** judge mode (`/stage`) and the "Install app" button. Chrome's own install banner is suppressed too: KinCare is a website. Push notifications still work.
+- **Removed** judge mode (`/stage`) and the "Install app" button. Chrome's own install banner is suppressed too: Dosely is a website. Push notifications still work.
 - **Header:** Families · Pharmacies · Regulators menus (every page with a one-line description), search (⌘K or `/`), Sign in, one **Check a batch** button. SOS is in the Families menu and is the red button on phones.
 - **All pages are listed in one file:** `web/lib/routes.ts`. Add a new page there and it appears in the menus, footer and search automatically.
 - **Home page is one flow:** hero → the 10-month recall gap → how it works (3 steps) → built for families / pharmacies / regulators → real data → call to action.

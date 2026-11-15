@@ -7,7 +7,7 @@ Attach the demo video clip (or a screenshot of the Telegram group). Replace the 
 A failed medicine batch takes ~10 months to reach India's CDSCO list, and 99.6% are still in date when they do.
 Nobody tells the family.
 
-We built KinCare on Switch [tag Switch's official handle; check it first]: Dadi, her kids, their pharmacist and 4 AI agents in one Telegram group.
+We built Dosely on Switch [tag Switch's official handle; check it first]: Dadi, her kids, their pharmacist and 4 AI agents in one Telegram group.
 Strip photo → recall alert → pharmacist approves → task done.
 
 #HowISwitch #FlipTheSwitch @WeMakeDevs
@@ -41,7 +41,7 @@ India's drug regulator publishes batches that failed quality tests. We analysed 
 failed batch reaches the list a median 10 months after it was made, and 99.6% are still within expiry when
 listed. The medicine is still in homes, and nobody tells the people taking it.
 
-For the Flip the Switch hackathon we turned our medicine-safety project, KinCare, into a team workflow on
+For the Flip the Switch hackathon we turned our medicine-safety project, Dosely, into a team workflow on
 Switch (open source infrastructure for agents in team chat):
 
 📸 Dadi sends a photo of her strip.

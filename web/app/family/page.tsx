@@ -53,7 +53,7 @@ function ShareSide() {
     catch (e) { setErr((e as Error).message); }
     finally { setBusy(false); }
   };
-  const msg = invite && `${name || "I"} would like you to look after ${member === "Me" ? "my" : `${member}'s`} medicines on Carely.\nOpen: ${invite.url}\nOr enter code ${invite.code} in Carely > Family. Valid 48 hours.`;
+  const msg = invite && `${name || "I"} would like you to look after ${member === "Me" ? "my" : `${member}'s`} medicines on Dosely.\nOpen: ${invite.url}\nOr enter code ${invite.code} in Dosely > Family. Valid 48 hours.`;
   const share = async () => {
     if (!msg) return;
     try { if (navigator.share) { await navigator.share({ text: msg }); return; } } catch { return; }

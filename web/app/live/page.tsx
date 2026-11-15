@@ -271,7 +271,7 @@ function Live() {
               <div className="flex items-center gap-3 bg-[#075e54] px-4 py-3 text-white">
                 <span className="grid size-9 place-items-center rounded-full bg-white/20"><MessageCircle className="size-5" /></span>
                 <div>
-                  <p className="text-sm font-semibold">Carely Alerts</p>
+                  <p className="text-sm font-semibold">Dosely Alerts</p>
                   <p className="text-[11px] text-white/70">{form.phone ? form.phone : "patient’s phone"}</p>
                 </div>
               </div>
@@ -288,7 +288,7 @@ function Live() {
                           <PhoneCall className="size-5" />
                         </motion.span>
                         <div className="flex-1">
-                          <p className="text-sm font-semibold">Incoming call · Carely</p>
+                          <p className="text-sm font-semibold">Incoming call · Dosely</p>
                           <p className="text-[11px] text-paper/60">{voice.data.language === "hi" ? "Hindi voice alert" : "Voice alert"} · {voice.data.status === "sent" ? "placed via Twilio" : "preview"}</p>
                         </div>
                         <button onClick={() => speak(voice.data.message ?? "", voice.data.language ?? "hi")} className="grid size-9 place-items-center rounded-full bg-paper/15" aria-label="Play call">

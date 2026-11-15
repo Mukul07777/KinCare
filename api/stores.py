@@ -10,7 +10,7 @@ import requests
 
 OVERPASS = ("https://maps.mail.ru/osm/tools/overpass/api/interpreter", "https://overpass-api.de/api/interpreter",
             "https://overpass.kumi.systems/api/interpreter")
-HEADERS = {"User-Agent": "Carely/1.0 (medicine-safety app)"}
+HEADERS = {"User-Agent": "Dosely/1.0 (medicine-safety app)"}
 NAME = "jan ?aushadh|janaushadh|jan ?aushdh|pmbj|bhartiya jan"
 _NAME_RE = re.compile(NAME, re.I)
 _cache: dict[tuple, tuple[float, list]] = {}

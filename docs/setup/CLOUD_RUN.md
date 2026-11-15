@@ -1,4 +1,4 @@
-# Deploy KinCare to Google Cloud Run
+# Deploy Dosely to Google Cloud Run
 
 One container serves the website and the API (see `Dockerfile` and `cloudrun.sh`).
 
@@ -15,7 +15,7 @@ python -c "import secrets;print(secrets.token_hex(32),end='')" | gcloud secrets 
 
 gcloud run deploy kincare --source . --region asia-south1 --allow-unauthenticated \
   --memory 2Gi --cpu 1 --min-instances 1 --max-instances 1 --no-cpu-throttling \
-  --set-env-vars SMTP_HOST=smtp.gmail.com,SMTP_PORT=587,SMTP_USER=you@gmail.com,EMAIL_FROM="KinCare <you@gmail.com>" \
+  --set-env-vars SMTP_HOST=smtp.gmail.com,SMTP_PORT=587,SMTP_USER=you@gmail.com,EMAIL_FROM="Dosely <you@gmail.com>" \
   --set-secrets SMTP_PASSWORD=smtp-password:latest,GEMINI_API_KEY=gemini-key:latest,KINCARE_DATA_KEY=kincare-data-key:latest,OTP_SECRET=otp-secret:latest
 ```
 

@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Carely: know the batch, not just the brand",
-    short_name: "Carely",
+    name: "Dosely: know the batch, not just the brand",
+    short_name: "Dosely",
     description: "Check medicine batches against regulator alerts, dose and refill reminders, cheaper same-salt brands.",
     start_url: "/care",
     display: "standalone",

@@ -196,7 +196,7 @@ export function QrScan() {
                 {pack.level !== "ok" && <Link href="/radar" className="mt-2 inline-flex items-center gap-1 font-semibold underline">See it on the fake-pack radar <ArrowRight className="size-3.5" /></Link>}
               </div>
             )}
-            <p className="mt-3 text-[11px] text-muted">A QR code can be copied onto a fake pack. Carely checks the batch against regulator alerts and watches each serial for copies; it cannot prove a single pack is genuine.</p>
+            <p className="mt-3 text-[11px] text-muted">A QR code can be copied onto a fake pack. Dosely checks the batch against regulator alerts and watches each serial for copies; it cannot prove a single pack is genuine.</p>
           </motion.div>
         ) : (
           <motion.div key="e" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="card rounded-[2rem] p-6 text-sm text-muted">

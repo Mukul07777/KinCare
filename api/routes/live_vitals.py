@@ -113,7 +113,7 @@ def status(refresh_quality: bool = False):
 
 @router.get("/api/datasets")
 def datasets():
-    """Live counts of every dataset behind Carely (see docs/DATASETS.md), for the home page.
+    """Live counts of every dataset behind Dosely (see docs/DATASETS.md), for the home page.
     Recounted only when a table grows: COUNT(DISTINCT salt_key) over 2.46 lakh rows cost ~150 ms on every home-page load."""
     one = lambda sql: conn.execute(sql).fetchone()[0]
     key = tuple(conn.execute("SELECT (SELECT MAX(id) FROM alerts), (SELECT MAX(id) FROM medicines), (SELECT COUNT(*) FROM reference_records)").fetchone())

@@ -2,13 +2,13 @@
 
 ## 1. Demo video: 2 min 30 s, one take for the core loop
 
-Setup first: Switch Console running all 4 agents, KinCare API on :8000, Telegram desktop with "Sharma Family Care"
+Setup first: Switch Console running all 4 agents, Dosely API on :8000, Telegram desktop with "Sharma Family Care"
 and "Pharmacy Desk" groups, a real strip of Namik-MR (or the printed `web/public/test-strips/namik-mr.png`).
 
 | Time | Show | Say |
 |---|---|---|
 | 0:00–0:15 | CDSCO alert PDF, then the stat: 7,920 alerts, 99.6% still within expiry, median 14 months left | "When a medicine batch fails a government test, the list comes out ten months later, and nobody tells the families still taking it." |
-| 0:15–0:30 | Switch Console: the 4 agents, the room, its roles | "KinCare puts the family, their pharmacist and four AI agents in one Switch room. Nothing changes until a human approves." |
+| 0:15–0:30 | Switch Console: the 4 agents, the room, its roles | "Dosely puts the family, their pharmacist and four AI agents in one Switch room. Nothing changes until a human approves." |
 | 0:30–1:00 | Telegram: Dadi's photo of the strip, `@kincare-scan` replies in Hindi + English, batch flagged | "The scan agent reads the exact batch and checks it against the real CDSCO list." |
 | 1:00–1:30 | Pharmacist agent proposes 2 replacements with prices; the real pharmacist types `approve 1` | "The agent proposes. The pharmacist decides." (pause on this moment) |
 | 1:30–1:50 | Task to Rahul, "done, bought", dose agent posts the new schedule | "The task and the schedule follow the decision." |

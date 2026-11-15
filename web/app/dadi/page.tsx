@@ -14,11 +14,11 @@ const TRY: Record<Lang, string[]> = {
   en: ["Which medicines are due today?", "I took my medicine", "BP 135/85", "How much is Dolo 650?", "What is Telma 40 for?", "Call my family"],
 };
 const T = {
-  hi: { title: "दादी मोड", sub: "बोलिए या लिखिए। Carely बोलकर जवाब देगा।", tap: "दबाकर बोलिए", listening: "सुन रहे हैं… फिर से दबाएँ", thinking: "देख रहे हैं…",
-        placeholder: "यहाँ लिखिए…", today: "आज की दवाइयाँ", none: "अभी कोई पर्ची सेव नहीं है।", addRx: "पर्ची जोड़ें", taken: "ले ली", hello: "नमस्ते! मैं Carely हूँ। दवा, कीमत, BP या परिवार, कुछ भी पूछिए।",
+  hi: { title: "दादी मोड", sub: "बोलिए या लिखिए। Dosely बोलकर जवाब देगा।", tap: "दबाकर बोलिए", listening: "सुन रहे हैं… फिर से दबाएँ", thinking: "देख रहे हैं…",
+        placeholder: "यहाँ लिखिए…", today: "आज की दवाइयाँ", none: "अभी कोई पर्ची सेव नहीं है।", addRx: "पर्ची जोड़ें", taken: "ले ली", hello: "नमस्ते! मैं Dosely हूँ। दवा, कीमत, BP या परिवार, कुछ भी पूछिए।",
         noMic: "इस ब्राउज़र में आवाज़ नहीं चलती, लिखकर पूछिए।", speak: "बोलकर सुनाएँ", family: "परिवार", from: "से संदेश" },
-  en: { title: "Dadi mode", sub: "Speak or type. Carely answers out loud.", tap: "Tap and speak", listening: "Listening… tap to stop", thinking: "Checking…",
-        placeholder: "Type here…", today: "Today's medicines", none: "No prescription saved yet.", addRx: "Add prescription", taken: "Taken", hello: "Hello! I'm Carely. Ask about medicines, prices, BP or your family.",
+  en: { title: "Dadi mode", sub: "Speak or type. Dosely answers out loud.", tap: "Tap and speak", listening: "Listening… tap to stop", thinking: "Checking…",
+        placeholder: "Type here…", today: "Today's medicines", none: "No prescription saved yet.", addRx: "Add prescription", taken: "Taken", hello: "Hello! I'm Dosely. Ask about medicines, prices, BP or your family.",
         noMic: "Voice isn't available in this browser. Type instead.", speak: "Speak replies", family: "Family", from: "message from" },
 };
 const SLOT = { morning: Sun, noon: SunMedium, night: Moon } as const;
@@ -304,7 +304,7 @@ export default function DadiPage() {
         </div>
         {!micOk && <p className="mt-2 text-center text-sm text-danger">{t.noMic}</p>}
         <p className="mt-2 text-center text-xs text-muted">
-          {lang === "hi" ? "Carely कभी दवा शुरू, बंद या बदलने को नहीं कहता।" : "Carely never tells you to start, stop or change a medicine."}
+          {lang === "hi" ? "Dosely कभी दवा शुरू, बंद या बदलने को नहीं कहता।" : "Dosely never tells you to start, stop or change a medicine."}
         </p>
       </div>
     </main>

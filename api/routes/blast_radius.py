@@ -21,7 +21,7 @@ def recall_gap():
 
 @router.get("/api/blast")
 def blast_inbox(_: dict = Depends(require("holders.view"))):
-    """Flagged batches that someone Carely knows is holding."""
+    """Flagged batches that someone Dosely knows is holding."""
     return blast.flagged_with_holders(conn)
 
 
@@ -29,7 +29,7 @@ def blast_inbox(_: dict = Depends(require("holders.view"))):
 def blast_view(batch: str, who: dict = Depends(require("holders.view"))):
     check = run_check(batch, None, None)
     if not check["matches"]:
-        raise HTTPException(404, "This batch is not on any alert list Carely tracks")
+        raise HTTPException(404, "This batch is not on any alert list Dosely tracks")
     # Names, phones and next doses of everyone holding the batch: every look is logged.
     roles.audit(conn, who["actor"], "holders.view", batch)
     conn.commit()
@@ -44,7 +44,7 @@ def blast_alert(batch: str, who: dict = Depends(require("holders.alert"))):
 
     check = run_check(batch, None, None)
     if not check["matches"]:
-        raise HTTPException(404, "This batch is not on any alert list Carely tracks")
+        raise HTTPException(404, "This batch is not on any alert list Dosely tracks")
     alert = check["matches"][0]["alert"]
     ex = blast.exposure(conn, batch)
     out = []

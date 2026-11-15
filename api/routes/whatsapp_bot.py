@@ -77,8 +77,8 @@ def whatsapp_reply(phone: str, text: str) -> str:
         return (f"Batch {batch}: kisi bhi sarkari (CDSCO / state) alert list mein nahi mila. Strip par expiry bhi dekh lein."
                 if hi else f"Batch {batch}: not on any CDSCO or state alert list we track. Check the expiry on the strip too.")
     if kind == "hello":
-        return ("Namaste! Carely WhatsApp par shuru ho gaya.\n• Dawa lene ke baad *1* bhejein\n• Kisi bhi strip ka *batch number* bhejein, hum sarkari alert list mein check karenge"
-                if hi else "Welcome to Carely on WhatsApp.\n• Reply *1* after each dose\n• Send any strip's *batch number* and we'll check it against every regulator alert")
+        return ("Namaste! Dosely WhatsApp par shuru ho gaya.\n• Dawa lene ke baad *1* bhejein\n• Kisi bhi strip ka *batch number* bhejein, hum sarkari alert list mein check karenge"
+                if hi else "Welcome to Dosely on WhatsApp.\n• Reply *1* after each dose\n• Send any strip's *batch number* and we'll check it against every regulator alert")
     return ("Dawa lene ke baad *1* bhejein, ya strip ka batch number bhejein (jaise AT25-0938A)."
             if hi else "Reply *1* after a dose, or send a batch number from a strip (e.g. AT25-0938A).")
 

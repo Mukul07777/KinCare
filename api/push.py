@@ -1,6 +1,6 @@
-"""Phone notifications (Web Push) for doses, refills and recalls, even with Carely closed.
+"""Phone notifications (Web Push) for doses, refills and recalls, even with Dosely closed.
 
-Keys: set VAPID_PRIVATE_KEY_FILE / VAPID_PUBLIC_KEY, or Carely makes a key pair once under data/.
+Keys: set VAPID_PRIVATE_KEY_FILE / VAPID_PUBLIC_KEY, or Dosely makes a key pair once under data/.
 Without the pywebpush package every send is a no-op and the app falls back to WhatsApp / in-page alerts.
 """
 import base64

@@ -1,4 +1,4 @@
-"""OCR accuracy on labelled strip photos: does Carely read the batch, expiry and brand a person reads off the strip?
+"""OCR accuracy on labelled strip photos: does Dosely read the batch, expiry and brand a person reads off the strip?
 
     python bench_strips.py            # every photo in tests/strips/labels.csv
     python bench_strips.py --set real # only real phone photos

@@ -84,7 +84,7 @@ function ReturnNote() {
             </div>
 
             <p className="mt-10 border-t border-line pt-4 text-[11px] leading-relaxed text-muted">
-              Carely matches batch numbers against published regulator alerts and links the source. It does not test medicines or certify authenticity. Please verify with the official notice and follow your recall procedure.
+              Dosely matches batch numbers against published regulator alerts and links the source. It does not test medicines or certify authenticity. Please verify with the official notice and follow your recall procedure.
             </p>
           </>
         )}

@@ -58,7 +58,7 @@ export function DoctorConnect({ member, onLinks }: { member: string; onLinks?: (
   };
 
   const wa = (l: DoctorLink) =>
-    `https://wa.me/?text=${encodeURIComponent(`Doctor, here is ${l.member}'s live Carely record: vitals, medicines and adherence. Private link, expires ${formatIST(l.expires_at)}:\n${consoleUrl(l.token)}`)}`;
+    `https://wa.me/?text=${encodeURIComponent(`Doctor, here is ${l.member}'s live Dosely record: vitals, medicines and adherence. Private link, expires ${formatIST(l.expires_at)}:\n${consoleUrl(l.token)}`)}`;
 
   const thread = msgs.filter((m) => m.member === member).slice().reverse();
 

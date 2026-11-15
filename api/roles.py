@@ -15,7 +15,7 @@ PERMISSIONS: dict[str, tuple[str, ...]] = {
     "sales.manage": (PHARMACIST,),
     "buyers.notify": (PHARMACIST,),
     "recall.run": (PHARMACIST, REGULATOR, ADMIN),
-    # regulator: who holds a flagged batch (names, phones, next dose) across Carely
+    # regulator: who holds a flagged batch (names, phones, next dose) across Dosely
     "controller.view": (REGULATOR, ADMIN),
     "holders.view": (REGULATOR, ADMIN),
     "holders.alert": (REGULATOR, ADMIN),
@@ -29,7 +29,7 @@ PERMISSIONS: dict[str, tuple[str, ...]] = {
     "admin.view": (ADMIN,),
 }
 
-LABEL = {PHARMACIST: "Pharmacist", REGULATOR: "Drug regulator", ADMIN: "Carely admin"}
+LABEL = {PHARMACIST: "Pharmacist", REGULATOR: "Drug regulator", ADMIN: "Dosely admin"}
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS role_grants (

@@ -1,6 +1,6 @@
-# Deploy KinCare (about 15 minutes)
+# Deploy Dosely (about 15 minutes)
 
-You need HTTPS so judges can open KinCare on their own phones, phone notifications work, and WhatsApp
+You need HTTPS so judges can open Dosely on their own phones, phone notifications work, and WhatsApp
 can reach the webhook.
 
 | Part | Where | Cost |
@@ -10,10 +10,10 @@ can reach the webhook.
 
 ## 1. API on Render
 
-1. Go to <https://dashboard.render.com>, then *New → Blueprint*, and pick the `KinCare` repo. Render reads `render.yaml`.
+1. Go to <https://dashboard.render.com>, then *New → Blueprint*, and pick the `Dosely` repo. Render reads `render.yaml`.
 2. When asked, fill these (the rest are generated or optional):
    - `PUBLIC_WEB_URL`: leave blank for now. You'll set it after step 2.
-   - WhatsApp, Stripe and TinyFish keys: optional. Without them, KinCare uses the outbox and shows login codes on screen.
+   - WhatsApp, Stripe and TinyFish keys: optional. Without them, Dosely uses the outbox and shows login codes on screen.
 3. Deploy.
    - **The first boot builds the database (~10 minutes).** The API answers immediately with partial data, then restarts once with all 7,920 alerts and 246k medicines.
    - Watch the logs for `Database ready, restarting the API`.
@@ -42,7 +42,7 @@ can reach the webhook.
 
 ## Free alternative (for a one-day demo)
 
-Run KinCare on your laptop (`run.bat`) and expose it with a tunnel:
+Run Dosely on your laptop (`run.bat`) and expose it with a tunnel:
 - `cloudflared tunnel --url http://localhost:3000` gives an HTTPS link for the web app.
 - Only the web port needs a tunnel now: the site forwards `/api` to `localhost:8000` itself.
 

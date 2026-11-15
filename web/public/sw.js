@@ -1,11 +1,11 @@
-// Carely service worker: phone notifications (doses, refills, recalls) and "install as app".
+// Dosely service worker: phone notifications (doses, refills, recalls) and "install as app".
 self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", (e) => e.waitUntil(self.clients.claim()));
 
 self.addEventListener("push", (e) => {
   let d = {};
   try { d = e.data ? e.data.json() : {}; } catch { d = { body: e.data && e.data.text() }; }
-  e.waitUntil(self.registration.showNotification(d.title || "Carely", {
+  e.waitUntil(self.registration.showNotification(d.title || "Dosely", {
     body: d.body || "",
     tag: d.tag || undefined, // same tag replaces, so an open tab and a push never show twice
     icon: "/icons/icon-192.png",

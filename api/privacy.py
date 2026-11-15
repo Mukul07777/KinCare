@@ -1,6 +1,6 @@
 """A person's rights over their health data (India's DPDP Act, 2023): see everything held about them, and erase it.
 
-Everything Carely stores about a person hangs off their device id (or the account device id after phone login):
+Everything Dosely stores about a person hangs off their device id (or the account device id after phone login):
 directly in every table with a `device` column, or one step away (a plan's medicines and doses, a caregiver link's
 access log, the phone number used to log in).
 """
