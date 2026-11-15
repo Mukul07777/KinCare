@@ -1,4 +1,4 @@
-// Every call goes to this site's own /api (next.config.ts forwards it to the KinCare API), so the session cookie is
+// Every call goes to this site's own /api (next.config.ts forwards it to the Carely API), so the session cookie is
 // first-party and HttpOnly. PUBLIC_API_URL is only for showing developers the public API address.
 export const API_URL = "";
 export const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
@@ -84,7 +84,7 @@ export function ensureSession() {
 }
 
 // fetch() rejects with a bare "Failed to fetch" when the server can't be reached; say what that means instead.
-export const OFFLINE = "Can't reach the KinCare server. Check the connection and try again.";
+export const OFFLINE = "Can't reach the Carely server. Check the connection and try again.";
 
 // X-KinCare marks a request as coming from this app: the API refuses cookie-authenticated changes without it (CSRF).
 export async function request(path: string, init: RequestInit = {}, retry = true): Promise<Response> {
@@ -147,7 +147,7 @@ export const getManufacturer = (name: string) => call<MakerHistory>(`/api/manufa
 
 export function whatsappShare(a: Alert, batch: string) {
   const text =
-    `Medicine batch alert (via KinCare)\n${a.product_name}\nBatch ${batch} is listed as ${a.category === "spurious" ? "SPURIOUS" : "Not of Standard Quality"} ` +
+    `Medicine batch alert (via Carely)\n${a.product_name}\nBatch ${batch} is listed as ${a.category === "spurious" ? "SPURIOUS" : "Not of Standard Quality"} ` +
     `in the ${formatMonth(a.alert_month)} regulator alert.\nReason: ${a.reason}\nSource: ${a.alert_url}\n` +
     `Do not stop any medicine on your own. Show this to your pharmacist or doctor.`;
   return `https://wa.me/?text=${encodeURIComponent(text)}`;

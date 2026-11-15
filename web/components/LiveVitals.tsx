@@ -100,7 +100,7 @@ export function LiveVitals({ member, sharedWithDoctor }: { member: string; share
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="flex items-center gap-2 text-lg font-medium tracking-tight"><Activity className="size-5 text-teal" /> Live vitals for {member}</p>
-          <p className="mt-1 text-sm text-muted">Stream pulse and oxygen straight from a device. KinCare checks every 30 seconds and saves a reading to history every 5 minutes.</p>
+          <p className="mt-1 text-sm text-muted">Stream pulse and oxygen straight from a device. Carely checks every 30 seconds and saves a reading to history every 5 minutes.</p>
         </div>
         {source && (
           <span className="inline-flex items-center gap-2 rounded-full bg-danger/10 px-3 py-1 text-xs font-semibold text-danger">

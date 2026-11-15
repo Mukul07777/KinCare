@@ -29,7 +29,7 @@ export default function HowPage() {
           <Heading as="h1" lead="From a government PDF" tail="to your phone." className="mt-4 text-4xl sm:text-6xl" />
         </div>
         <p className="max-w-sm text-muted md:ml-auto">
-          Regulator alerts are PDFs and portals with no API. KinCare reads them, matches your exact batch and tells you, with the source.
+          Regulator alerts are PDFs and portals with no API. Carely reads them, matches your exact batch and tells you, with the source.
         </p>
       </div>
 

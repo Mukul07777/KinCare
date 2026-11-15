@@ -9,7 +9,7 @@
 - Email reminders: an upcoming dose (to the elder and caretakers), a missed dose (to the whole circle) and
   doctor appointments (24 h and 2 h before, to the whole circle).
 
-Medicines live in the same plans / plan_meds / doses tables as the rest of KinCare, so the app's Care page,
+Medicines live in the same plans / plan_meds / doses tables as the rest of Carely, so the app's Care page,
 Dadi mode, WhatsApp / Telegram reminders and recall checks all see the same schedule.
 """
 import hashlib
@@ -200,9 +200,9 @@ def unlock(conn, code: str, passcode: str, name: str, email: str | None, role: s
         conn.execute("UPDATE circle_profiles SET failed = ?, locked_until = ? WHERE id = ?", (0 if locked else fails, locked, prof["id"]))
         log(conn, prof["id"], (name or "someone").strip()[:40], "wrong_passcode", "locked for 15 min" if locked else f"attempt {fails}")
         if locked and prof["elder_email"]:
-            mailer.send(conn, prof["elder_email"], "KinCare: wrong passcode entered 5 times",
+            mailer.send(conn, prof["elder_email"], "Carely: wrong passcode entered 5 times",
                         f"Someone ({(name or 'unknown').strip()[:40]}) entered a wrong passcode for your care profile {prof['code']} 5 times.\n"
-                        "The profile is locked for 15 minutes. If this wasn't someone you know, change your passcode in KinCare > Care circle.", "security")
+                        "The profile is locked for 15 minutes. If this wasn't someone you know, change your passcode in Carely > Care circle.", "security")
         conn.commit()
         left = MAX_FAILS - fails
         raise CircleError("Wrong passcode. Locked for 15 minutes." if locked else f"Wrong passcode. {left} {'try' if left == 1 else 'tries'} left.", 401)
@@ -220,9 +220,9 @@ def unlock(conn, code: str, passcode: str, name: str, email: str | None, role: s
                        (prof["id"], name, (email or "").strip() or None, role, 1, _token_hash(token), _utc(), _utc(), (now + SESSION).isoformat()))
     log(conn, prof["id"], name, "joined", role)
     if prof["elder_email"]:
-        mailer.send(conn, prof["elder_email"], f"KinCare: {name} opened your care profile",
+        mailer.send(conn, prof["elder_email"], f"Carely: {name} opened your care profile",
                     f"{name} ({role}) unlocked your care profile with your passcode.\n"
-                    "They can now see your medicines, doses and appointments. You can remove them anytime in KinCare > Care circle.", "security")
+                    "They can now see your medicines, doses and appointments. You can remove them anytime in Carely > Care circle.", "security")
     conn.commit()
     return {"token": token, "member_id": cur.lastrowid, "profile": prof["code"]}
 
@@ -336,10 +336,10 @@ def change(conn, prof: dict, who: dict | None, action: str, payload: dict) -> di
     log(conn, prof["id"], name, "proposed" if pending else "changed", desc)
     if who and prof["elder_email"]:
         mailer.send(conn, prof["elder_email"],
-                    f"KinCare: {name} {'asks to change' if pending else 'changed'} your medicines",
+                    f"Carely: {name} {'asks to change' if pending else 'changed'} your medicines",
                     f"{name} ({who['role']}): {desc}.\n"
-                    + ("Nothing changes until you approve it in KinCare > Care circle." if pending
-                       else "If this is not right, open KinCare > Care circle to undo it or remove their edit access."), "change")
+                    + ("Nothing changes until you approve it in Carely > Care circle." if pending
+                       else "If this is not right, open Carely > Care circle to undo it or remove their edit access."), "change")
     conn.commit()
     return {"change_id": cur.lastrowid, "status": "pending" if pending else "applied", "summary": desc, **result}
 
@@ -355,7 +355,7 @@ def decide(conn, prof: dict, change_id: int, approve: bool) -> dict:
     log(conn, prof["id"], prof["elder_name"], "approved" if approve else "declined", desc)
     m = conn.execute("SELECT name, email FROM circle_members WHERE id = ?", (r["member_id"],)).fetchone()
     if m and m["email"]:
-        mailer.send(conn, m["email"], f"KinCare: {prof['elder_name']} {'approved' if approve else 'declined'} your change",
+        mailer.send(conn, m["email"], f"Carely: {prof['elder_name']} {'approved' if approve else 'declined'} your change",
                     f"{desc}: {'approved and now in the schedule' if approve else 'declined. Please talk to them about it'}.", "change")
     conn.commit()
     return {"status": "applied" if approve else "rejected", **result}
@@ -465,7 +465,7 @@ def gcal_url(a: dict, elder: str) -> str:
     return "https://calendar.google.com/calendar/render?" + urlencode({
         "action": "TEMPLATE", "text": f"{elder}: {a['doctor']}" + (f" ({a['specialty']})" if a.get("specialty") else ""),
         "dates": f"{start.strftime(fmt)}/{(start + timedelta(hours=1)).strftime(fmt)}", "ctz": "Asia/Kolkata",
-        "location": a.get("place") or "", "details": (a.get("notes") or "") + " Bring the KinCare medicine list."})
+        "location": a.get("place") or "", "details": (a.get("notes") or "") + " Bring the Carely medicine list."})
 
 
 def appointments(conn, pid: int, include_past: bool = False) -> list[dict]:
@@ -538,14 +538,14 @@ def run_reminders(conn, at: datetime | None = None) -> int:
             key = f"{at.date().isoformat()}:{d['med_id']}:{d['slot']}"
             if d["state"] == "upcoming" and due - UPCOMING_BEFORE <= at and _once(conn, prof["id"], "upcoming:" + key):
                 for to in _recipients(conn, prof, "carers"):
-                    sent += mailer.send(conn, to, f"KinCare: {who}'s {d['time']} dose, {d['name']}",
+                    sent += mailer.send(conn, to, f"Carely: {who}'s {d['time']} dose, {d['name']}",
                                         f"In 15 minutes, at {d['time']}, it is time for {who} to take {what}.\n"
-                                        "Tick it in KinCare once taken, so the family knows.", "dose_upcoming") in ("sent", "outbox")
+                                        "Tick it in Carely once taken, so the family knows.", "dose_upcoming") in ("sent", "outbox")
             elif d["state"] == "missed" and at < due + STALE and _once(conn, prof["id"], "missed:" + key):
                 for to in _recipients(conn, prof, "all"):
-                    sent += mailer.send(conn, to, f"KinCare: {who} hasn't taken {d['name']} yet",
+                    sent += mailer.send(conn, to, f"Carely: {who} hasn't taken {d['name']} yet",
                                         f"The {d['time']} dose of {what} is not ticked an hour later.\n"
-                                        f"A gentle call to {who} may help. If it was taken, tick it in KinCare > Care circle.\n"
+                                        f"A gentle call to {who} may help. If it was taken, tick it in Carely > Care circle.\n"
                                         "Never give a double dose to catch up unless the doctor has said so.", "dose_missed") in ("sent", "outbox")
         for a in appointments(conn, prof["id"]):
             when = datetime.fromisoformat(a["at"])
@@ -555,8 +555,8 @@ def run_reminders(conn, at: datetime | None = None) -> int:
                     text = (f"{who} has a doctor's appointment {label}: {when.strftime('%a %d %b, %I:%M %p')}\n"
                             f"Doctor: {a['doctor']}" + (f" ({a['specialty']})" if a["specialty"] else "") + "\n"
                             + (f"Where: {a['place']}\n" if a["place"] else "") + (f"Notes: {a['notes']}\n" if a["notes"] else "")
-                            + "Bring the medicine list (KinCare > Care circle > Print for doctor) and any recent BP/sugar readings.")
+                            + "Bring the medicine list (Carely > Care circle > Print for doctor) and any recent BP/sugar readings.")
                     for to in _recipients(conn, prof, "all"):
-                        sent += mailer.send(conn, to, f"KinCare: {who}'s appointment {label} with {a['doctor']}", text, "appointment") in ("sent", "outbox")
+                        sent += mailer.send(conn, to, f"Carely: {who}'s appointment {label} with {a['doctor']}", text, "appointment") in ("sent", "outbox")
     conn.commit()
     return sent

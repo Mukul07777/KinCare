@@ -1,6 +1,6 @@
 """Recall blast radius: who holds a flagged batch, whose next dose is soonest, and is their body reacting.
 
-A regulator list says *which batch* failed. KinCare knows *who has it*: patients who recorded buying it,
+A regulator list says *which batch* failed. Carely knows *who has it*: patients who recorded buying it,
 pharmacy customers it was sold to, and people watching it. For each holder we compute the next dose
 time (from their prescription) and compare their vitals before vs after they started the batch.
 Alerts go out soonest-dose first, so the person about to swallow the next tablet hears first.
@@ -80,7 +80,7 @@ def _next_dose(med: dict, start: str, now: datetime, taken: set[tuple[str, str]]
 
 
 def exposure(conn: sqlite3.Connection, batch: str, now: datetime | None = None) -> dict:
-    """Everyone KinCare knows holds this batch, soonest next dose first."""
+    """Everyone Carely knows holds this batch, soonest next dose first."""
     bn = normalise_batch(batch)
     now = now or datetime.now()
     alerted = {r["holder"]: dict(r) for r in conn.execute("SELECT * FROM blast_alerts WHERE batch_norm = ?", (bn,))}
@@ -216,7 +216,7 @@ def seed_demo(conn: sqlite3.Connection, batch: str, medicine: str, n: int = 24, 
             o = base_o - (rnd.randint(2, 4) if reacts and after else 0)
             conn.execute("INSERT INTO vitals (device, member, at, pulse, spo2, source, level) VALUES (?,?,?,?,?,?,?)",
                          (dev, name, at.strftime("%Y-%m-%dT%H:%M:%S.000Z"), p, min(o, 100), "simulated", "ok"))
-    # A few pharmacy customers too (sold over the counter, no prescription on KinCare).
+    # A few pharmacy customers too (sold over the counter, no prescription on Carely).
     for j in range(max(3, n // 6)):
         conn.execute("INSERT INTO sales (device, pharmacy, city, customer, phone, language, product, batch, batch_norm, sold_at) VALUES (?,?,?,?,?,?,?,?,?,?)",
                      (f"sim-shop-{normalise_batch(batch)}", "Sharma Medicos (simulated)", rnd.choice(CITIES), NAMES[(j + 7) % len(NAMES)], None, "hi",

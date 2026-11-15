@@ -32,7 +32,7 @@ def whatsapp_text(alert: dict, batch: str, name: str | None, lang: str, checkin_
     med = alert.get("brand") or alert["product_name"]
     if lang == "hi":
         return (
-            f"नमस्ते{(' ' + name) if name else ''}, KinCare की ओर से ज़रूरी सूचना।\n"
+            f"नमस्ते{(' ' + name) if name else ''}, Carely की ओर से ज़रूरी सूचना।\n"
             f"दवा: {med}\nबैच: {batch}\n"
             f"इस बैच को {_month(alert['alert_month'], 'hi')} की सरकारी (CDSCO) सूची में {cat} बताया गया है।\n"
             f"कृपया अपनी दवा अपने आप बंद न करें। आज ही अपने फ़ार्मासिस्ट या डॉक्टर को यह संदेश दिखाएँ।\n"
@@ -40,7 +40,7 @@ def whatsapp_text(alert: dict, batch: str, name: str | None, lang: str, checkin_
             + f"स्रोत: {alert['alert_url']}"
         )
     return (
-        f"Hello{(' ' + name) if name else ''}, an important notice from KinCare.\n"
+        f"Hello{(' ' + name) if name else ''}, an important notice from Carely.\n"
         f"Medicine: {med}\nBatch: {batch}\n"
         f"This batch is listed as {cat} in the {_month(alert['alert_month'], 'en')} regulator (CDSCO) alert.\n"
         f"Please do not stop any medicine on your own. Show this message to your pharmacist or doctor today.\n"
@@ -54,13 +54,13 @@ def voice_script(alert: dict, batch: str, name: str | None, lang: str) -> str:
     spoken_batch = " ".join(batch)  # read the batch character by character
     if lang == "hi":
         return (
-            f"नमस्ते{(' ' + name) if name else ''}। यह KinCare की ओर से एक ज़रूरी कॉल है। "
+            f"नमस्ते{(' ' + name) if name else ''}। यह Carely की ओर से एक ज़रूरी कॉल है। "
             f"आपकी दवा {med}, बैच नंबर {spoken_batch}, को सरकारी सूची में {CATEGORY['hi'][alert['category']]} बताया गया है। "
             f"कृपया दवा अपने आप बंद न करें। आज ही अपने फ़ार्मासिस्ट या डॉक्टर से बात करें। "
             f"पूरी जानकारी आपके व्हाट्सऐप पर भेज दी गई है। धन्यवाद।"
         )
     return (
-        f"Hello{(' ' + name) if name else ''}. This is an important call from KinCare. "
+        f"Hello{(' ' + name) if name else ''}. This is an important call from Carely. "
         f"Your medicine {med}, batch number {spoken_batch}, is listed as {CATEGORY['en'][alert['category']]} in a government alert. "
         f"Please do not stop the medicine on your own. Speak to your pharmacist or doctor today. "
         f"The details have been sent to your WhatsApp. Thank you."
@@ -106,10 +106,10 @@ def purchase_text(med: dict, member: str, due_now: bool, next_time: str | None, 
     name = f"{med['name']} {med.get('strength') or ''}".strip()
     food = f" ({med['food']})" if med.get("food") else ""
     if lang == "hi":
-        head = f"KinCare: {member} ke liye {name} kharid li gayi (batch {med['batch']}). Is batch par koi regulator alert nahi mila."
+        head = f"Carely: {member} ke liye {name} kharid li gayi (batch {med['batch']}). Is batch par koi regulator alert nahi mila."
         when = f"Abhi dawa lene ka samay hai{food}." if due_now else (f"Agli khuraak {next_time} baje{food}." if next_time else "Aaj aur koi khuraak baaki nahi.")
         return f"{head}\n{when}\nHar khuraak par hum yaad dilayenge. Dawa lene ke baad *1* bhejein."
-    head = f"KinCare: {name} bought for {member} (batch {med['batch']}). No regulator alert found for this batch."
+    head = f"Carely: {name} bought for {member} (batch {med['batch']}). No regulator alert found for this batch."
     when = f"Please take your dose now{food}." if due_now else (f"Next dose at {next_time}{food}." if next_time else "No more doses due today.")
     return f"{head}\n{when}\nWe will remind you at every dose. Reply *1* once taken."
 
@@ -118,8 +118,8 @@ def dose_text(med: dict, member: str, time: str, lang: str) -> str:
     name = f"{med['name']} {med.get('strength') or ''}".strip()
     food = f" ({med['food']})" if med.get("food") else ""
     if lang == "hi":
-        return f"KinCare: {member}, {time} baj gaye. {name} lene ka samay hai{food}.\nDawa lene ke baad *1* likh kar bhejein."
-    return f"KinCare: {member}, it's {time}. Time to take {name}{food}.\nReply *1* once taken."
+        return f"Carely: {member}, {time} baj gaye. {name} lene ka samay hai{food}.\nDawa lene ke baad *1* likh kar bhejein."
+    return f"Carely: {member}, it's {time}. Time to take {name}{food}.\nReply *1* once taken."
 
 
 def refill_text(med: dict, member: str, left: int, days_left: float, cheaper: str | None, lang: str) -> str:
@@ -127,11 +127,11 @@ def refill_text(med: dict, member: str, left: int, days_left: float, cheaper: st
     name = f"{med['name']} {med.get('strength') or ''}".strip()
     days = max(int(days_left), 0)
     if lang == "hi":
-        msg = f"KinCare: {member} ki {name} ki sirf {left} goli bachi hai (lagbhag {days} din). Khatam hone se pehle dobara le lein."
+        msg = f"Carely: {member} ki {name} ki sirf {left} goli bachi hai (lagbhag {days} din). Khatam hone se pehle dobara le lein."
         if cheaper:
             msg += f"\nWahi salt sasta: {cheaper}. Badalne se pehle doctor/pharmacist se poochhein."
         return msg + "\nKharidne ke baad app mein naya batch darj karein."
-    msg = f"KinCare: only {left} tablets of {name} left for {member} (about {days} days). Please refill before it runs out."
+    msg = f"Carely: only {left} tablets of {name} left for {member} (about {days} days). Please refill before it runs out."
     if cheaper:
         msg += f"\nSame salt for less: {cheaper}. Ask your doctor or pharmacist before switching."
     return msg + "\nEnter the new batch in the app after you buy it."

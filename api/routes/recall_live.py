@@ -72,7 +72,7 @@ def recall_config():
 
 @router.get("/api/notifications")
 def notifications(run_id: str | None = None, limit: int = Query(50, le=500), who: dict = Depends(require("notifications.view"))):
-    """Messages KinCare sent. Regulators see who was reached with the phone masked; only admins see full numbers."""
+    """Messages Carely sent. Regulators see who was reached with the phone masked; only admins see full numbers."""
     out = (rows("SELECT * FROM notifications WHERE run_id = ? ORDER BY id", (run_id,)) if run_id
            else rows("SELECT * FROM notifications ORDER BY id DESC LIMIT ?", (limit,)))
     if roles.ADMIN not in who["roles"]:

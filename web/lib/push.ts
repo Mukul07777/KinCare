@@ -10,7 +10,7 @@ const toBytes = (b64: string) => {
   return Uint8Array.from(s, (c) => c.charCodeAt(0));
 };
 
-/** Ask permission, then subscribe this browser so the server can notify it with KinCare closed.
+/** Ask permission, then subscribe this browser so the server can notify it with Carely closed.
  *  Returns "push" (works when closed), "local" (only while open) or "denied". */
 export async function enableNotifications(): Promise<"push" | "local" | "denied"> {
   if (typeof Notification === "undefined") return "denied";

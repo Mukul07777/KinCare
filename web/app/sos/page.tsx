@@ -107,7 +107,7 @@ export default function SosPage() {
               {sent.deliveries.map((d) => (
                 <div key={`${d.name}-${d.phone}`} className="flex items-center justify-between rounded-2xl bg-sand px-4 py-3 text-sm">
                   <span><b>{d.name}</b> · {d.phone}</span>
-                  {d.status === "caregiver" ? <span className="font-medium text-safe">Alerted in KinCare</span> : d.status === "sent" ? <span className="font-medium text-safe">WhatsApp sent</span> : (
+                  {d.status === "caregiver" ? <span className="font-medium text-safe">Alerted in Carely</span> : d.status === "sent" ? <span className="font-medium text-safe">WhatsApp sent</span> : (
                     <a href={d.link ?? undefined} target="_blank" rel="noreferrer" className="rounded-full bg-[#25D366] px-4 py-1.5 font-medium text-white">Tap to send on WhatsApp</a>
                   )}
                 </div>
@@ -154,7 +154,7 @@ export default function SosPage() {
           </div>
         </div>
       </div>
-      <p className="mt-6 text-xs text-muted">KinCare does not dispatch ambulances. In a life-threatening emergency call 112 or 108 first.</p>
+      <p className="mt-6 text-xs text-muted">Carely does not dispatch ambulances. In a life-threatening emergency call 112 or 108 first.</p>
     </main>
   );
 }

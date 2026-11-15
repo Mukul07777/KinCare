@@ -32,7 +32,7 @@ CACHE = Path(__file__).resolve().parents[2] / "data" / "raw" / "portal"
 MONTHS = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
 
 session = requests.Session()
-session.headers.update({"User-Agent": "KinCare/0.1 (drug alert lookup; Flip the Switch 2026)", "X-Requested-With": "XMLHttpRequest"})
+session.headers.update({"User-Agent": "Carely/0.1 (drug alert lookup; Flip the Switch 2026)", "X-Requested-With": "XMLHttpRequest"})
 
 
 def get_json(path: str, **params):

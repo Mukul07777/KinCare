@@ -39,7 +39,7 @@ def push_unsubscribe(endpoint: str | None = None, account: str = Depends(current
 
 @router.post("/api/push/test")
 def push_test(account: str = Depends(current_account)):
-    n = push.send(conn, account, "KinCare notifications are on", "You'll get dose, refill and recall alerts here, even with KinCare closed.", "/care", "test")
+    n = push.send(conn, account, "Carely notifications are on", "You'll get dose, refill and recall alerts here, even with Carely closed.", "/care", "test")
     return {"sent": n}
 
 

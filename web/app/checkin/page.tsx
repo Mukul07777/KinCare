@@ -161,7 +161,7 @@ function Checkin() {
           {result === "urgent" && <a href="tel:108" className="mt-5 inline-block rounded-full bg-paper px-6 py-3 font-semibold text-danger">Call 108</a>}
         </motion.div>
       )}
-      <p className="mt-6 text-center text-[11px] text-muted">KinCare · This is not a diagnosis. Your answers go to your pharmacist.</p>
+      <p className="mt-6 text-center text-[11px] text-muted">Carely · This is not a diagnosis. Your answers go to your pharmacist.</p>
     </main>
   );
 }

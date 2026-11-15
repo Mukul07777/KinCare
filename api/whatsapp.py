@@ -2,7 +2,7 @@
 
 Cost model (India, per Meta, 2026): messages people send us are free, and replies inside the
 24-hour window after their last message are free or near-free. A message outside that window
-must use an approved template (Utility, about ₹0.115 + GST). So KinCare keeps the window open:
+must use an approved template (Utility, about ₹0.115 + GST). So Carely keeps the window open:
 every reminder says "reply 1 when taken", the reply ticks the dose AND reopens the window.
 
 Env: WHATSAPP_TOKEN, WHATSAPP_PHONE_ID (from Meta > WhatsApp > API setup), WHATSAPP_NUMBER
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS wa_paid (
     PRIMARY KEY (phone, month)
 );
 CREATE TABLE IF NOT EXISTS wa_inbound (
-    phone TEXT PRIMARY KEY,          -- +91..., same format as the rest of KinCare
+    phone TEXT PRIMARY KEY,          -- +91..., same format as the rest of Carely
     last_at TEXT NOT NULL,
     last_text TEXT
 );
@@ -44,7 +44,7 @@ def ready() -> bool:
 
 
 def join_url(text: str = "JOIN") -> str | None:
-    """wa.me link that opens a chat with KinCare with a message typed in; sending it opens the free window."""
+    """wa.me link that opens a chat with Carely with a message typed in; sending it opens the free window."""
     n = re.sub(r"\D", "", os.environ.get("WHATSAPP_NUMBER", ""))
     return f"https://wa.me/{n}?text={requests.utils.quote(text)}" if n else None
 
@@ -136,7 +136,7 @@ def incoming(body: dict) -> list[tuple[str, str]]:
 
 
 def incoming_images(body: dict) -> list[tuple[str, str, str]]:
-    """(phone, media_id, caption) for every photo in a webhook call: a strip photographed and sent to KinCare."""
+    """(phone, media_id, caption) for every photo in a webhook call: a strip photographed and sent to Carely."""
     out = []
     for entry in body.get("entry", []):
         for ch in entry.get("changes", []):

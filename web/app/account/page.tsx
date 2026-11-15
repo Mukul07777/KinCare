@@ -170,7 +170,7 @@ function Devices() {
   );
 }
 
-// DPDP Act 2023: see everything KinCare holds about you, or erase it.
+// DPDP Act 2023: see everything Carely holds about you, or erase it.
 function YourData() {
   const [busy, setBusy] = useState<"" | "export" | "erase">("");
   const [msg, setMsg] = useState("");
@@ -184,7 +184,7 @@ function YourData() {
     } catch (e) { setMsg((e as Error).message); } finally { setBusy(""); }
   };
   const erase = async () => {
-    if (!confirm("Delete everything KinCare holds about you? Prescriptions, doses, vitals, chats, caregiver links and your login. This cannot be undone.")) return;
+    if (!confirm("Delete everything Carely holds about you? Prescriptions, doses, vitals, chats, caregiver links and your login. This cannot be undone.")) return;
     setBusy("erase"); setMsg("");
     try {
       const r = await eraseMyData();
@@ -196,7 +196,7 @@ function YourData() {
     <section className="mt-12 rounded-[2rem] border border-line bg-paper p-6">
       <h2 className="flex items-center gap-2 text-xl font-semibold"><ShieldCheck className="size-5 text-teal" /> Your data</h2>
       <p className="mt-1 max-w-2xl text-sm text-muted">
-        Your health data belongs to you. Download a copy of everything KinCare holds, or delete all of it. <Link href="/privacy" className="font-medium text-teal">How we handle your data →</Link>
+        Your health data belongs to you. Download a copy of everything Carely holds, or delete all of it. <Link href="/privacy" className="font-medium text-teal">How we handle your data →</Link>
       </p>
       <div className="mt-4 flex flex-wrap gap-2">
         <button onClick={download} disabled={!!busy} className="inline-flex items-center gap-2 rounded-full border border-line bg-cream px-5 py-2.5 text-sm font-medium hover:bg-mint disabled:opacity-50">

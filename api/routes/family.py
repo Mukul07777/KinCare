@@ -46,7 +46,7 @@ def send_caregiver_alerts() -> int:
     n = 0
     for l, d in caregiver_mod.missed_doses(conn):
         title = f"{_who(l)} hasn't taken {d['name']}"
-        text = f"The {d['time']} {d['slot']} dose isn't ticked yet. A gentle call may help. You can send a reminder from KinCare."
+        text = f"The {d['time']} {d['slot']} dose isn't ticked yet. A gentle call may help. You can send a reminder from Carely."
         push.send(conn, l["caregiver_device"], title, text, f"/family?link={l['id']}", f"missed-{d['med_id']}-{d['slot']}")
         telegram.send_device(conn, l["caregiver_device"], f"⏰ {title}\n{text}\n\n{WEB}/family?link={l['id']}")
         caregiver_mod.log(conn, l["id"], "alerted", title)
@@ -114,7 +114,7 @@ def caregiver_accept(b: AcceptIn, request: Request, account: str = Depends(signe
     dev = account
     r = _consent(caregiver_mod.accept, conn, b.code, dev, b.name, b.relation)
     l = caregiver_mod.get_link(conn, r["link_id"], dev)
-    msg = f"{l['caregiver_name']} ({l['relation'] or 'family'}) can now see: " + ", ".join(l["scopes"]) + ". You can stop this anytime in KinCare > Family."
+    msg = f"{l['caregiver_name']} ({l['relation'] or 'family'}) can now see: " + ", ".join(l["scopes"]) + ". You can stop this anytime in Carely > Family."
     push.send(conn, l["elder_device"], "Someone is looking after you", msg, "/family", f"linked-{l['id']}")
     telegram.send_device(conn, l["elder_device"], "🤝 " + msg, role="self")
     return r
@@ -159,7 +159,7 @@ def caregiver_nudge(lid: int, b: NudgeIn, account: str = Depends(current_account
                           (lid, (datetime.now(timezone.utc) - timedelta(hours=1)).isoformat())).fetchone()[0]
     if recent >= 5:
         raise HTTPException(429, "That's 5 reminders this hour. Try calling instead.")
-    text = (b.text or "").strip()[:200] or "Please take your medicine and tick it in KinCare."
+    text = (b.text or "").strip()[:200] or "Please take your medicine and tick it in Carely."
     say = f"{l['caregiver_name']}: {text}"
     pushed = push.send(conn, l["elder_device"], f"Message from {l['caregiver_name']}", text, "/dadi", f"nudge-{lid}")
     tg = telegram.send_device(conn, l["elder_device"], f"💬 {say}", role="self", buttons=TG_BUTTONS)

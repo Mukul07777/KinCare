@@ -65,7 +65,7 @@ function Demo() {
         ...(recalled ? [{ name: recalled, strength: "", food: "", morning: 1, noon: 0, night: 0, days: 10, as_needed: false }] : []),
       ];
       await savePlan({ member: "Dadi", doctor: "Dr. Mehta (demo)", diagnosis: "Fever, on blood thinner", advice: ["Drink plenty of fluids", "Follow up in 5 days"], medicines: meds });
-      push({ id: "rx", icon: FileText, title: "Doctor’s prescription saved", body: <p>{meds.length} medicines for Dadi, with a dose schedule and the doctor’s advice. KinCare never adds medicines; only the doctor does.</p> });
+      push({ id: "rx", icon: FileText, title: "Doctor’s prescription saved", body: <p>{meds.length} medicines for Dadi, with a dose schedule and the doctor’s advice. Carely never adds medicines; only the doctor does.</p> });
       await wait(900);
 
       // 2. Interactions from openFDA
@@ -126,7 +126,7 @@ function Demo() {
         push({
           id: "save", icon: IndianRupee, tone: "ok",
           title: sv.yearly_saving > 0 ? `Same medicines, ₹${sv.yearly_saving.toLocaleString("en-IN")} a year less` : "Already on low-priced brands",
-          body: <p>Dadi&apos;s prescriptions cost about ₹{sv.monthly_now.toLocaleString("en-IN")} a month.{best && <> Biggest saving: <b>{best.matched!.name}</b> → <b>{best.cheapest!.name}</b>, same salt and strength, maker has no CDSCO alerts.</>} Shown to the doctor, never switched by KinCare.</p>,
+          body: <p>Dadi&apos;s prescriptions cost about ₹{sv.monthly_now.toLocaleString("en-IN")} a month.{best && <> Biggest saving: <b>{best.matched!.name}</b> → <b>{best.cheapest!.name}</b>, same salt and strength, maker has no CDSCO alerts.</>} Shown to the doctor, never switched by Carely.</p>,
         });
       }
       push({ id: "remind", icon: BellRing, tone: "ok", title: "Reminders scheduled", body: <p>A WhatsApp reminder goes out at every dose time. Dadi replies <b>1</b> and the dose is ticked, no app needed.</p> });
@@ -176,7 +176,7 @@ function Demo() {
         </button>
         {resetMsg && <span className="text-xs text-muted">{resetMsg}</span>}
       </div>
-      {error && <p className="mt-3 text-sm text-danger">Couldn’t reach the KinCare server. Wait a moment and try again.</p>}
+      {error && <p className="mt-3 text-sm text-danger">Couldn’t reach the Carely server. Wait a moment and try again.</p>}
 
       <div className="mt-8 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
         <ol className="space-y-3">
@@ -206,7 +206,7 @@ function Demo() {
         <div className="mx-auto w-full max-w-[320px]">
           <div className="rounded-[2.5rem] border-[10px] border-espresso bg-[#e9dfd2] p-3 shadow-xl">
             <div className="flex items-center gap-2 rounded-2xl bg-[#075e54] px-3 py-2 text-paper">
-              <MessageCircle className="size-4" /><p className="text-sm font-medium">KinCare</p>
+              <MessageCircle className="size-4" /><p className="text-sm font-medium">Carely</p>
               <span className="ml-auto text-[10px] opacity-70">WhatsApp</span>
             </div>
             <div className="mt-3 flex min-h-[380px] flex-col gap-2">

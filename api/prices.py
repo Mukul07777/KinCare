@@ -1,6 +1,6 @@
 """Same medicine, lower price: brands with identical salts, strengths and form, ranked per tablet / ml.
 
-KinCare only shows prices. Switching brand is a decision for the patient's doctor or pharmacist.
+Carely only shows prices. Switching brand is a decision for the patient's doctor or pharmacist.
 """
 import re
 from statistics import median

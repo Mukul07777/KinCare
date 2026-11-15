@@ -298,7 +298,7 @@ async def billing_webhook(request: Request):
 
 @router.get("/api/account/export")
 def account_export(account: str = Depends(current_account)):
-    """Everything KinCare holds about you, as one JSON file."""
+    """Everything Carely holds about you, as one JSON file."""
     import privacy
 
     return {"generated_at": now(), "data": privacy.export(conn, account)}

@@ -2,7 +2,7 @@
 
 Used to find the same medicine for less: brands with the *identical* salts, strengths and dosage
 form (an SR tablet never matches a plain tablet), compared per tablet / per ml, not per pack.
-Each maker is linked to its record in KinCare's CDSCO alert database, so cheaper never quietly
+Each maker is linked to its record in Carely's CDSCO alert database, so cheaper never quietly
 means riskier.
 
 Source: github.com/junioralive/Indian-Medicine-Dataset (MIT). Cached under data/raw/medicines/.

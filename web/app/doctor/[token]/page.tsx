@@ -96,7 +96,7 @@ export default function DoctorConsole() {
     <main className="mx-auto max-w-xl px-4 py-24 text-center">
       <ShieldCheck className="mx-auto size-10 text-brown" />
       <h1 className="mt-4 text-2xl font-semibold">Link not available</h1>
-      <p className="mt-2 text-muted">{error}. Ask the patient to send a new link from KinCare.</p>
+      <p className="mt-2 text-muted">{error}. Ask the patient to send a new link from Carely.</p>
     </main>
   );
   if (!view) return <main className="flex min-h-[60vh] items-center justify-center text-muted"><Loader2 className="mr-2 size-5 animate-spin" /> Opening patient record…</main>;
@@ -291,7 +291,7 @@ export default function DoctorConsole() {
       </div>
 
       <p className="mt-8 text-center text-[11px] text-muted">
-        Shared by the patient through KinCare. Home readings and camera pulse are estimates; confirm clinically. KinCare never suggests medicines.
+        Shared by the patient through Carely. Home readings and camera pulse are estimates; confirm clinically. Carely never suggests medicines.
       </p>
     </main>
   );

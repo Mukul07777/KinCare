@@ -1,9 +1,9 @@
-"""Dadi mode: a spoken question in Hindi (or English) -> a short spoken answer from KinCare's real data.
+"""Dadi mode: a spoken question in Hindi (or English) -> a short spoken answer from Carely's real data.
 
 Understands five things: a batch check, a price ("kitne ki aati hai"), what a medicine is for,
 today's doses, and an emergency (always first: call 108). Browser speech recognition writes brand
 names in Devanagari ("डोलो"), so they are transliterated and matched loosely against brand names.
-KinCare never tells anyone to start, stop or change a medicine.
+Carely never tells anyone to start, stop or change a medicine.
 """
 import re
 
@@ -144,8 +144,8 @@ def answer(conn, text: str, lang: str, run_check, today: dict | None) -> dict:
         return {"kind": "emergency", "say": say, "show": say, "data": {}}
 
     if GREETING.match(raw):
-        say = ("नमस्ते! मैं KinCare हूँ। आप मुझसे दवा की कीमत, वो किस लिए है, आज कौन सी दवा लेनी है, या बैच नंबर के बारे में पूछ सकती हैं।"
-               if hi else "Hello! I'm KinCare. Ask me a medicine's price, what it's for, today's doses, or about a batch number.")
+        say = ("नमस्ते! मैं Carely हूँ। आप मुझसे दवा की कीमत, वो किस लिए है, आज कौन सी दवा लेनी है, या बैच नंबर के बारे में पूछ सकती हैं।"
+               if hi else "Hello! I'm Carely. Ask me a medicine's price, what it's for, today's doses, or about a batch number.")
         return {"kind": "hello", "say": say, "show": say, "data": {}}
 
     m = BATCH_TOKEN.search(raw)

@@ -101,7 +101,7 @@ def test_request_approve_revoke_lifecycle(monkeypatch):
 def test_nobody_can_make_themselves_admin_or_approve_themselves(monkeypatch):
     monkeypatch.setenv("KINCARE_DEMO", "0")
     h = PERSONAS["admin"]
-    assert client.post("/api/roles/request", headers=h, json={"role": "admin", "org": "KinCare", "licence": "self"}).status_code == 400
+    assert client.post("/api/roles/request", headers=h, json={"role": "admin", "org": "Carely", "licence": "self"}).status_code == 400
     gid = client.post("/api/roles/request", headers=h, json={"role": "regulator", "org": "CDSCO", "licence": "EMP-1"}).json()["id"]
     assert client.post(f"/api/admin/roles/{gid}/approve", headers=h).status_code == 403
     guest = auth_as("rb-guest", kind="guest")

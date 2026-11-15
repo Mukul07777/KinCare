@@ -129,7 +129,7 @@ export default function SignalsPage() {
           </div>
           <div className="flex gap-3 rounded-3xl bg-danger/10 p-5 text-sm">
             <Siren className="size-5 shrink-0 text-danger" />
-            <p>KinCare never tells anyone to stop or change a medicine. Show your pharmacist or doctor.</p>
+            <p>Carely never tells anyone to stop or change a medicine. Show your pharmacist or doctor.</p>
           </div>
         </div>
       </div>

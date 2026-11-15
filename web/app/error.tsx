@@ -11,7 +11,7 @@ export default function PageError({ error, reset }: { error: Error & { digest?: 
       <Eyebrow>Something went wrong</Eyebrow>
       <Heading as="h1" lead="This page hit a problem." tail="Nothing you did." className="mt-5 text-4xl sm:text-5xl" />
       <p className="mt-5 max-w-md text-muted">
-        Usually the KinCare server is still starting or the connection dropped. Try again in a moment.
+        Usually the Carely server is still starting or the connection dropped. Try again in a moment.
         {error.digest && <span className="mt-2 block font-mono text-xs">ref {error.digest}</span>}
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-3">

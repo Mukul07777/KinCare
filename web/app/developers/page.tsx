@@ -64,7 +64,7 @@ export default function DevelopersPage() {
           <Webhook className="size-6 text-brown" />
           <p className="mt-4 text-lg font-medium tracking-tight">Recall webhooks (enterprise)</p>
           <p className="mt-2 text-sm leading-relaxed text-muted">
-            Register your stock once. When a new regulator list names a batch you hold, KinCare calls your endpoint with the batch, the alert and the regulator link, so your POS can stop it at the counter.
+            Register your stock once. When a new regulator list names a batch you hold, Carely calls your endpoint with the batch, the alert and the regulator link, so your POS can stop it at the counter.
           </p>
           <p className="mt-4 text-xs text-muted">Webhook delivery is on the roadmap; the matching engine behind it is live today.</p>
         </div>

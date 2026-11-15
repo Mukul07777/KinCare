@@ -1,7 +1,7 @@
 """Ingest the BIDMC PPG and Respiration Dataset (PhysioNet): 53 real ICU patients, 8 minutes each.
 
 Per patient: 1 Hz monitor numerics (heart rate, pulse, SpO2, respiration) and the 125 Hz
-fingertip pleth waveform. KinCare uses them two ways:
+fingertip pleth waveform. Carely uses them two ways:
 - the "Recorded ICU patient" live stream replays a real patient instead of made-up numbers
 - the phone-camera pulse algorithm (ppg.py) is scored against the monitor's own pulse
 

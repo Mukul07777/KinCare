@@ -11,7 +11,7 @@ from checkin import PUBLIC_WEB_URL
 # Pricing rule: recall alerts stay free for everyone. Paid WhatsApp messages (Meta Utility template, ~Rs 0.115 + GST,
 # only outside the free 24-hour window) are capped per number per month (whatsapp.PAID_CAP); past the cap,
 # reminders go as free phone notifications. So the worst case is known and every plan keeps a margin (tested).
-# Each plan includes everything in the one before it. Pharmacy Pro includes every feature KinCare has.
+# Each plan includes everything in the one before it. Pharmacy Pro includes every feature Carely has.
 FREE = ["Unlimited strip, bill and QR scans", "Batch check against every CDSCO and state alert", "Recall alerts on WhatsApp and a Hindi voice call",
         "Medicine info: uses, side effects, warnings", "Cheaper same-salt brands from makers with no alerts", "Jan Aushadhi store finder",
         "Phone notifications for doses and refills", "Watchlist for your batches", "SOS button with 112 / 108 and nearby hospitals"]
@@ -21,7 +21,7 @@ _FAMILY = ["Everything in Basic, plus:", "Up to 6 family members", "WhatsApp rem
            "Monthly medicine spend and savings for the whole family"]
 _PHARMACY = ["Everything in Family, plus:", "First month free", "Your customers get WhatsApp reminders free (Basic, on us)", "Stock CSV matched against every new alert", "Find customers who bought a flagged batch",
              "300 customer WhatsApp recall alerts a month", "Patient check-in queue after a recall", "Audit and PvPI exports"]
-_PRO = ["Everything in Pharmacy, plus (all KinCare features):", "Multiple locations and staff logins", "2,000 customer WhatsApp alerts a month",
+_PRO = ["Everything in Pharmacy, plus (all Carely features):", "Multiple locations and staff logins", "2,000 customer WhatsApp alerts a month",
         "Early Signal reports: bad batches patients report before CDSCO lists them", "Live recall command screen", "Alert API access", "Priority support"]
 PLANS = {
     "basic": {"name": "Basic", "amount": 2900, "interval": "month", "who": "One person on regular medicines", "wa_numbers": 1, "features": _BASIC},
@@ -58,7 +58,7 @@ def create_session(plan: str, device: str) -> tuple[str, str]:
         line_items=[{
             "quantity": 1,
             "price_data": {"currency": CURRENCY, "unit_amount": p["amount"], "recurring": {"interval": p["interval"]},
-                           "product_data": {"name": f"KinCare {p['name']}"}},
+                           "product_data": {"name": f"Carely {p['name']}"}},
         }],
         # Pharmacies: first month free (pilot). Card taken now, charged after 30 days, cancel any time.
         subscription_data={"trial_period_days": 30} if plan.startswith("pharmacy") else {},

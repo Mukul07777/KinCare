@@ -3,7 +3,7 @@
 Tiers (each includes the one below): free < basic < family < pharmacy < pharmacy_pro.
 - New devices get a 14-day Family trial, no card.
 - A paying pharmacy covers Basic for its own customers (phones on its sales records):
-  the pharmacy pays, its customers get WhatsApp reminders free. That is KinCare's distribution channel.
+  the pharmacy pays, its customers get WhatsApp reminders free. That is Carely's distribution channel.
 - KINCARE_ALL_ACCESS=1 unlocks everything (stage demos, development).
 """
 import os

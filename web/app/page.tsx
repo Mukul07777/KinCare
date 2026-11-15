@@ -48,12 +48,12 @@ const STEPS = [
   { icon: BellRing, title: "Watched for good", body: "If a new list names your batch, WhatsApp and a Hindi voice call reach you before the next dose." },
 ];
 
-// Three people KinCare protects, each with the one thing it does for them.
+// Three people Carely protects, each with the one thing it does for them.
 const AUDIENCES = [
   { icon: HeartPulse, who: "Families", line: "Know the medicine in your home is not on a failed list, and never miss a dose.",
     points: ["Scan, WhatsApp or ask in Hindi", "Dose reminders and refills", "Same salt, lower price"], href: "/scan", cta: "Check a batch" },
   { icon: Store, who: "Pharmacies", line: "Check your stock against every alert and reach every customer who bought a flagged batch.",
-    points: ["Stock matched automatically", "Buyers alerted, response logged", "Customers get KinCare free"], href: "/pharmacy", cta: "Open the recall desk" },
+    points: ["Stock matched automatically", "Buyers alerted, response logged", "Customers get Carely free"], href: "/pharmacy", cta: "Open the recall desk" },
   { icon: Landmark, who: "Regulators", line: "See who still holds a failed batch, where copied pack codes travel, and what patients report.",
     points: ["Recall blast radius", "Fake-pack radar", "Ranked action queue"], href: "/controller", cta: "See the dashboard" },
 ];
@@ -64,7 +64,7 @@ export default async function Home() {
     <main className="overflow-x-clip">
       {/* Hero */}
       <section className="blush relative px-4 pt-14 sm:px-6 sm:pt-20">
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="mx-auto max-w-6xl">
           <Reveal>
             <div className="flex justify-center">
               <span className="inline-flex items-center gap-2 rounded-full border border-line bg-paper px-3 py-1 text-xs">
@@ -73,9 +73,31 @@ export default async function Home() {
                 <span className="text-muted">medicine samples failed government tests in {f?.fyLabel ?? "this financial year"}</span>
               </span>
             </div>
-            <Heading as="h1" lead="Know the batch," tail="not just the brand." className="mt-7 text-5xl sm:text-7xl" />
+            {/* The name, huge and bold across the middle; the medicine strip below floats up over it. */}
+            <h1 className="relative z-0 mt-6 select-none text-center text-[22vw] font-black uppercase leading-[0.85] tracking-tighter text-espresso sm:text-[13rem] lg:text-[15rem]">
+              Carely
+              <span className="sr-only">: know the batch, not just the brand.</span>
+            </h1>
+            <div className="mt-6 grid items-start gap-6 sm:grid-cols-[1fr_auto_1fr]">
+              <p className="flex max-w-xs items-start gap-2 text-left text-lg text-espresso">
+                <span aria-hidden className="mt-2 grid grid-cols-2 gap-0.5"><span className="size-1.5 bg-brown" /><span className="size-1.5 bg-espresso" /><span className="size-1.5 bg-espresso" /><span className="size-1.5 bg-brown" /></span>
+                Medicines, doses and doctor visits, made simple for elders and the family.
+              </p>
+              <span />
+              <Link href="/circle" className="group justify-self-end rounded-2xl border border-line bg-paper/80 p-4 text-left shadow-sm backdrop-blur transition hover:border-brown">
+                <span className="flex items-center justify-between gap-6 text-base font-semibold text-espresso">Care circle <ArrowUpRight className="size-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span>
+                <span className="mt-1 block max-w-[15rem] text-sm text-muted">One passcode-shared profile. Email reminders for every dose and appointment.</span>
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+        <div className="relative z-10 -mt-24 sm:-mt-40">
+          <HeroVisual />
+        </div>
+        <div className="mx-auto max-w-4xl text-center">
+          <Reveal>
             <p className="mx-auto mt-6 max-w-xl text-lg text-muted">
-              KinCare checks your medicine against every government drug alert, then keeps watching it, so a failed batch never reaches your next dose.
+              <b className="text-espresso">Know the batch, not just the brand.</b> Carely checks your medicine against every government drug alert, then keeps watching it, so a failed batch never reaches your next dose.
             </p>
             <div className="mt-9 flex flex-wrap justify-center gap-3">
               <Link
@@ -95,7 +117,6 @@ export default async function Home() {
             <p className="mt-5 text-xs text-muted">Free for every patient · No app to install · Hindi and English</p>
           </Reveal>
         </div>
-        <HeroVisual />
       </section>
 
       {/* Sources */}
@@ -294,7 +315,7 @@ function RecallGap({ g }: { g: Gap }) {
               </div>
             </div>
             <div className="rounded-3xl bg-teal p-6">
-              <p className="text-xs font-medium uppercase tracking-wider text-paper/70">KinCare closes the second half</p>
+              <p className="text-xs font-medium uppercase tracking-wider text-paper/70">Carely closes the second half</p>
               <p className="mt-2 text-xl font-medium leading-snug">The moment a batch is listed, everyone holding it hears, soonest next dose first.</p>
               <Link href="/blast" className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-paper px-4 py-2 text-sm font-medium text-teal hover:bg-sand">
                 See the recall blast radius <ArrowRight className="size-4" />

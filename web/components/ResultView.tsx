@@ -110,7 +110,7 @@ export function ResultView() {
             {error ? (
               <motion.div key="err" role="alert" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-3xl border border-danger/20 bg-danger/5 p-6">
                 <p className="font-medium text-danger">Couldn’t finish the check.</p>
-                <p className="mt-1 text-sm text-muted">The KinCare server didn’t answer. Your batch details are kept. Nothing was lost.</p>
+                <p className="mt-1 text-sm text-muted">The Carely server didn’t answer. Your batch details are kept. Nothing was lost.</p>
                 <button onClick={() => setAttempt((a) => a + 1)} className="mt-4 rounded-full bg-espresso px-5 py-2.5 text-sm font-medium text-paper transition hover:bg-brown">
                   Try again
                 </button>

@@ -8,11 +8,11 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "KinCare: know the batch, not just the brand",
+  title: "Carely: know the batch, not just the brand",
   description:
     "Scan a medicine strip. Live agents check every regulator alert list, then keep watching that batch for you.",
   icons: { apple: "/icons/apple-touch-icon.png" },
-  appleWebApp: { capable: true, title: "KinCare", statusBarStyle: "default" },
+  appleWebApp: { capable: true, title: "Carely", statusBarStyle: "default" },
 };
 
 export const viewport: Viewport = { themeColor: "#f7f1ec" };

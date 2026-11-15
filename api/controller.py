@@ -1,5 +1,5 @@
 """Drug-controller dashboard: one screen for a state drug controller (or CDSCO) that joins what
-KinCare sees on the ground with the regulator's own alerts.
+Carely sees on the ground with the regulator's own alerts.
 
 - Alerts by testing state: volume, trend, what fails, which makers, how fast failures reach the list
 - Flagged batches still in homes (blast radius) and how many holders have been alerted

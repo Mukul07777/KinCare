@@ -32,7 +32,7 @@ export function BodySignal({ version }: { version: number }) {
         ))}
         {steady.map((i) => <p key={i.med_id} className="text-muted"><b className="text-espresso">{i.name}</b>: no unusual change in vitals since starting.</p>)}
         {waiting.length > 0 && (
-          <p className="text-xs text-muted">Log a few readings in Vitals and KinCare compares them with before you started {waiting.map((w) => w.name).join(", ")}.</p>
+          <p className="text-xs text-muted">Log a few readings in Vitals and Carely compares them with before you started {waiting.map((w) => w.name).join(", ")}.</p>
         )}
       </div>
       {flagged.length > 0 && <p className="mt-3 text-xs text-warn">Show this to your doctor. A change is a reason to check, not proof the medicine caused it. Don&apos;t stop a medicine on your own.</p>}

@@ -53,7 +53,7 @@ function Save() {
       <Eyebrow>Save</Eyebrow>
       <Heading as="h1" lead="Same medicine." tail="Lower price." className="mt-4 text-4xl sm:text-6xl" />
       <p className="mt-4 max-w-2xl text-muted">
-        Search any brand. KinCare finds every brand with the <b className="text-espresso">exact same salts, strength and form</b>, compared per tablet,
+        Search any brand. Carely finds every brand with the <b className="text-espresso">exact same salts, strength and form</b>, compared per tablet,
         and shows each maker&apos;s record in the CDSCO alert database, so cheaper never quietly means riskier.
       </p>
 
@@ -162,7 +162,7 @@ function Save() {
 
       <p className="mt-10 text-[11px] text-muted">
         Prices: Indian Medicine Dataset (246,068 brands on sale, MIT licence), MRPs as listed; shop prices can differ.
-        Maker records: CDSCO and state NSQ / spurious alerts 2019–2026, exact maker-name match only. KinCare never tells you to change a medicine.
+        Maker records: CDSCO and state NSQ / spurious alerts 2019–2026, exact maker-name match only. Carely never tells you to change a medicine.
       </p>
     </main>
   );

@@ -77,7 +77,7 @@ function Login() {
       <div className="relative hidden overflow-hidden rounded-[2.5rem] bg-espresso p-10 text-paper lg:block">
         <div className="pointer-events-none absolute -right-20 -top-24 size-80 rounded-full bg-teal/30 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-28 -left-16 size-80 rounded-full bg-brown/50 blur-3xl" />
-        <p className="relative text-sm text-paper/60">KinCare account</p>
+        <p className="relative text-sm text-paper/60">Carely account</p>
         <p className="relative mt-3 text-4xl font-medium leading-tight tracking-tight">Your family&apos;s medicines,<br /><span className="text-paper/55">on every phone.</span></p>
         <div className="relative mt-10 space-y-5">
           {[

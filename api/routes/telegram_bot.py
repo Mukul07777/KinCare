@@ -42,7 +42,7 @@ def telegram_handle(update: dict) -> str | None:
         chat_id, file_id = photo
         dev = telegram.device_of(conn, chat_id)
         if not dev:
-            telegram.send(chat_id, "Open KinCare and press “Connect Telegram” first, then send the strip photo again.")
+            telegram.send(chat_id, "Open Carely and press “Connect Telegram” first, then send the strip photo again.")
             return "unlinked"
         telegram.send(chat_id, "📷 Photo mil gayi, batch padh rahe hain…")
         import threading
@@ -57,11 +57,11 @@ def telegram_handle(update: dict) -> str | None:
         code = text.split(maxsplit=1)[1].strip() if " " in text else ""
         r = telegram.claim(conn, code, chat_id, first) if code else None
         if not r:
-            reply = "Namaste! Open KinCare and press “Connect Telegram” to link this chat. 🙏"
+            reply = "Namaste! Open Carely and press “Connect Telegram” to link this chat. 🙏"
         elif r["role"] == "caregiver":
             reply = "✅ Linked. You'll get alerts here when someone you look after misses a dose, logs a worrying reading or presses SOS."
         else:
-            reply = ("✅ जुड़ गया! अब आप यहाँ KinCare से बात कर सकते हैं।\n"
+            reply = ("✅ जुड़ गया! अब आप यहाँ Carely से बात कर सकते हैं।\n"
                      "• 📷 दवा की पत्ती (strip) की फ़ोटो भेजें: बैच जाँच देंगे\n• बैच नंबर भेजें, जैसे AT25-0938A\n"
                      "• दवा लेने के बाद: 1 या दवा ले ली\n• पूछें: आज कौन सी दवा?\n"
                      "• रीडिंग भेजें: BP 130/85\n• दवा की कीमत: डोलो 650 कितने की है?\n• परिवार को बुलाना हो: बेटे को बुलाओ\n\n"
@@ -70,7 +70,7 @@ def telegram_handle(update: dict) -> str | None:
         return reply
     dev = telegram.device_of(conn, chat_id)
     if not dev:
-        reply = "This chat only receives alerts. To talk to KinCare, open Dadi mode in the app and press “Connect Telegram”."
+        reply = "This chat only receives alerts. To talk to Carely, open Dadi mode in the app and press “Connect Telegram”."
         telegram.send(chat_id, reply)
         return reply
     clean = text.replace("📞", "").replace("✅", "").strip()

@@ -1,7 +1,7 @@
 """Care circle API: passcode-shared elder profile, medicines, adherence, appointments, email reminders.
 
 Two kinds of caller reach /api/circle/p/{code}/...:
-- the elder (owner), with their normal KinCare session;
+- the elder (owner), with their normal Carely session;
 - a family member or caretaker, with the X-Circle-Token they got from /api/circle/unlock (passcode).
 """
 from fastapi import APIRouter, Depends, HTTPException, Request
@@ -252,7 +252,7 @@ def circle_summary(code: str, request: Request):
     """One page to show the doctor: medicines, timings, adherence, next appointment."""
     prof, _ = actor(code, request)
     a = circle.adherence(conn, prof, 30)
-    lines = [f"{prof['elder_name']}: medicines and adherence (KinCare)", ""]
+    lines = [f"{prof['elder_name']}: medicines and adherence (Carely)", ""]
     for med in circle.meds(conn, prof):
         t = "only when needed" if med["as_needed"] else ", ".join(s for s in ("morning", "noon", "night") if med[s])
         lines.append(f"- {med['name']} {med['strength'] or ''} | {t}{' | ' + med['food'] if med['food'] else ''}".replace("  ", " "))

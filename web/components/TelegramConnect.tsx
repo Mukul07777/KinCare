@@ -56,7 +56,7 @@ export function TelegramConnect({ role, compact = false }: { role: "self" | "car
       </p>
     );
   }
-  const label = role === "self" ? "Talk to KinCare on Telegram" : "Get alerts on Telegram";
+  const label = role === "self" ? "Talk to Carely on Telegram" : "Get alerts on Telegram";
   const startCmd = link ? `/start ${link.code}` : "";
   const web = link && info.bot ? `https://web.telegram.org/k/#?tgaddr=${encodeURIComponent(`tg://resolve?domain=${info.bot}&start=${link.code}`)}` : "";
 

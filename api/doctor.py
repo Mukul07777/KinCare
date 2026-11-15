@@ -1,7 +1,7 @@
 """Doctor connect: a private, expiring link that lets the patient's own doctor watch live vitals,
 see medicines and adherence, and send advice back. Plus NEWS2, the early-warning score wards use.
 
-KinCare still never suggests a medicine. Advice only ever comes from the doctor.
+Carely still never suggests a medicine. Advice only ever comes from the doctor.
 """
 import hashlib
 import secrets

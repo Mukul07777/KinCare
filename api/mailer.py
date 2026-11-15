@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS emails (
 CREATE INDEX IF NOT EXISTS idx_emails_at ON emails(at);
 """
 
-FROM = lambda: os.environ.get("EMAIL_FROM") or "KinCare <onboarding@resend.dev>"  # noqa: E731
+FROM = lambda: os.environ.get("EMAIL_FROM") or "Carely <onboarding@resend.dev>"  # noqa: E731
 
 
 def provider() -> str:
@@ -46,7 +46,7 @@ def _html(subject: str, text: str) -> str:
     body = "<br>".join(html.escape(line) for line in text.splitlines())
     return (f"<div style=\"font-family:Arial,sans-serif;font-size:18px;line-height:1.5;color:#111;max-width:560px\">"
             f"<h2 style=\"font-size:22px;margin:0 0 12px\">{html.escape(subject)}</h2><p>{body}</p>"
-            f"<p style=\"font-size:13px;color:#555;margin-top:24px\">Sent by KinCare. You get this because you are part of "
+            f"<p style=\"font-size:13px;color:#555;margin-top:24px\">Sent by Carely. You get this because you are part of "
             f"this person's care circle. Ask them to remove you if you no longer help with their care.</p></div>")
 
 

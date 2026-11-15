@@ -75,7 +75,7 @@ export default function WatchlistPage() {
         </div>
       </div>
 
-      {error && <p className="mt-6 rounded-2xl border border-danger/20 bg-danger/5 px-5 py-4 text-sm text-danger">Could not reach the KinCare service: {error}</p>}
+      {error && <p className="mt-6 rounded-2xl border border-danger/20 bg-danger/5 px-5 py-4 text-sm text-danger">Could not reach the Carely service: {error}</p>}
       {notice && <p className="mt-6 rounded-2xl bg-sand/70 px-5 py-3 text-sm">{notice}</p>}
 
       {items && items.length > 0 && (

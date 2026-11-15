@@ -6,7 +6,7 @@ import { Check, Info } from "lucide-react";
 import { Eyebrow, Heading } from "@/components/Heading";
 
 // Same prices and lists as api/billing.py (the server is the source of truth for checkout).
-// Each plan includes everything in the one before it; Pharmacy Pro has every KinCare feature.
+// Each plan includes everything in the one before it; Pharmacy Pro has every Carely feature.
 const TIERS: { name: string; who: string; price: string; per: string; featured?: boolean; badge?: string; cta: { label: string; href: string }; features: string[] }[] = [
   {
     name: "Free",
@@ -54,7 +54,7 @@ const TIERS: { name: string; who: string; price: string; per: string; featured?:
     per: "/month",
     badge: "All features",
     cta: { label: "Choose Pro", href: "/account" },
-    features: ["Everything in Pharmacy, plus (all KinCare features):", "Multiple locations and staff logins", "2,000 customer WhatsApp alerts a month",
+    features: ["Everything in Pharmacy, plus (all Carely features):", "Multiple locations and staff logins", "2,000 customer WhatsApp alerts a month",
       "Early Signal reports: bad batches patients report before CDSCO lists them", "Live recall command screen", "Alert API access", "Priority support"],
   },
 ];
@@ -143,12 +143,12 @@ export default function PricingPage() {
 
       {/* Growth loop */}
       <section className="mt-24">
-        <Heading lead="How KinCare" tail="grows." className="text-3xl sm:text-5xl" />
+        <Heading lead="How Carely" tail="grows." className="text-3xl sm:text-5xl" />
         <div className="mt-8 grid gap-4 md:grid-cols-4">
           {[
             ["1", "A pharmacy subscribes", "₹499/month, first month free. Its stock is checked against every new alert."],
             ["2", "Its customers join free", "Phone numbers on the store's sales get WhatsApp reminders, paid for by the pharmacy."],
-            ["3", "A batch gets flagged", "KinCare finds who bought it and alerts them before the next dose. The store looks responsible, and customers come back."],
+            ["3", "A batch gets flagged", "Carely finds who bought it and alerts them before the next dose. The store looks responsible, and customers come back."],
             ["4", "Families upgrade", "Customers add parents and grandparents with Family (₹69). Patients' reports feed Early Signal for every store."],
           ].map(([n, t, d]) => (
             <div key={n} className="card rounded-3xl p-6">
@@ -159,7 +159,7 @@ export default function PricingPage() {
           ))}
         </div>
         <p className="mt-4 max-w-3xl text-sm text-muted">
-          Pharmacies pay because one avoided recall complaint is worth more than a year of KinCare. Patients never pay for safety.
+          Pharmacies pay because one avoided recall complaint is worth more than a year of Carely. Patients never pay for safety.
           No ads, and no selling of health data, ever.
         </p>
       </section>
@@ -223,8 +223,8 @@ export default function PricingPage() {
       {/* Positioning */}
       <section className="mt-24 grid gap-4 md:grid-cols-3">
         {[
-          ["Not another billing system", "KinCare sits beside Marg, GoFrugal or Excel. Pharmacies keep their software; we add alert monitoring and recall workflow."],
-          ["Complements government QR", "A QR code shows the pack came from the maker. KinCare shows whether a regulator flagged that batch. Different questions."],
+          ["Not another billing system", "Carely sits beside Marg, GoFrugal or Excel. Pharmacies keep their software; we add alert monitoring and recall workflow."],
+          ["Complements government QR", "A QR code shows the pack came from the maker. Carely shows whether a regulator flagged that batch. Different questions."],
           ["The moat is the data", "A normalised, source-linked database of every alert, plus integrations and a network of pharmacies acting on it."],
         ].map(([t, b]) => (
           <div key={t} className="card rounded-3xl p-6">

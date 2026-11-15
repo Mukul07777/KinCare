@@ -135,7 +135,7 @@ function Pharmacy() {
           <Eyebrow>For pharmacies</Eyebrow>
           <Heading as="h1" lead="A recall desk" tail="for your store." className="mt-4 text-4xl sm:text-6xl" />
           <p className="mt-4 max-w-lg text-muted">
-            Upload your stock export. KinCare flags batches named in official alerts and gives your staff a tracked workflow. Works alongside your billing software.
+            Upload your stock export. Carely flags batches named in official alerts and gives your staff a tracked workflow. Works alongside your billing software.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -322,7 +322,7 @@ function Pharmacy() {
           </div>
 
           <p className="mt-6 flex items-center gap-2 text-xs text-muted">
-            <PackageX className="size-3.5" /> KinCare flags batches named in published alerts. Follow your official recall procedure for any action on stock.
+            <PackageX className="size-3.5" /> Carely flags batches named in published alerts. Follow your official recall procedure for any action on stock.
           </p>
         </>
       )}

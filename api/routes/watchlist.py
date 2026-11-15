@@ -1,4 +1,4 @@
-"""Per-device watchlist of batches KinCare keeps re-checking."""
+"""Per-device watchlist of batches Carely keeps re-checking."""
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 

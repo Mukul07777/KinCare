@@ -34,7 +34,7 @@ export default function RadarPage() {
       <Heading as="h1" lead="One pack, one code." tail="Copies give themselves away." className="mt-4 text-4xl sm:text-6xl" />
       <p className="mt-4 max-w-2xl text-muted">
         Since 2023 the top 300 brands carry a QR code with a serial for each pack. A copied code shows up on many phones, in cities hours apart,
-        or with a batch that doesn&apos;t match. Every KinCare scan is a sensor.
+        or with a batch that doesn&apos;t match. Every Carely scan is a sensor.
       </p>
 
       <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">

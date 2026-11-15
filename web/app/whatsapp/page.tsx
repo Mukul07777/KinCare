@@ -69,10 +69,10 @@ export default function WhatsAppPage() {
     <main className="blush mx-auto max-w-6xl px-4 pb-20 pt-12 sm:px-6 sm:pt-16">
       <div className="grid items-start gap-10 lg:grid-cols-[1fr_420px]">
         <div>
-          <Eyebrow>KinCare on WhatsApp</Eyebrow>
+          <Eyebrow>Carely on WhatsApp</Eyebrow>
           <Heading as="h1" lead="No app." tail="Just send a photo." className="mt-4 text-4xl sm:text-6xl" />
           <p className="mt-4 max-w-xl text-muted">
-            Most families will never install a health app, but everyone has WhatsApp. Photograph the back of a strip and send it to KinCare.
+            Most families will never install a health app, but everyone has WhatsApp. Photograph the back of a strip and send it to Carely.
             The batch is read, checked against every CDSCO and state alert, and the answer comes back in Hindi or English.
           </p>
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
@@ -101,7 +101,7 @@ export default function WhatsAppPage() {
             </div>
           </div>
           <p className="mt-6 text-[11px] text-muted">
-            This phone runs the same bot code as KinCare&apos;s real WhatsApp number (Meta Cloud API); here nothing is sent to anyone.
+            This phone runs the same bot code as Carely&apos;s real WhatsApp number (Meta Cloud API); here nothing is sent to anyone.
             Test strips are demo prints of real flagged batches.
           </p>
         </div>
@@ -112,7 +112,7 @@ export default function WhatsAppPage() {
             <div className="flex items-center gap-3 bg-[#075e54] px-4 py-3 text-white">
               <span className="grid size-9 place-items-center rounded-full bg-white/15"><MessageCircle className="size-5" /></span>
               <div className="leading-tight">
-                <p className="font-semibold">KinCare</p>
+                <p className="font-semibold">Carely</p>
                 <p className="text-[11px] text-white/70">{busy ? "typing…" : "Business account"}</p>
               </div>
             </div>

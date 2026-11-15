@@ -295,7 +295,7 @@ def send_due_reminders() -> int:
             if m["phone"] and m["bought_at"]:
                 _log_note("whatsapp", m["member"], m["phone"], lang, m["batch"], text, urgent=False)
             # Same tag as the in-page reminder, so an open tab and a push never show twice. Telegram: reply with the button to tick it.
-            alert_device(m["device"], f"⏰ Time for {m['name']}", text.removeprefix("KinCare: "), "/care", f"dose-{m['id']}-{d['slot']}-{day.isoformat()}",
+            alert_device(m["device"], f"⏰ Time for {m['name']}", text.removeprefix("Carely: "), "/care", f"dose-{m['id']}-{d['slot']}-{day.isoformat()}",
                          buttons=TG_BUTTONS)
             sent += 1
         # Refill: once per purchase, when about REFILL_DAYS of tablets are left.
@@ -305,7 +305,7 @@ def send_due_reminders() -> int:
             text = notify.refill_text(m, m["member"], r["left"], r["days_left"], _cheaper_clean(m), lang)
             if m["phone"]:
                 _log_note("whatsapp", m["member"], m["phone"], lang, m["batch"], text, urgent=False)
-            alert_device(m["device"], f"💊 {m['name']}: {r['left']} left", text.removeprefix("KinCare: "), "/care", f"refill-{m['id']}")
+            alert_device(m["device"], f"💊 {m['name']}: {r['left']} left", text.removeprefix("Carely: "), "/care", f"refill-{m['id']}")
             sent += 1
     conn.commit()
     return sent

@@ -60,7 +60,7 @@ export default function NetworkPage() {
 
   const reset = () => { setApprovals({}); setDecisions([]); setTasks([]); };
 
-  if (error) return <Shell><p className="rounded-2xl border border-line bg-paper p-6 text-danger">Couldn&apos;t load the care network: {error}. Is the KinCare API running?</p></Shell>;
+  if (error) return <Shell><p className="rounded-2xl border border-line bg-paper p-6 text-danger">Couldn&apos;t load the care network: {error}. Is the Carely API running?</p></Shell>;
   if (!net) return <Shell><div className="flex items-center gap-2 text-muted"><Loader2 className="size-4 animate-spin" /> Checking every family&apos;s batches against CDSCO…</div></Shell>;
 
   const homes = new Set(net.flagged.flatMap((b) => b.holders.map((h) => `${h.family}|${h.person}`))).size;
@@ -155,12 +155,12 @@ export default function NetworkPage() {
             <h2 className="flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-muted"><FileText className="size-4" /> Room documents</h2>
             <button onClick={reset} className="inline-flex items-center gap-1 text-xs text-muted hover:text-brown"><RotateCcw className="size-3" /> reset</button>
           </div>
-          <Doc title="KinCare Decisions" icon={ShieldCheck} empty="No decision yet. Approve a replacement on the Pharmacy Desk.">
+          <Doc title="Carely Decisions" icon={ShieldCheck} empty="No decision yet. Approve a replacement on the Pharmacy Desk.">
             {decisions.map((d, i) => (
               <Line key={d.text + i} fresh={d.fresh}><span className="mr-2 rounded bg-sand px-1.5 py-0.5 text-[11px] text-brown">{d.family}</span>{d.text}</Line>
             ))}
           </Doc>
-          <Doc title="KinCare Tasks" icon={ListChecks} empty="No open tasks.">
+          <Doc title="Carely Tasks" icon={ListChecks} empty="No open tasks.">
             {tasks.map((t, i) => (
               <Line key={t.text + i} fresh={t.fresh}>
                 <button onClick={() => setTasks((all) => all.map((x, j) => (j === i ? { ...x, done: !x.done } : x)))}
@@ -258,24 +258,24 @@ function ChatReplay({ net, family, approvals }: { net: SwitchNetwork; family: st
     const flagged = net.flagged.filter((b) => b.holders.some((h) => h.family === family));
     const first = fam.medicines.find((m) => m.flagged) ?? fam.medicines[0];
     if (first) msgs.push({ who: first.person, kind: "human", text: `📷 [strip photo: ${first.brand}]  @kincare-scan यह दवा ठीक है?` });
-    if (!flagged.length) msgs.push({ who: "KinCare Scan", kind: "agent", text: "✅ यह बैच किसी सरकारी अलर्ट सूची में नहीं है। Not on any CDSCO alert list." });
+    if (!flagged.length) msgs.push({ who: "Carely Scan", kind: "agent", text: "✅ यह बैच किसी सरकारी अलर्ट सूची में नहीं है। Not on any CDSCO alert list." });
     for (const b of flagged) {
       const h = b.holders.find((x) => x.family === family)!;
       msgs.push({ who: "Recall Watcher", kind: "agent",
         text: `⚠️ ${h.person}'s ${b.brand}, batch ${b.batch} is on the CDSCO list: ${b.alert.reason}\nहिंदी: दवा अपने आप बंद न करें, फार्मासिस्ट से पूछें।\n@kincare-pharmacist please find a replacement.` });
       if (b.doctor.required) msgs.push({ who: "Recall Watcher", kind: "agent", text: `🩺 ${b.doctor.why}: the doctor must approve any change too.` });
       const o = b.options[0];
-      msgs.push({ who: "KinCare Pharmacist", kind: "agent",
+      msgs.push({ who: "Carely Pharmacist", kind: "agent",
         text: o ? `Same salts, form${b.strengths?.length ? " and strength" : ""}, maker with no alerts: ${o.name} (₹${o.unit_price.toFixed(2)}/unit).\n@Pharmacist reply approve 1 or reject. Nothing changes until you do.`
                 : "No exact match from a clean maker. @Pharmacist please source one." });
       msgs.push({ who: h.caregiver || "Family", kind: "human", text: "approve 1" });
-      msgs.push({ who: "KinCare Pharmacist", kind: "agent", text: `Thanks ${h.caregiver || ""}. Only the pharmacist can approve a change. @Pharmacist please confirm.` });
+      msgs.push({ who: "Carely Pharmacist", kind: "agent", text: `Thanks ${h.caregiver || ""}. Only the pharmacist can approve a change. @Pharmacist please confirm.` });
       const a = approvals[b.batch];
       if (a?.pharmacist) msgs.push({ who: net.pharmacist || "Pharmacist", kind: "pharmacist", text: "approve 1" });
       if (b.doctor.required && a?.doctor) msgs.push({ who: h.caregiver || "Family", kind: "doctor", text: "Dr. Rao says OK, recheck TSH in 6 weeks" });
       if (a && a.pharmacist && (!b.doctor.required || a.doctor)) {
-        msgs.push({ who: "KinCare Pharmacist", kind: "agent", text: `✅ Decision logged. Task for @${h.caregiver}: buy ${short(a.option.name)} today, keep the old strip.` });
-        msgs.push({ who: "KinCare Dose Buddy", kind: "agent", text: `${h.person}, कल से नई दवा: ${short(a.option.name)}, 1 गोली। Schedule updated.` });
+        msgs.push({ who: "Carely Pharmacist", kind: "agent", text: `✅ Decision logged. Task for @${h.caregiver}: buy ${short(a.option.name)} today, keep the old strip.` });
+        msgs.push({ who: "Carely Dose Buddy", kind: "agent", text: `${h.person}, कल से नई दवा: ${short(a.option.name)}, 1 गोली। Schedule updated.` });
       } else {
         msgs.push({ who: "Switch", kind: "agent", text: "⏳ Waiting for approval on the Pharmacy Desk →" });
       }

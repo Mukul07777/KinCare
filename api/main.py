@@ -1,4 +1,4 @@
-"""KinCare API: the FastAPI app, its middleware, and one router per area (routes/).
+"""Carely API: the FastAPI app, its middleware, and one router per area (routes/).
 
 Shared state and helpers (database connection, alert matching, device ids) live in core.py.
 Background work (nightly ingest, dose reminders, caregiver alerts, cache warm-up, Telegram polling)
@@ -38,7 +38,7 @@ async def lifespan(_app: FastAPI):
     yield
 
 
-app = FastAPI(title="KinCare API", lifespan=lifespan)
+app = FastAPI(title="Carely API", lifespan=lifespan)
 
 # The web app calls the API through its own origin (Next.js rewrites /api), so browsers need no CORS at all.
 # KINCARE_ORIGINS lists any other site allowed to call it with credentials (comma separated).
@@ -66,7 +66,7 @@ async def _guard(request: Request, call_next):
         origin = request.headers.get("origin")
         own = f"{request.url.scheme}://{request.headers.get('host', '')}"
         if request.headers.get("x-kincare") != "1" or (origin and origin not in ORIGINS and origin != own):
-            return JSONResponse({"detail": "Blocked: request did not come from the KinCare app."}, status_code=403)
+            return JSONResponse({"detail": "Blocked: request did not come from the Carely app."}, status_code=403)
     response = await call_next(request)
     for k, v in SECURITY_HEADERS.items():
         if k == "Content-Security-Policy" and request.url.path in ("/docs", "/redoc", "/openapi.json"):

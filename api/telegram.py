@@ -1,15 +1,15 @@
 """Telegram: the free chat channel. No per-message fee, no 24-hour window, no template approval.
 
-WhatsApp Cloud API charges for every message outside the 24-hour window, so KinCare uses Telegram's Bot API
-for chat and alerts: an elder can talk to KinCare there (same answers as Dadi mode), and caregivers get missed-dose
+WhatsApp Cloud API charges for every message outside the 24-hour window, so Carely uses Telegram's Bot API
+for chat and alerts: an elder can talk to Carely there (same answers as Dadi mode), and caregivers get missed-dose
 and urgent-vitals alerts there, all free at any volume.
 
 Setup: talk to @BotFather on Telegram, /newbot, copy the token.
 Env: TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_NAME (the bot's username, without @).
-Optional TELEGRAM_WEBHOOK_SECRET: set it when you register a webhook (production). Without it KinCare long-polls
+Optional TELEGRAM_WEBHOOK_SECRET: set it when you register a webhook (production). Without it Carely long-polls
 getUpdates in a background thread, so it works on a laptop with no public URL (hackathon demo).
 
-Linking: KinCare makes a one-time code for a device, the person opens t.me/<bot>?start=<code>, Telegram sends
+Linking: Carely makes a one-time code for a device, the person opens t.me/<bot>?start=<code>, Telegram sends
 "/start <code>" and the chat is tied to that device. Nobody can message a person who hasn't pressed Start.
 """
 import os
@@ -26,7 +26,7 @@ SCHEMA = """
 CREATE TABLE IF NOT EXISTS tg_links (
     chat_id INTEGER NOT NULL,
     device TEXT NOT NULL,
-    role TEXT NOT NULL DEFAULT 'self',   -- self: the elder talks to KinCare; caregiver: receives alerts
+    role TEXT NOT NULL DEFAULT 'self',   -- self: the elder talks to Carely; caregiver: receives alerts
     name TEXT,
     linked_at TEXT NOT NULL,
     PRIMARY KEY (chat_id, device)
